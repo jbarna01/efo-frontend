@@ -1,0 +1,83 @@
+
+:host {
+  background: #EFF3F9;
+}
+
+.container {
+  max-width: 1440px !important;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  margin-top: 1.5rem !important;
+  margin-bottom: .5rem !important;
+  margin-left: 1rem !important;
+  font-size: 24px;
+  font-weight: 500;
+  color: #111111;
+}
+
+app-dashboard-tile {
+  height: calc(100% - 2em);
+  width: calc(100% - 2em);
+}
+
+#ds_bg_grafika {
+  position: absolute;
+  width: 100%;
+  padding-right: 3vw;
+}
+
+#datum {
+  font-size: 20px;
+  line-height: 26px;
+  text-transform: uppercase;
+  color: #3586C3;
+}
+
+#nevnap {
+  font-size: 16px;
+  line-height: 26px;
+  color: #546E7A;
+  text-align: right;
+}
+
+.egy-tile {
+  height: calc(100% - 2em);
+  width: calc(30% - 2em);
+  border-radius: 16px;
+  border: 1px solid #C0CBD3;
+  box-sizing: border-box;
+  float: left;
+  margin: 2em;
+}
+
+.szoveg h2 {
+  color: #546E7A;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.frissit-gomb {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  font-size: 13px;
+  line-height: 22px;
+  font-weight: 500;
+  color: #3586C3;
+}
+
+mat-icon {
+  font-size: 16px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+

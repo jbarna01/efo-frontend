@@ -3,13 +3,11 @@
 README.md
 api.module.ts
 api/api.ts
-api/tesztController.service.ts
+api/navIdeigelenesIdeigelenesAdatokController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/errorMessage.ts
 model/models.ts
-model/tesztRequest.ts
-model/tesztResponse.ts
+model/navIdeiglenesAdatokDTO.ts
 variables.ts

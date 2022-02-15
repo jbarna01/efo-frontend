@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { TesztControllerService } from './api/tesztController.service';
+import { NavIdeigelenesIdeigelenesAdatokControllerService } from './api/navIdeigelenesIdeigelenesAdatokController.service';
 
 @NgModule({
   imports:      [],

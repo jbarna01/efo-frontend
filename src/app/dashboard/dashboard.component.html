@@ -1,12 +1,138 @@
-<h1>Teszt oldalt</h1>
-<ng-container>
-  <form>
-    <mat-form-field>
-      <mat-label>Teszt</mat-label>
-      <input matInput type="text">
-    </mat-form-field>
-      <button mat-raised-button color="primary" (click)="kuld()">Küld</button>
-    <mat-label>{{ message }}</mat-label>
+<div class="container py-5">
 
-  </form>
-</ng-container>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="page-title m-0 pl-3">Üdvözöljük
+      <img width="32" height="32" src="{{'../../../assets/dashboard/sugarzo-kez.png'}}"/>
+    </h2>
+    <div class="pr-3">
+      <div id="datum">{{this.maiNap | date: 'yyyy. MMMM d., EEEE' : 'GMT+2': 'hu-hu'}}</div>
+    </div>
+  </div>
+
+  <ng-container style="background: #111111">
+
+    <mat-grid-list cols="2" rowHeight="12em">
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              NAV adatok betöltése
+            </h2>
+            <div class="mt-1">
+              Feldolgozásra váró adat:
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              Munkavállalói adatok
+            </h2>
+            <div class="mt-1">
+              Hiányos adatú munkaválalók száma:
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              Szervezeti egységeg törzs
+            </h2>
+            <div class="mt-1">
+              Szervezeti egységek száma:
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              Munkaórák rögzítése
+            </h2>
+            <div class="mt-1">
+              Még nem történt rögzítés:
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              NAV igazolás nyomtatása
+            </h2>
+            <div class="mt-1">
+              Legutolsó nyomtatás időpontja
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              Kulcs Excel generálás
+            </h2>
+            <div class="mt-1">
+              Legutolsó generálás időpontja:
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              Rendzsreparaméterek
+            </h2>
+            <div class="mt-1">
+              *****
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              *****
+            </h2>
+            <div class="mt-1">
+              *****
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-card class="p-3 overflow-hidden egy-tile">
+          <div class="justify-content-between pb-0">
+            <h2>
+              *****
+            </h2>
+            <div class="mt-1">
+              *****
+            </div>
+          </div>
+        </mat-card>
+      </mat-grid-tile>
+
+
+    </mat-grid-list>
+
+  </ng-container>
+
+</div>
+
