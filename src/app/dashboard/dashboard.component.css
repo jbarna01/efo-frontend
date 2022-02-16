@@ -1,83 +1,60 @@
-
-:host {
-  background: #EFF3F9;
+.app-toolbar {
+  background: var(--dark-primary-color);
+  color: var(--text-primary-color);
+  font-size: 2em;
 }
 
-.container {
-  max-width: 1440px !important;
+.page-title {
+
 }
 
-h2 {
-  font-size: 32px;
-}
-
-h3 {
-  margin-top: 1.5rem !important;
-  margin-bottom: .5rem !important;
-  margin-left: 1rem !important;
-  font-size: 24px;
-  font-weight: 500;
-  color: #111111;
-}
-
-app-dashboard-tile {
+.app-dashboard-tile {
   height: calc(100% - 2em);
-  width: calc(100% - 2em);
-}
-
-#ds_bg_grafika {
-  position: absolute;
-  width: 100%;
-  padding-right: 3vw;
-}
-
-#datum {
-  font-size: 20px;
-  line-height: 26px;
-  text-transform: uppercase;
-  color: #3586C3;
-}
-
-#nevnap {
-  font-size: 16px;
-  line-height: 26px;
-  color: #546E7A;
-  text-align: right;
-}
-
-.egy-tile {
-  height: calc(100% - 2em);
-  width: calc(30% - 2em);
-  border-radius: 16px;
-  border: 1px solid #C0CBD3;
+  width: calc(80% - 2em);
+  border-radius: 2em;
+  border: 1px solid var(--dark-primary-color);
   box-sizing: border-box;
-  float: left;
   margin: 2em;
+  background: var(--default-primary-color);
+  filter: drop-shadow(8px 8px 5px #b0b0b0);
+  cursor: pointer;
 }
 
-.szoveg h2 {
-  color: #546E7A;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 28px;
+.tile-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
-.frissit-gomb {
-  position: absolute;
-  bottom: 1rem;
-  right: 1.5rem;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  font-size: 13px;
-  line-height: 22px;
-  font-weight: 500;
-  color: #3586C3;
+.image-box {
+  display: flex;
+  margin-right: 4%;
+  width: 25%;
+  height: 100%;
 }
 
-mat-icon {
-  font-size: 16px;
-  line-height: 20px;
-  vertical-align: middle;
+.text-box {
+  width: 75%;
+  height: 100%;
+  padding-top: 1em;
 }
 
+.app-dashboard-header {
+  margin-top: 0.5em;
+  text-align: left;
+  font-size: 1.3vw;
+  display: inline-block;
+  width: 100%;
+  color: var(--light-primary-color);
+}
 
+.app-dashboard-text {
+  margin-top: 1em;
+  text-align: left;
+  font-size: 1vw;
+  display: inline-block;
+  width: 100%;
+  color: var(--text-primary-color);
+}

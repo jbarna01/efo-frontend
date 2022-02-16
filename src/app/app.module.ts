@@ -13,6 +13,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {CommonModule} from "@angular/common";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 
 
@@ -36,7 +39,10 @@ import {CommonModule} from "@angular/common";
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   exports: [
     BrowserModule,
