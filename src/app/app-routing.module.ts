@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
+import {RendszerparameterekComponent} from "./rendszerparameterek/rendszerparameterek.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {NavAdatokBetolteseComponent} from "./nav-adatok-betoltese/nav-adatok-betoltese.component";
 
-const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: '',
-    canActivate: [ ],
     data: {
       breadcrumb: 'Főoldal'
     },
@@ -13,17 +14,31 @@ const routes: Routes = [
       {
         path: '',
         data: {
-          breadcrumb: null,
-          showDefaultBreadcrumb: false
+          breadcrumb: null
         },
-        component: DashboardComponent
-      }
+        component: DashboardComponent,
+      },
+      {
+        path: 'nav-adatok-betoltese',
+        data: {
+          breadcrumb: null
+        },
+        component: NavAdatokBetolteseComponent,
+      },
+      {
+        path: 'rendszerparameterek',
+        data: {
+          breadcrumb: null
+        },
+        component: RendszerparameterekComponent,
+      },
     ]
-  },
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(appRoutes, {useHash: true})],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

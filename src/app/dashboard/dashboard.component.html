@@ -1,13 +1,9 @@
-<p>
-  <mat-toolbar class="app-toolbar">
-    <span class="page-title m-0">EFOP - DCA elszámolás</span>
-  </mat-toolbar>
-</p>
+<app-header></app-header>
 
 <ng-container>
   <mat-grid-list cols="3" rowHeight="12em">
     <mat-grid-tile>
-      <mat-card class="p-3 overflow-hidden app-dashboard-tile">
+      <mat-card routerLink="/rendszerparameterek" class="p-3 overflow-hidden app-dashboard-tile">
         <div class="tile-box">
           <div class="image-box">
             <img style="width: 100%; object-fit: contain" src="../../assets/dashboard/betoltes.png"/>
@@ -23,7 +19,7 @@
         </div>
       </mat-card>
     </mat-grid-tile>
-    <mat-grid-tile>
+    <mat-grid-tile routerLink="">
       <mat-card class="p-3 overflow-hidden app-dashboard-tile">
         <div class="tile-box">
           <div class="image-box">
@@ -109,7 +105,24 @@
       </mat-card>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-card class="p-3 overflow-hidden app-dashboard-tile">
+      <mat-card routerLink="/nav-adatok-betoltese" class="p-3 overflow-hidden app-dashboard-tile">
+        <div class="tile-box">
+          <div class="image-box">
+            <img style="width: 100%; object-fit: contain" src="../../assets/dashboard/system.png"/>
+          </div>
+          <div class="text-box">
+              <span class="app-dashboard-header">
+                Adatok betöltése
+              </span>
+            <span class="app-dashboard-text">
+                NAV-től letöltött adatok betöltése
+              </span>
+          </div>
+        </div>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card routerLink="/rendszerparameterek" class="p-3 overflow-hidden app-dashboard-tile">
         <div class="tile-box">
           <div class="image-box">
             <img style="width: 100%; object-fit: contain" src="../../assets/dashboard/system.png"/>

@@ -1,0 +1,9 @@
+.app-toolbar {
+  background: var(--dark-primary-color);
+  color: var(--text-primary-color);
+  font-size: 2em;
+}
+
+.page-title {
+
+}

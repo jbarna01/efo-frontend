@@ -27,7 +27,7 @@ import { Configuration }                                     from '../configurat
 @Injectable({
   providedIn: 'root'
 })
-export class NavIdeigelenesIdeigelenesAdatokControllerService {
+export class NavIdeigelenesAdatokControllerService {
 
     protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
@@ -85,6 +85,46 @@ export class NavIdeigelenesIdeigelenesAdatokControllerService {
     }
 
     /**
+     * NAV adatok betöltése
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public adatokBetoltese(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<any>;
+    public adatokBetoltese(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpResponse<any>>;
+    public adatokBetoltese(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: undefined}): Observable<HttpEvent<any>>;
+    public adatokBetoltese(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: undefined}): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<any>(`${this.configuration.basePath}/nav-ideiglenes-adatok`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Összes NAV adat lekérdezése
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -114,7 +154,7 @@ export class NavIdeigelenesIdeigelenesAdatokControllerService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<Array<NavIdeiglenesAdatokDTO>>(`${this.configuration.basePath}/nav`,
+        return this.httpClient.get<Array<NavIdeiglenesAdatokDTO>>(`${this.configuration.basePath}/nav-ideiglenes-adatok/osszes`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,
@@ -159,7 +199,7 @@ export class NavIdeigelenesIdeigelenesAdatokControllerService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<NavIdeiglenesAdatokDTO>(`${this.configuration.basePath}/nav/${encodeURIComponent(String(tajSzam))}`,
+        return this.httpClient.get<NavIdeiglenesAdatokDTO>(`${this.configuration.basePath}/nav-ideiglenes-adatok/${encodeURIComponent(String(tajSzam))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

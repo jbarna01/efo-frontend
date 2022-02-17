@@ -1,14 +1,14 @@
 <div class="d-flex flex-row align-items-center">
   <div *ngFor="let item of items; let last = last" class="d-flex align-items-center">
 
-    <ng-container *ngIf="!last">
+    <ng-container>
       <a [routerLink]="item.url" class="text-secondary">
         {{item.label}}
       </a>
 <!--      <mat-icon class="mx-1">keyboard_arrow_right</mat-icon>-->
     </ng-container>
 
-    <span *ngIf="last" class="font-weight-bold">
+    <span class="font-weight-bold">
       {{item.label}}
     </span>
 

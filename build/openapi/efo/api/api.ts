@@ -1,3 +1,3 @@
-export * from './navIdeigelenesIdeigelenesAdatokController.service';
-import { NavIdeigelenesIdeigelenesAdatokControllerService } from './navIdeigelenesIdeigelenesAdatokController.service';
-export const APIS = [NavIdeigelenesIdeigelenesAdatokControllerService];
+export * from './navIdeigelenesAdatokController.service';
+import { NavIdeigelenesAdatokControllerService } from './navIdeigelenesAdatokController.service';
+export const APIS = [NavIdeigelenesAdatokControllerService];

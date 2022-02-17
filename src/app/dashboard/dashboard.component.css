@@ -1,13 +1,3 @@
-.app-toolbar {
-  background: var(--dark-primary-color);
-  color: var(--text-primary-color);
-  font-size: 2em;
-}
-
-.page-title {
-
-}
-
 .app-dashboard-tile {
   height: calc(100% - 2em);
   width: calc(80% - 2em);

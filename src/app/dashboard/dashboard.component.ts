@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,10 +11,12 @@ export class DashboardComponent implements OnInit {
   message: string = '';
 
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   maiNap: Date = new Date();
 
   ngOnInit(): void {
   }
+
 }
+

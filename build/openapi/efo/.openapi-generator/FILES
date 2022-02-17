@@ -3,7 +3,7 @@
 README.md
 api.module.ts
 api/api.ts
-api/navIdeigelenesIdeigelenesAdatokController.service.ts
+api/navIdeigelenesAdatokController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh

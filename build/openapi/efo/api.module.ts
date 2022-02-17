@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { NavIdeigelenesIdeigelenesAdatokControllerService } from './api/navIdeigelenesIdeigelenesAdatokController.service';
+import { NavIdeigelenesAdatokControllerService } from './api/navIdeigelenesAdatokController.service';
 
 @NgModule({
   imports:      [],
