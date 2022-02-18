@@ -23,6 +23,8 @@ import {RendszerparameterekComponent} from './rendszerparameterek/rendszerparame
 import {HeaderComponent} from './header/header/header.component';
 import {NavAdatokComponent} from './nav-adatok/nav-adatok.component';
 import { NavAdatokBetolteseComponent } from './nav-adatok-betoltese/nav-adatok-betoltese.component';
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -38,25 +40,27 @@ import { NavAdatokBetolteseComponent } from './nav-adatok-betoltese/nav-adatok-b
     NavAdatokComponent,
     NavAdatokBetolteseComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatGridListModule,
-    MatSidenavModule,
-    MatToolbarModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatGridListModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatTableModule,
+        MatPaginatorModule
+    ],
   exports: [
     BrowserModule,
     BrowserAnimationsModule,

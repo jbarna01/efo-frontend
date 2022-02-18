@@ -1,1 +1,37 @@
-<p>munkavallalok works!</p>
+<app-header></app-header>
+
+<ng-container>
+  <table mat-table [dataSource]="munkavallalok" class="mat-elevation-z8" style="width: 80%; margin: 2em auto">
+
+    <ng-container matColumnDef="id" *ngIf="false">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="icon">
+      <th mat-header-cell *matHeaderCellDef>icon</th>
+      <td mat-cell *matCellDef="let element">
+        <img src="assets/ikonok/zold_ok.png" height="25px" />
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="neve">
+      <th mat-header-cell *matHeaderCellDef>Munkavállaló neve</th>
+      <td mat-cell *matCellDef="let element"> {{element.neve}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tajSzama">
+      <th mat-header-cell *matHeaderCellDef>TAJ szám</th>
+      <td mat-cell *matCellDef="let element"> {{element.tajSzama}} </td>
+    </ng-container>
+<!---->
+    <ng-container matColumnDef="adoszam">
+      <th mat-header-cell *matHeaderCellDef>Adószam</th>
+      <td mat-cell *matCellDef="let element"> {{element.adoszam}} </td>
+    </ng-container>
+<!---->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</ng-container>

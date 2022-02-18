@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
+import { MunkavallaloControllerService } from './api/munkavallaloController.service';
 import { NavIdeigelenesAdatokControllerService } from './api/navIdeigelenesAdatokController.service';
 
 @NgModule({

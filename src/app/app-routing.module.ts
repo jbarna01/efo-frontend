@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {RendszerparameterekComponent} from "./rendszerparameterek/rendszerparameterek.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {NavAdatokBetolteseComponent} from "./nav-adatok-betoltese/nav-adatok-betoltese.component";
+import {MunkavallalokComponent} from "./munkavallalok/munkavallalok.component";
 
 const appRoutes: Routes = [
   {
@@ -24,6 +25,13 @@ const appRoutes: Routes = [
           breadcrumb: null
         },
         component: NavAdatokBetolteseComponent,
+      },
+      {
+        path: 'munkavallalok',
+        data: {
+          breadcrumb: null
+        },
+        component: MunkavallalokComponent,
       },
       {
         path: 'rendszerparameterek',
