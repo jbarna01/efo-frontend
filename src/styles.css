@@ -10,7 +10,6 @@
 
 }
 
-
 html, body {
   height: 100%;
 }
@@ -20,4 +19,18 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.alap-gomb, .alap-gomb-120, .alap-gomb-140 {
+  background-color: var(--dark-primary-color);
+  border: 1px solid var(--dark-primary-color);
+  padding: 8px 8px 8px 2px;
+  width: 100px;
+  color: var(--text-primary-color);
+  font-weight: bolder;
+  font-size: 1em;
+  margin: 10px 10px;
+  text-align: center;
+  box-shadow: 2px 5px 2px var(--divider-color);
+  border-radius: 20px 20px 20px 20px;
+  cursor: pointer;
+}
 

@@ -1,37 +1,105 @@
 <app-header></app-header>
 
-<ng-container>
-  <table mat-table [dataSource]="munkavallalok" class="mat-elevation-z8" style="width: 80%; margin: 2em auto">
+<!--<app-munkavallalok-tabla [munkavallalok]="munkavallalok" [tit]="title"></app-munkavallalok-tabla>-->
 
-    <ng-container matColumnDef="id" *ngIf="false">
-      <th mat-header-cell *matHeaderCellDef>ID</th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+<div class="mat-elevation-z8" style="width: 80%; margin: 2em auto;">
+
+  <mat-form-field appearance="standard">
+    <mat-label>Keresés</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Keresés" #input>
+  </mat-form-field>
+
+  <table mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="icon">
-      <th mat-header-cell *matHeaderCellDef>icon</th>
-      <td mat-cell *matCellDef="let element">
-        <img src="assets/ikonok/zold_ok.png" height="25px" />
-      </td>
+      <mat-header-cell *matHeaderCellDef>icon</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <img src="assets/ikonok/zold_ok.png" height="25px"/>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="neve">
-      <th mat-header-cell *matHeaderCellDef>Munkavállaló neve</th>
-      <td mat-cell *matCellDef="let element"> {{element.neve}} </td>
+      <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tajSzama">
-      <th mat-header-cell *matHeaderCellDef>TAJ szám</th>
-      <td mat-cell *matCellDef="let element"> {{element.tajSzama}} </td>
+      <mat-header-cell *matHeaderCellDef>TAJ szám</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.tajSzama}} </mat-cell>
     </ng-container>
-<!---->
+    <!---->
     <ng-container matColumnDef="adoszam">
-      <th mat-header-cell *matHeaderCellDef>Adószam</th>
-      <td mat-cell *matCellDef="let element"> {{element.adoszam}} </td>
+      <mat-header-cell *matHeaderCellDef>Adószam</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.adoszam}} </mat-cell>
     </ng-container>
-<!---->
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="felhasznaloValasztas(row)"></mat-row>
   </table>
 
-</ng-container>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+
+</div>
+
+<div style="width: 80%; margin: 1em auto; border: 1px solid #a0a0a0; background: #fcfcfc;box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0, 0, 0, 0.12);">
+  <mat-grid-list cols="3" rowHeight="80px" class="mat-grid-li">
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.neve" matInput placeholder="Felhasználó neve" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.anyjaNeve" matInput placeholder="Anyja neve" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.iranyitoszam" matInput placeholder="Irányítószám" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.telepules" matInput placeholder="Település" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.cim" matInput placeholder="Cím" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.adoszam" matInput placeholder="Adószám" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.tajSzama" matInput placeholder="TAJ szám" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.szuletesiHelye" matInput placeholder="Születési hely" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tit">
+      <mat-form-field class="form">
+        <input [(ngModel)]="szerkesztettFelhasznalo.szuletesiIdelye" matInput placeholder="Születési idő" type="text" tabindex="1">
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div>
+    <button class="alap-gomb">Mentés</button>
+  </div>
+</div>

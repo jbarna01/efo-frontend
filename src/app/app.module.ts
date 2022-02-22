@@ -26,7 +26,6 @@ import { NavAdatokBetolteseComponent } from './nav-adatok-betoltese/nav-adatok-b
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 
-
 @NgModule({
   declarations: [
     AppComponent,
