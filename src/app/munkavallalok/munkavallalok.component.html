@@ -49,57 +49,84 @@
 
 </div>
 
-<div style="width: 80%; margin: 1em auto; border: 1px solid #a0a0a0; background: #fcfcfc;box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0, 0, 0, 0.12);">
+<div
+  style="padding-top: 2em; width: 80%; margin: 1em auto; border: 1px solid #a0a0a0; background: #fcfcfc;box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0, 0, 0, 0.12);">
   <mat-grid-list cols="3" rowHeight="80px" class="mat-grid-li">
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.neve" matInput placeholder="Felhasználó neve" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.anyjaNeve" matInput placeholder="Anyja neve" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.iranyitoszam" matInput placeholder="Irányítószám" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.telepules" matInput placeholder="Település" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.cim" matInput placeholder="Cím" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.adoszam" matInput placeholder="Adószám" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
+    <form [formGroup]="paciensForm">
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label class="placeholder">Felhasználó neve</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.neve" formControlName="paciensNev" matInput type="text" tabindex="1" required>
+          <mat-error>A felhasználó nevének megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Anyja neve</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.anyjaNeve" formControlName="anyjaNeve" matInput type="text" tabindex="2" required>
+          <mat-error>A anya nevét kötelező megadni!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Irányítószám</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.iranyitoszam" formControlName="iranyitoszam" matInput type="text" tabindex="3" required>
+          <mat-error>A irányítószám csak számokat tartalmazhat, és 4 számjegy hosszú!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Település</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.telepules" formControlName="telepules" matInput type="text" tabindex="4" required>
+          <mat-error>A település megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Cím</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.cim" formControlName="cim" matInput type="text" tabindex="5" required>
+          <mat-error>A cím megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Adószám</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.adoszam" formControlName="adoszam" matInput type="text" tabindex="6" required>
+          <mat-error>Az adószám 10 számjegy hosszú!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.tajSzama" matInput placeholder="TAJ szám" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>TAJ szám</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.tajSzama" formControlName="tajSzam" matInput type="text" tabindex="7" required>
+          <mat-error>Az adószám 9 számjegy hosszú!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
 
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.szuletesiHelye" matInput placeholder="Születési hely" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile class="mat-grid-tit">
-      <mat-form-field class="form">
-        <input [(ngModel)]="szerkesztettFelhasznalo.szuletesiIdelye" matInput placeholder="Születési idő" type="text" tabindex="1">
-      </mat-form-field>
-    </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Születési hely</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.szuletesiHelye" formControlName="szuletesiHely" matInput type="text" tabindex="8" required>
+          <mat-error>A születési hely megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-grid-tit">
+        <mat-form-field class="form">
+          <mat-label>Születési idő</mat-label>
+          <input [(ngModel)]="szerkesztettFelhasznalo.szuletesiIdelye" formControlName="szuletesiIdo" matInput type="text" tabindex="9" required>
+          <mat-error>A születési idő megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </form>
   </mat-grid-list>
-  <div>
-    <button class="alap-gomb">Mentés</button>
+  <div style="display:flex; justify-content: end; padding: 1em;">
+    <button class="alap-button">
+      Szerkeszt
+    </button>
+    <button class="alap-button" [disabled]="invalidForm"
+            (click)="munkavallaloMentese()">
+      Mentés
+    </button>
   </div>
 </div>

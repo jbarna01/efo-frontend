@@ -34,3 +34,76 @@ body {
   cursor: pointer;
 }
 
+/*Globális HTML elemeg*/
+/*input {*/
+/*  !*width: 100%;*!*/
+/*  margin: 0px auto;*/
+/*  height: 2em;*/
+/*  box-shadow: 3px 4px 3px #595959;*/
+/*}*/
+.alap-button {
+  box-sizing: border-box;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: baseline;
+  text-align: center;
+  min-width: 64px;
+  line-height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  overflow: visible;
+  margin: 0 1em;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  width: 120px;
+  background: var(--default-primary-color);
+  color: var(--text-primary-color);
+  box-shadow: 0px 2px 2px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+input:focus {
+  display: block;
+  margin: 0px auto;
+  color: var(--dark-primary-color);
+  padding: 2px 5px;
+}
+
+input:not(:focus) {
+  display: block;
+  margin: 0px auto;
+  color: var(--default-primary-color);
+  padding: 2px 5px;
+}
+
+input:placeholder-shown {
+  border: 1px solid white; /* Red border only if the input is empty */
+}
+
+.mat-focused .placeholder {
+  color: var(--dark-primary-color);
+}
+
+.mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: var(--dark-primary-color) !important;
+}
+
+.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: var(--light-primary-color) !important;
+}
+
+.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: var(--dark-primary-color) !important;;
+}
