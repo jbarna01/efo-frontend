@@ -21,19 +21,22 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
-  paciensForm: FormGroup = new FormGroup({
-    paciensNev: new FormControl(undefined, [Validators.maxLength(100),Validators.required]),
-    anyjaNeve: new FormControl(undefined, [Validators.maxLength(100),Validators.required]),
-    iranyitoszam: new FormControl(undefined, [Validators.pattern('^[0-9]{4}$'), Validators.required]),
-    telepules: new FormControl(undefined, [Validators.maxLength(100),Validators.required]),
-    cim: new FormControl(undefined, [Validators.maxLength(200),Validators.required]),
-    adoszam: new FormControl(undefined, [Validators.pattern('^[0-9]{10}$'), Validators.required]),
-    tajSzam: new FormControl(undefined, [Validators.pattern('^[0-9]{9}$'), Validators.required]),
-    szuletesiHely: new FormControl(undefined, [Validators.maxLength(100), Validators.required]),
-    szuletesiIdo: new FormControl(undefined, [Validators.maxLength(10), Validators.required])
-  });
+  inputMezokTiltva: boolean = true;
+  szerkestesGombTiltva: boolean = true;
+  mentesGombTiltva: boolean = true;
 
-  invalidForm = false;
+
+  munkavallaloForm: FormGroup = new FormGroup({
+    munkavallaloNev: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
+    anyjaNeve: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
+    iranyitoszam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{4}$'), Validators.required]),
+    telepules: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
+    cim: new FormControl({value: '', disabled: true}, [Validators.maxLength(200), Validators.required]),
+    adoszam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{10}$'), Validators.required]),
+    tajSzam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{9}$'), Validators.required]),
+    szuletesiHely: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
+    szuletesiIdo: new FormControl({value: '', disabled: true}, [Validators.maxLength(10), Validators.required])
+  });
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService) {
     super();
@@ -47,7 +50,7 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   }
 
   private munkavalalokLekerdezese(): void {
-    this.munkavallaloControllerService.munkavallalokAll().subscribe(munkavallalokList => {
+    this.munkavallaloControllerService.munkavallalokHianyos().subscribe(munkavallalokList => {
       this.munkavallalok = munkavallalokList;
       this.dataSource = new MatTableDataSource<MunkavallaloDTO>(this.munkavallalok);
       this.dataSource.paginator = this.paginator;
@@ -60,16 +63,35 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   }
 
   private felhasznaloValasztas(kivalasztottFelhasznalo: MunkavallaloDTO) {
-    this.szerkesztettFelhasznalo = kivalasztottFelhasznalo
+    this.szerkesztettFelhasznalo = kivalasztottFelhasznalo;
+    this.szerkestesGombTiltva = false;
+  }
+
+  private szerkesztesEndegelyezese() {
+    this.szerkestesGombTiltva = true;
+    this.mentesGombTiltva = false;
+    this.munkavallaloForm.enable();
+    this.munkavallaloForm.controls['munkavallaloNev'].disable();
+    this.munkavallaloForm.controls['tajSzam'].disable();
+    this.munkavallaloForm.controls['adoszam'].disable();
   }
 
   private munkavallaloMentese(): void {
-    this.validateAllFormFields(this.paciensForm);
-    if (this.paciensForm.invalid) {
-      console.log('Rossz');
+    this.validateAllFormFields(this.munkavallaloForm);
+    if (this.munkavallaloForm.invalid) {
+      console.log('Hiányos adatbegadás')
     } else {
-      console.log('OK');
+      this.mentes();
+      this.szerkestesGombTiltva = true;
+      this.mentesGombTiltva = true;
+      this.munkavallaloForm.disable();
     }
+  }
 
+  private mentes() {
+    this.munkavallaloControllerService.munkavallaloMentese(this.szerkesztettFelhasznalo).subscribe(munkavallalo => {
+      this.szerkesztettFelhasznalo = munkavallalo;
+      this.munkavalalokLekerdezese();
+    });
   }
 }
