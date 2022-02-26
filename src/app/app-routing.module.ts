@@ -4,6 +4,7 @@ import {RendszerparameterekComponent} from "./rendszerparameterek/rendszerparame
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {NavAdatokBetolteseComponent} from "./nav-adatok-betoltese/nav-adatok-betoltese.component";
 import {MunkavallalokComponent} from "./munkavallalok/munkavallalok.component";
+import {SzervezetekComponent} from "./szervezetek/szervezetek.component";
 
 const appRoutes: Routes = [
   {
@@ -32,6 +33,13 @@ const appRoutes: Routes = [
           breadcrumb: null
         },
         component: MunkavallalokComponent,
+      },
+      {
+        path: 'szervezetek',
+        data: {
+          breadcrumb: null
+        },
+        component: SzervezetekComponent,
       },
       {
         path: 'rendszerparameterek',
