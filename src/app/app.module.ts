@@ -25,6 +25,7 @@ import {NavAdatokComponent} from './nav-adatok/nav-adatok.component';
 import { NavAdatokBetolteseComponent } from './nav-adatok-betoltese/nav-adatok-betoltese.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
         MatSidenavModule,
         MatToolbarModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatDatepickerModule
     ],
   exports: [
     BrowserModule,

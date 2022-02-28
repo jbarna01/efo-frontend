@@ -1,1 +1,69 @@
-<p>munkaorak works!</p>
+<div class="flexbox-parent">
+  <div>
+    <app-header></app-header>
+  </div>
+
+  <div class="flexbox-item fill-area content flexbox-item-grow">
+    <div class="bal-oldal">
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Munkavállalók
+          </mat-card-title>
+          <mat-card-subtitle>
+            <mat-form-field appearance="standard">
+              <mat-label>Keresés</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Keresés" #input>
+            </mat-form-field>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%">
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="neve">
+              <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
+            </ng-container>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="felhasznaloValasztas(row)"></mat-row>
+          </table>
+          <mat-paginator [pageSize]="5">
+          </mat-paginator>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            NAV bejelentések
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%">
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="neve">
+              <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
+            </ng-container>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="felhasznaloValasztas(row)"></mat-row>
+          </table>
+          <mat-paginator [pageSize]="5">
+          </mat-paginator>
+        </mat-card-content>
+      </mat-card>
+<!--      <div class="nevek-tabla">-->
+<!--        <div class="mat-elevation-z8" style="width: 80%; margin: 2em auto;">-->
+
+
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+    <div class="jobb-oldal">
+      Jobb oldal
+    </div>
+  </div>
+</div>
