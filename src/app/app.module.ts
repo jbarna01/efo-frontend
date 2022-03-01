@@ -22,10 +22,11 @@ import {SzervezetekComponent} from './szervezetek/szervezetek.component';
 import {RendszerparameterekComponent} from './rendszerparameterek/rendszerparameterek.component';
 import {HeaderComponent} from './header/header/header.component';
 import {NavAdatokComponent} from './nav-adatok/nav-adatok.component';
-import { NavAdatokBetolteseComponent } from './nav-adatok-betoltese/nav-adatok-betoltese.component';
+import {NavAdatokBetolteseComponent} from './nav-adatok-betoltese/nav-adatok-betoltese.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {IConfig, NgxMaskModule} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -40,28 +41,28 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     NavAdatokComponent,
     NavAdatokBetolteseComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule,
-        CommonModule,
-        BrowserAnimationsModule,
-        MatCardModule,
-        MatInputModule,
-        FormsModule,
-        MatButtonModule,
-        MatCheckboxModule,
-        MatIconModule,
-        BrowserAnimationsModule,
-        MatGridListModule,
-        MatSidenavModule,
-        MatToolbarModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatDatepickerModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDatepickerModule
+  ],
   exports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -74,4 +75,5 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

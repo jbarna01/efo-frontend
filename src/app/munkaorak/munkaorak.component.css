@@ -107,3 +107,10 @@
 .mact-card-header {
   margin: 0;
 }
+.nav-kivalasztott-adatok {
+  display: inline-block;
+  width: 100%;
+  margin: 0.2em 0;
+  font-size: 1em;
+  color: var(--default-primary-color);
+}
