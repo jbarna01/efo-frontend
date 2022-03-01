@@ -16,9 +16,10 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
   displayedColumnsNav: string[] = ['kezdesNapja', 'napokSzama']
   munkavallalok: MunkavallaloDTO[] = [];
   navAdatok: NavAdatokDTO[] = [];
-  szerkesztettFelhasznalo = {} as MunkavallaloDTO;
   dataSource!: MatTableDataSource<MunkavallaloDTO>;
   dataSourceNav!: MatTableDataSource<NavAdatokDTO>;
+  egyNavAdat: NavAdatokDTO = {};
+  navOsszesitettAdatLathato = false;
 
   public kivalasztottMunkavallaloNeve: string = '';
   public kivalasztottMunkavallaloTajSzama: string = '';
@@ -59,10 +60,18 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
         this.navAdatok = navAdatokList;
         this.dataSourceNav = new MatTableDataSource<NavAdatokDTO>(this.navAdatok);
         this.dataSourceNav.paginator = this.paginator;
+        this.navOsszesitettAdatLathato = false;
       });
     }
   }
 
   private bejelentesvalasztas(kivalasztottFelhasznalo: MunkavallaloDTO) {
+
+    const id = kivalasztottFelhasznalo.id;
+    this.navAdatokControllerService.navAdatokId(kivalasztottFelhasznalo.id!).subscribe(adat => {
+      this.egyNavAdat = adat;
+      this.navOsszesitettAdatLathato = true;
+    })
+
   }
 }
