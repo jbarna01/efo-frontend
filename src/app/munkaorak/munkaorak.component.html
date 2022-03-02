@@ -167,13 +167,126 @@
               </mat-grid-tile>
             </mat-grid-list>
           </div>
+          <div class="jobb-felso-adat-box" style="flex-direction: column">
+            <div>
+              <form>
+                <mat-form-field appearance="fill" style="display: flex;margin: 0 2em;font-size: 0.7em; background: white">
+                  <mat-label>Szervezet kódja</mat-label>
+                  <input matInput type="text" tabindex="1" [formControl]="szervezetKod" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)='szervezetLekereseKodAlapjan($event.option.value)'>
+                    <mat-option *ngFor="let kod of filteredKodok | async" [value]="kod">
+                      {{kod}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+            </div>
+            <div *ngIf="!!kivalasztottReszlegNev" style="margin: 0.5em 1em; color: var(--dark-primary-color)">CAMPUS NONPROFIT KFT</div>
+            <div style="margin: 0.5em 1em; color: var(--default-primary-color)">{{kivalasztottReszlegNev}}</div>
+          </div>
+        </div>
+      </mat-card>
+
+      <mat-card *ngIf="navOsszesitettAdatLathato" style="height: 20em; padding: 0">
+        <div class="jobb-oldal-felso-panel">
+          <div class="bal-felso-adat-box">
+            <mat-grid-list cols="3" rowHeight="3em">
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Munkavállaló neve:
+              </span>
+                  <span class="nav-adat">
+                {{kivalasztottMunkavallaloNeve}}
+              </span>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                TAJ száma:
+              </span>
+                  <span class="nav-adat">
+                {{kivalasztottMunkavallaloTajSzama}}
+              </span>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Adószáma:
+              </span>
+                  <span class="nav-adat">
+                {{kivalasztottMunkavallaloAdoszama}}
+              </span>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Belépés napja:
+              </span>
+                  <span class="nav-adat">
+                {{ egyNavAdat.belepesNapja | date: 'yyyy-MM-dd' }}
+              </span>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Kezdés napja::
+              </span>
+                  <span class="nav-adat">
+                {{ egyNavAdat.kezdesNapja | date: 'yyyy-MM-dd' }}
+              </span>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Munkanapok száma:
+              </span>
+                  <span class="nav-adat">
+                {{ egyNavAdat.munkanapokSzama }} nap
+              </span>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Jellege:
+              </span>
+                  <span class="nav-adat">
+                {{ egyNavAdat.foglalkoztatasJellege }}
+              </span>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                Adatlap típusa:
+              </span>
+                  <span class="nav-adat">
+                {{ egyNavAdat.adatlapTipusa }}
+              </span>
+                </div>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <div class="nav-text-box">
+              <span class="nav-title">
+                NAV nyilvántartási száma:
+              </span>
+                  <span class="nav-adat">
+                {{ egyNavAdat.navNyilvantartasiSzama }}
+              </span>
+                </div>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </div>
           <div class="jobb-felso-adat-box">
-            <form>
-              <mat-form-field class="form">
-                <mat-label class="placeholder">Szervezet kódja</mat-label>
-                <input matInput type="text" tabindex="1" required>
-              </mat-form-field>
-            </form>
+
           </div>
         </div>
       </mat-card>

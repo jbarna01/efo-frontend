@@ -27,6 +27,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {IConfig, NgxMaskModule} from "ngx-mask";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatOptionModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import {IConfig, NgxMaskModule} from "ngx-mask";
     MatToolbarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatAutocompleteModule,
+    MatOptionModule
   ],
   exports: [
     BrowserModule,

@@ -1,9 +1,17 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {MunkavallaloControllerService, MunkavallaloDTO, NavAdatokControllerService, NavAdatokDTO} from "../../../build/openapi/efo";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {
+  MunkaltatoReszlegControllerService, MunkaltatoReszlegDTO,
+  MunkavallaloControllerService,
+  MunkavallaloDTO,
+  NavAdatokControllerService,
+  NavAdatokDTO
+} from "../../../build/openapi/efo";
 import {MatTableDataSource} from "@angular/material/table";
 import {ComponentBase} from "../common/utils/component-base";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
+import {FormControl} from "@angular/forms";
+import {map, Observable, startWith} from "rxjs";
 
 @Component({
   selector: 'app-munkaorak',
@@ -16,8 +24,8 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
   displayedColumnsNav: string[] = ['kezdesNapja', 'napokSzama']
   munkavallalok: MunkavallaloDTO[] = [];
   navAdatok: NavAdatokDTO[] = [];
-  dataSource!: MatTableDataSource<MunkavallaloDTO>;
-  dataSourceNav!: MatTableDataSource<NavAdatokDTO>;
+  dataSource: MatTableDataSource<MunkavallaloDTO>;
+  dataSourceNav: MatTableDataSource<NavAdatokDTO>;
   egyNavAdat: NavAdatokDTO = {};
   navOsszesitettAdatLathato = false;
 
@@ -25,16 +33,45 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
   public kivalasztottMunkavallaloTajSzama: string = '';
   public kivalasztottMunkavallaloAdoszama: string = '';
 
+  szervezetKod = new FormControl();
+  kodok: string[];
+  kivalasztottReszlegNev: string = null;
+  filteredKodok!: Observable<string[]>;
+
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
-              private navAdatokControllerService: NavAdatokControllerService) {
+              private navAdatokControllerService: NavAdatokControllerService,
+              private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService) {
     super();
     this.munkavalalokLekerdezese();
+    this.kodokBetoltese()
   }
 
   ngOnInit(): void {
+    this.filteredKodok = this.szervezetKod.valueChanges.pipe(
+      startWith(''),
+      map(kod => this._filter(kod)),
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.kodok.filter(kod => kod.toLowerCase().includes(filterValue));
+  }
+
+  private kodokBetoltese(): void {
+    this.munkaltatoReszlegControllerService.reszlegekAll().subscribe(reszlegek => {
+      this.kodok = reszlegek.map(reszleg => reszleg.kod);
+    });
+  }
+
+  private szervezetLekereseKodAlapjan(kod: string): void {
+    this.munkaltatoReszlegControllerService.reszlegKod(kod).subscribe(reszleg => {
+      this.kivalasztottReszlegNev = reszleg.nev;
+    })
   }
 
   private munkavalalokLekerdezese(): void {
