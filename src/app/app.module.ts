@@ -29,6 +29,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
+import { MunkaorakNavAdatokComponent } from './munkaorak/munkaorak-nav-adatok/munkaorak-nav-adatok.component';
+import { MunkaorakRogzitesePanelComponent } from './munkaorak/munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import {MatOptionModule} from "@angular/material/core";
     HeaderComponent,
     NavAdatokComponent,
     NavAdatokBetolteseComponent,
+    MunkaorakNavAdatokComponent,
+    MunkaorakRogzitesePanelComponent,
   ],
   imports: [
     BrowserModule,

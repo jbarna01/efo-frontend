@@ -1,0 +1,61 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title style="font-weight: bold">
+      <span>Munkavállalók</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-form-field appearance="standard">
+        <mat-label>Keresés</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Keresés" #input>
+      </mat-form-field>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%; border: 1px solid var(--divider-color)">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="neve">
+        <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
+      </ng-container>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="felhasznaloValasztas(row)"></mat-row>
+    </table>
+    <mat-paginator [pageSize]="5">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title style="font-weight: bold">
+      <span>Nav bejelentések</span>
+    </mat-card-title>
+    <mat-card-subtitle style="margin: 0.5em 0; padding: 0.5em 0;">
+      <span *ngIf="kivalasztottFelhasznalo.neve" class="nav-kivalasztott-adatok">Név: {{kivalasztottFelhasznalo.neve}}</span>
+      <span *ngIf="kivalasztottFelhasznalo.tajSzama" class="nav-kivalasztott-adatok">Tajszám: {{kivalasztottFelhasznalo.tajSzama}}</span>
+      <span *ngIf="kivalasztottFelhasznalo.adoszam" class="nav-kivalasztott-adatok">Adószám: {{kivalasztottFelhasznalo.adoszam}}</span>
+    </mat-card-subtitle>
+
+  </mat-card-header>
+  <mat-card-content>
+    <table *ngIf="kivalasztottFelhasznalo" mat-table [dataSource]='dataSourceNav' class="mat-elevation-z8"
+           style="width: 100%; border: 1px solid var(--divider-color)">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="kezdesNapja">
+        <mat-header-cell *matHeaderCellDef>Kezdés napj</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.kezdesNapja | date: 'yyyy-MM-dd'}}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="napokSzama">
+        <mat-header-cell *matHeaderCellDef>Napok száma</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.munkanapokSzama}} nap</mat-cell>
+      </ng-container>
+      <mat-row *matRowDef="let row; columns: displayedColumnsNav;" (click)="bejelentesvalasztas(row)"></mat-row>
+    </table>
+    <mat-paginator [pageSize]="15">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

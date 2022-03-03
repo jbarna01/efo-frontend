@@ -1,0 +1,118 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.flexbox-parent {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: flex-start; /* align items in Main Axis */
+  align-items: stretch; /* align items in Cross Axis */
+  align-content: stretch; /* Extra space in Cross Axis */
+
+  background: rgba(255, 255, 255, .1);
+}
+
+.flexbox-item.header {
+  background: rgba(255, 0, 0, .1);
+}
+
+.flexbox-item.footer {
+  background: rgba(0, 255, 0, .1);
+}
+
+.flexbox-item.content {
+  background: rgba(0, 0, 255, .1);
+}
+
+.flexbox-item {
+  padding: 0px;
+}
+
+.fill-area {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+  flex: 1;
+  overflow: auto;
+
+}
+
+.flexbox-item-grow {
+  flex: 1;
+}
+
+.bal-oldal {
+  width: 500px;
+  border-right: 2px solid var(--divider-color);
+}
+
+.jobb-oldal {
+  width: 100%;
+  padding: 0.5em;
+}
+
+.mat-row {
+  min-height: 1em;
+}
+
+.mat-row:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.mat-cell {
+  font-size: 0.8em;
+  padding: 0.5em;
+}
+
+.mat-paginator {
+  display: none;
+}
+
+.mat-card {
+  margin: 0.5em;
+  padding: 0.5em;
+  min-height: 270px;
+}
+
+.mat-card-header {
+  margin: 0;
+  font-weight: bold;
+  font-size: 1em;
+  color: var(--dark-primary-color);
+}
+
+.mat-card-title {
+  margin-bottom: 0.3em !important;
+  font-size: 1em;
+}
+
+.mat-card-subtitle {
+  font-size: 0.7em;
+  margin-bottom: 0px;
+}
+
+::ng-deep .mat-card-header-text {
+  margin: 0 !important;
+}
+
+.mact-card-header {
+  margin: 0;
+}
+
+.nav-kivalasztott-adatok {
+  display: inline-block;
+  width: 100%;
+  margin: 0.2em 0;
+  font-size: 1em;
+  color: var(--default-primary-color);
+}
