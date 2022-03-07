@@ -8,9 +8,16 @@
       <app-munkaorak-nav-adatok (felhasznaloNavAdat)='bejelentesvalasztas($event)'></app-munkaorak-nav-adatok>
     </div>
     <div class="jobb-oldal">
-      <app-munkaorak-rogzitese-panel
-        [egyNavAdat]="egyNavAdat">
-      </app-munkaorak-rogzitese-panel>
+      <app-munkaorak-szervezet-panel
+        [egyNavAdat]="egyBejelentettNavAdat">
+      </app-munkaorak-szervezet-panel>
+      <mat-card>
+
+        <app-data-picker (kivalasztottDatum)=selectEvent($event)></app-data-picker>
+        <app-time-picker [selected]="tolSelected" (selectedTime)="selectetdTolTime($event)"></app-time-picker>{{ tolSelectedTime }}
+        <app-time-picker [selected]="igSelected" (selectedTime)="selectetdIgTime($event)"></app-time-picker>{{ igSelectedTime }}
+
+      </mat-card>
     </div>
   </div>
 </div>

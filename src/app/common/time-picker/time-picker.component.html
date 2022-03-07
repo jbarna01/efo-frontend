@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill">
+  <mat-label>Tól-</mat-label>
+  <mat-select [(ngModel)]="selected" (ngModelChange)="selectedTimeEvent($event)">
+    <mat-option *ngFor="let munkaora of munkaorak" [value]="munkaora.value">
+      {{ munkaora.data }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

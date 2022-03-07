@@ -1,0 +1,31 @@
+.datepickerOne .mat-calendar-body-today:not(.mat-calendar-body-selected){
+  border-color: var(--dark-primary-color);
+  /*font-size: 0.8em;*/
+  color: var(--dark-primary-color);
+  padding: 1.2em;
+}
+
+.datepickerOne .mat-calendar-body-cell {
+  font-size: 1em;
+  padding: 1.2em;
+}
+
+.mat-datepicker-content .datepickerOne.mat-calendar {
+  /*width: auto;*/
+  height: auto;
+  color: #7B1FA2;
+  font-weight: bold;
+}
+.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding-bottom: 0;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background: white;
+}
+
+tr.ng-star-inserted:nth-child > td:nth-child {
+  /*! width: 25%; */ /*! padding-top: 7.14286%; */ /*! padding-bottom: 7.14286%; *//*! padding-left: 2em; *//*! padding-right: 3em; */
+  padding: 3em;
+  width: 25%;
+}

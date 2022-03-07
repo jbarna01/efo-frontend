@@ -28,9 +28,13 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatOptionModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import { MunkaorakNavAdatokComponent } from './munkaorak/munkaorak-nav-adatok/munkaorak-nav-adatok.component';
 import { MunkaorakRogzitesePanelComponent } from './munkaorak/munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component';
+import {DataPickerComponent} from "./common/data-picker/data-picker.component";
+import {MunkaorakSzervezetPanelComponent} from "./munkaorak/munkaorak-szervezet-panel/munkaorak-szervezet-panel.component";
+import {MatSelectModule} from "@angular/material/select";
+import { TimePickerComponent } from './common/time-picker/time-picker.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,9 @@ import { MunkaorakRogzitesePanelComponent } from './munkaorak/munkaorak-rogzites
     NavAdatokBetolteseComponent,
     MunkaorakNavAdatokComponent,
     MunkaorakRogzitesePanelComponent,
+    MunkaorakSzervezetPanelComponent,
+    DataPickerComponent,
+    TimePickerComponent
   ],
   imports: [
     BrowserModule,
@@ -68,8 +75,10 @@ import { MunkaorakRogzitesePanelComponent } from './munkaorak/munkaorak-rogzites
     MatTableModule,
     MatPaginatorModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatAutocompleteModule,
-    MatOptionModule
+    MatOptionModule,
+    MatSelectModule
   ],
   exports: [
     BrowserModule,
@@ -77,6 +86,7 @@ import { MunkaorakRogzitesePanelComponent } from './munkaorak/munkaorak-rogzites
     MatInputModule,
     FormsModule,
     MatButtonModule,
+    MatDatepickerModule,
     MatCheckboxModule,
     MatIconModule
   ],
