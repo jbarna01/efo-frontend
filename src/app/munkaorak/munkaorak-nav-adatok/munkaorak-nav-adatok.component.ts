@@ -24,6 +24,7 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   @Output() felhasznaloNavAdat = new EventEmitter<NavAdatokDTO>();
+  @Output() munkavallalo = new EventEmitter<MunkavallaloDTO>();
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
               private navAdatokControllerService: NavAdatokControllerService) {
@@ -49,6 +50,7 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
 
   private felhasznaloValasztas(kivalasztottFelhasznalo: MunkavallaloDTO) {
     this.kivalasztottFelhasznalo = kivalasztottFelhasznalo;
+    this.munkavallalo.emit(kivalasztottFelhasznalo);
     const tajSzam = kivalasztottFelhasznalo.tajSzama;
     if (!!tajSzam) {
       this.navAdatokControllerService.navAdatokTajAlapjan(tajSzam!).subscribe(navAdatokList => {

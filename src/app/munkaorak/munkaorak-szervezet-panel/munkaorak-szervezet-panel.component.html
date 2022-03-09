@@ -1,14 +1,14 @@
-<mat-card *ngIf="egyNavAdat.belepesNapja" style="min-height: 9em; padding: 0">
-  <div class="jobb-oldal-felso-panel">
+<mat-card *ngIf="egyNavAdat.belepesNapja" style="height: 25%; padding: 0;">
+  <div class="jobb-oldal-felso-panel" style="height: 100%">
     <div class="bal-felso-adat-box">
-      <mat-grid-list cols="3" rowHeight="3em">
+      <mat-grid-list cols="3" rowHeight="33%">
         <mat-grid-tile>
           <div class="nav-text-box">
               <span class="nav-title">
                 Munkavállaló neve:
               </span>
             <span class="nav-adat">
-<!--                {{kivalasztottFelhasznalo.neve}}-->
+                {{egyMunkavallalo.neve}}
               </span>
           </div>
         </mat-grid-tile>
@@ -18,7 +18,7 @@
                 TAJ száma:
               </span>
             <span class="nav-adat">
-<!--                {{kivalasztottFelhasznalo.tajSzama}}-->
+                {{egyMunkavallalo.tajSzama}}
               </span>
           </div>
         </mat-grid-tile>
@@ -28,7 +28,7 @@
                 Adószáma:
               </span>
             <span class="nav-adat">
-<!--                {{kivalasztottFelhasznalo.adoszam}}-->
+                {{egyMunkavallalo.adoszam}}
               </span>
           </div>
         </mat-grid-tile>
@@ -115,108 +115,3 @@
     </div>
   </div>
 </mat-card>
-
-
-<!--<mat-card *ngIf="navOsszesitettAdatLathato" style="height: 20em; padding: 0">-->
-<!--  <div class="jobb-oldal-felso-panel">-->
-<!--    <div class="bal-felso-adat-box">-->
-<!--      <mat-grid-list cols="3" rowHeight="3em">-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Munkavállaló neve:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--&lt;!&ndash;                {{kivalasztottMunkavallaloNeve}}&ndash;&gt;-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                TAJ száma:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--&lt;!&ndash;                {{kivalasztottMunkavallaloTajSzama}}&ndash;&gt;-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Adószáma:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--&lt;!&ndash;                {{kivalasztottMunkavallaloAdoszama}}&ndash;&gt;-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Belépés napja:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--                {{ egyNavAdat.belepesNapja | date: 'yyyy-MM-dd' }}-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Kezdés napja::-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--                {{ egyNavAdat.kezdesNapja | date: 'yyyy-MM-dd' }}-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Munkanapok száma:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--                {{ egyNavAdat.munkanapokSzama }} nap-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Jellege:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--                {{ egyNavAdat.foglalkoztatasJellege }}-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                Adatlap típusa:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--                {{ egyNavAdat.adatlapTipusa }}-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--        <mat-grid-tile>-->
-<!--          <div class="nav-text-box">-->
-<!--              <span class="nav-title">-->
-<!--                NAV nyilvántartási száma:-->
-<!--              </span>-->
-<!--            <span class="nav-adat">-->
-<!--                {{ egyNavAdat.navNyilvantartasiSzama }}-->
-<!--              </span>-->
-<!--          </div>-->
-<!--        </mat-grid-tile>-->
-<!--      </mat-grid-list>-->
-<!--    </div>-->
-<!--    <div class="jobb-felso-adat-box">-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</mat-card>-->

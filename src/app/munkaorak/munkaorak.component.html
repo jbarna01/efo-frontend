@@ -5,19 +5,17 @@
 
   <div class="flexbox-item fill-area content flexbox-item-grow">
     <div class="bal-oldal">
-      <app-munkaorak-nav-adatok (felhasznaloNavAdat)='bejelentesvalasztas($event)'></app-munkaorak-nav-adatok>
+      <app-munkaorak-nav-adatok (felhasznaloNavAdat)='bejelentesvalasztas($event)' (munkavallalo)='munkavallaloValasztas($event)'></app-munkaorak-nav-adatok>
     </div>
     <div class="jobb-oldal">
       <app-munkaorak-szervezet-panel
-        [egyNavAdat]="egyBejelentettNavAdat">
+        [egyNavAdat]="egyBejelentettNavAdat"
+        [egyMunkavallalo]="kivalasztottFelhasznalo">
       </app-munkaorak-szervezet-panel>
-      <mat-card>
-
-        <app-data-picker (kivalasztottDatum)=selectEvent($event)></app-data-picker>
-        <app-time-picker [selected]="tolSelected" (selectedTime)="selectetdTolTime($event)"></app-time-picker>{{ tolSelectedTime }}
-        <app-time-picker [selected]="igSelected" (selectedTime)="selectetdIgTime($event)"></app-time-picker>{{ igSelectedTime }}
-
-      </mat-card>
+      <app-munkaorak-rogzitese-panel
+        [egyNavAdat]="egyBejelentettNavAdat"
+        [egyMunkavallalo]="kivalasztottFelhasznalo">
+      </app-munkaorak-rogzitese-panel>
     </div>
   </div>
 </div>

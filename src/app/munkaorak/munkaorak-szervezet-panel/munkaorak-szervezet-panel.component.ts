@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ComponentBase} from "../../common/utils/component-base";
-import {MunkaltatoReszlegControllerService, MunkavallaloControllerService, NavAdatokDTO} from '../../../../build/openapi/efo';
+import {MunkaltatoReszlegControllerService, MunkavallaloControllerService, MunkavallaloDTO, NavAdatokDTO} from '../../../../build/openapi/efo';
 import {FormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 
@@ -12,6 +12,7 @@ import {map, Observable, startWith} from "rxjs";
 export class MunkaorakSzervezetPanelComponent extends ComponentBase implements OnInit {
 
   @Input() egyNavAdat: NavAdatokDTO;
+  @Input() egyMunkavallalo: MunkavallaloDTO;
 
   szervezetKod = new FormControl();
   kodok: string[];

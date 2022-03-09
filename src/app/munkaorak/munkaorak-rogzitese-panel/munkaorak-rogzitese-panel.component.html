@@ -1,0 +1,29 @@
+<mat-card style="height: calc(75% - 1em); padding: 0">
+  <div class="jobb-oldal-also-panel">
+    <div class="bal-also-adat-box">
+      <!--        <form>-->
+      <div style="padding: 2em; display: flex; justify-content: center">
+        <app-data-picker (kivalasztottDatum)=selectEvent($event)></app-data-picker>
+      </div>
+      <div style="display: flex; padding: 1em">
+        <div style="width: 35%; margin: 1em">
+          <app-time-picker [selected]="tolSelected" (selectedTime)="selectetdTolTime($event)"></app-time-picker>
+        </div>
+        <div style="width: 35%; margin: 1em">
+          <app-time-picker [selected]="igSelected" (selectedTime)="selectetdIgTime($event)"></app-time-picker>
+        </div>
+      </div>
+      <div style="padding: 2em; display: flex; justify-content: center">
+        <button class="alap-button">
+          Mentes
+        </button>
+      </div>
+
+    </div>
+    <div class="jobb-also-adat-box" style="flex-direction: column">
+      <mat-label>Adatok
+      </mat-label>
+
+    </div>
+  </div>
+</mat-card>
