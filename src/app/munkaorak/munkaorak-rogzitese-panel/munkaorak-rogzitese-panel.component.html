@@ -1,29 +1,66 @@
-<mat-card style="height: calc(75% - 1em); padding: 0">
+<mat-card *ngIf="!egyNavAdat" style="min-height: 50%; padding: 0">
   <div class="jobb-oldal-also-panel">
-    <div class="bal-also-adat-box">
-      <!--        <form>-->
-      <div style="padding: 2em; display: flex; justify-content: center">
-        <app-data-picker (kivalasztottDatum)=selectEvent($event)></app-data-picker>
-      </div>
-      <div style="display: flex; padding: 1em">
-        <div style="width: 35%; margin: 1em">
-          <app-time-picker [selected]="tolSelected" (selectedTime)="selectetdTolTime($event)"></app-time-picker>
-        </div>
-        <div style="width: 35%; margin: 1em">
-          <app-time-picker [selected]="igSelected" (selectedTime)="selectetdIgTime($event)"></app-time-picker>
-        </div>
-      </div>
-      <div style="padding: 2em; display: flex; justify-content: center">
-        <button class="alap-button">
-          Mentes
-        </button>
-      </div>
-
-    </div>
     <div class="jobb-also-adat-box" style="flex-direction: column">
-      <mat-label>Adatok
-      </mat-label>
+      <mat-label>Rögzített munkaórák</mat-label>{{ egyNavAdat.kezdesNapja }}
+
+<!--      <table *ngIf="dolgozohozRogzitettMunkaorak" mat-table [dataSource]='rogzitettMunkavallaloiAdatok' class="mat-elevation-z8" style="width: 100%">-->
+
+<!--        <ng-container matColumnDef="id">-->
+<!--          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element" (click)="teszt($event, element)"> {{element.id }} </mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="rogzitettNap">-->
+<!--          <mat-header-cell *matHeaderCellDef>Rögzített nap</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element"> {{element.rogzitettNap | date: 'yyyy-MM-dd' }} </mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="munkaidoKezdete">-->
+<!--          <mat-header-cell *matHeaderCellDef>Munkaóra kezdete</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.munkaidoKezdete }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="munkaidoVege">-->
+<!--          <mat-header-cell *matHeaderCellDef>Munkaidő kezdete</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.munkaidoVege }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="munkaorakSzama">-->
+<!--          <mat-header-cell *matHeaderCellDef>Munkaórák</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.munkaorakSzama }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="normalOrakSzama">-->
+<!--          <mat-header-cell *matHeaderCellDef>Normál órák száma</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.normalOrakSzama }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="tulorakSzama">-->
+<!--          <mat-header-cell *matHeaderCellDef>Túlórák száma</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.tulorakSzama }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="oradij">-->
+<!--          <mat-header-cell *matHeaderCellDef>Óradíj</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.oradij }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="napidij">-->
+<!--          <mat-header-cell *matHeaderCellDef>Napidíj</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.napidij }}</mat-cell>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="tuloraDij">-->
+<!--          <mat-header-cell *matHeaderCellDef>Túlóradíj</mat-header-cell>-->
+<!--          <mat-cell *matCellDef="let element;">{{ element.tuloraDij }}</mat-cell>-->
+<!--        </ng-container>-->
+
+
+<!--        <mat-header-row *matHeaderRowDef="rogzitettMunkaidokdisplayedColumns; sticky: true"></mat-header-row>-->
+<!--        <mat-row *matRowDef="let row; columns: rogzitettMunkaidokdisplayedColumns;"></mat-row>-->
+<!--      </table>-->
 
     </div>
   </div>
+
 </mat-card>

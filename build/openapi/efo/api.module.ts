@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { MunkaltatoReszlegControllerService } from './api/munkaltatoReszlegController.service';
 import { MunkavallaloControllerService } from './api/munkavallaloController.service';
+import { MunkavallaloiRogzitettAdatokControllerService } from './api/munkavallaloiRogzitettAdatokController.service';
 import { NavAdatokControllerService } from './api/navAdatokController.service';
 import { NavIdeigelenesAdatokControllerService } from './api/navIdeigelenesAdatokController.service';
 

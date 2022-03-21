@@ -39,14 +39,14 @@
 .nav-text-box {
   display: block;
   width: 100%;
-  height: 3em;
+  /*height: 3em;*/
   padding: 0.3em 0.5em;
 }
 
 .nav-title {
-  display: block;
-  margin-top: 0.4em;
-  width: 100%;
+  display: inline-block;
+  /*margin-top: 0.4em;*/
+  width: 50%;
   font-size: 0.6em;
   font-weight: bold;
   text-transform: uppercase;
@@ -54,8 +54,8 @@
 }
 
 .nav-adat {
-  display: block;
-  width: 100%;
+  display: inline-block;
+  width: 50%;
   font-size: 0.6em;
   color: var(--default-primary-color);
 }
@@ -67,17 +67,21 @@
   align-items: stretch;
 }
 
-.bal-felso-adat-box, .jobb-felso-adat-box {
+.bal-felso-adat-box, .kozepso-felso-adat-box, .jobb-felso-adat-box {
   border: 1px solid #c0c0c0;
   margin: 0.5em;
   box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .bal-felso-adat-box {
-  flex-grow: 1;
+  width: 35%;
+}
+
+.kozepso-felso-adat-box {
+  width: 25%;
 }
 
 .jobb-felso-adat-box {
-  flex-grow: 0;
+  width: 30%;
 }
 

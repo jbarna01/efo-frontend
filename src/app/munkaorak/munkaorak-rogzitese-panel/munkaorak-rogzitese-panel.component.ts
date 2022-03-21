@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ComponentBase} from "../../common/utils/component-base";
-import {MunkavallaloDTO, NavAdatokDTO} from "../../../../build/openapi/efo";
-import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {MunkaltatoReszlegDTO, MunkavallaloDTO, NavAdatokDTO} from "../../../../build/openapi/efo";
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-munkaorak-rogzitese-panel',
@@ -13,14 +14,10 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
   @Input() egyNavAdat: NavAdatokDTO;
   @Input() egyMunkavallalo: MunkavallaloDTO;
 
-  kivalasztottDatum: Date;
+  rogzitettMunkaidokdisplayedColumns = [ 'rogzitettNap', 'munkaidoKezdete', 'munkaidoVege', 'munkaorakSzama', 'normalOrakSzama', 'tulorakSzama', 'oradij', 'napidij', 'tuloraDij'];
 
-  tolSelected = '0700';
-  igSelected = '1630';
-  tolSelectedTime: string;
-  igSelectedTime: string;
-
-  constructor() {
+  constructor(private formBuilder:  FormBuilder,
+              private dialog: MatDialog) {
     super();
   }
 
@@ -30,15 +27,21 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
   ngOnInit(): void {
   }
 
-  selectEvent(event: MatDatepickerInputEvent<Date>) {
-    this.kivalasztottDatum = event.value;
+  idoEllenorzese(event, egySor: FormGroup): void {
+    // let a = egySor.munkaidoKezdetek;
+    // let b = this.munkaidoVegek;
+    // if (moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute") < 0) {
+    //   this.igIdo = moment(this.tolIdo, 'HH:mm').add('60', 'minutes').format('HH:mm').toString();
+    // }
+    // let kulonbsegPerc = moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute");
+    // this.kulonbseg = moment().hours(0).minutes(kulonbsegPerc).format('hh:mm');
   }
+}
 
-  selectetdTolTime(event: string) {
-    this.tolSelectedTime = event;
-  }
-
-  selectetdIgTime(event: string) {
-    this.igSelectedTime = event;
-  }
+export class EgyNapRogzitettAdatai {
+  id: number;
+  nap: Date;
+  tolIdo: string;
+  igIdo: string;
+  kulonbseg: string;
 }

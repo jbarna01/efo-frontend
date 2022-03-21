@@ -29,12 +29,14 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
-import { MunkaorakNavAdatokComponent } from './munkaorak/munkaorak-nav-adatok/munkaorak-nav-adatok.component';
-import { MunkaorakRogzitesePanelComponent } from './munkaorak/munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component';
+import {MunkaorakNavAdatokComponent} from './munkaorak/munkaorak-nav-adatok/munkaorak-nav-adatok.component';
+import {MunkaorakRogzitesePanelComponent} from './munkaorak/munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component';
 import {DataPickerComponent} from "./common/data-picker/data-picker.component";
 import {MunkaorakSzervezetPanelComponent} from "./munkaorak/munkaorak-szervezet-panel/munkaorak-szervezet-panel.component";
 import {MatSelectModule} from "@angular/material/select";
-import { TimePickerComponent } from './common/time-picker/time-picker.component';
+import {TimePickerComponent} from './common/time-picker/time-picker.component';
+import {OrakRogziteseComponent} from './munkaorak/dialogs/orak-rogzitese/orak-rogzitese.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -52,7 +54,11 @@ import { TimePickerComponent } from './common/time-picker/time-picker.component'
     MunkaorakRogzitesePanelComponent,
     MunkaorakSzervezetPanelComponent,
     DataPickerComponent,
-    TimePickerComponent
+    TimePickerComponent,
+    OrakRogziteseComponent
+  ],
+  entryComponents: [
+    OrakRogziteseComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +84,8 @@ import { TimePickerComponent } from './common/time-picker/time-picker.component'
     MatNativeDateModule,
     MatAutocompleteModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDialogModule
   ],
   exports: [
     BrowserModule,
