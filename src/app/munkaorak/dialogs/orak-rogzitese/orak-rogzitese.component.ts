@@ -29,10 +29,15 @@ export class OrakRogziteseComponent implements OnInit {
   }
 
   private idoEllenorzese(): void {
+    let kulonbsegPerc = 0;
     if (moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute") < 0) {
-      this.igIdo = moment(this.tolIdo, 'HH:mm').add('60', 'minutes').format('HH:mm').toString();
+      // this.igIdo = moment(this.tolIdo, 'HH:mm').add('60', 'minutes').format('HH:mm').toString();
+      kulonbsegPerc = moment('24:00', 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute") +
+        moment(this.igIdo, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute");
+    } else {
+      kulonbsegPerc = moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute");
     }
-    let kulonbsegPerc = moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute");
+
     this.kulonbseg = moment().hours(0).minutes(kulonbsegPerc).format('hh:mm');
   }
 

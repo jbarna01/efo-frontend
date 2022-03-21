@@ -1,0 +1,19 @@
+.mat-dialog-title{
+  background-color: var(--default-primary-color);
+  color: white;
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.mat-grid-tile {
+  /*background: #FF9800;*/
+  margin: 1em auto;
+  font-size: 1.5em;
+  color: var(--default-primary-color);
+  width: 25%!important;
+}
+.mat-form-field {
+  width: 100%;
+}

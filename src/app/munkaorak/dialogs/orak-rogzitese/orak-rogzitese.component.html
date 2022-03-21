@@ -1,34 +1,36 @@
 <h2 mat-dialog-title>Munkaórák rögzítése</h2>
-<mat-dialog-content>
-
-  <mat-card class="dialog_ablak">
-    <mat-card-content>
-      <mat-grid-list cols="1" rowHeight="80px" class="mat-grid-li">
-        <mat-grid-tile class="mat-grid-tile">
-          <mat-label>{{ data.nap | date: 'yyyy-MM-dd' }}</mat-label>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-grid-tile">
-          <mat-form-field floatLabel="never">
-            <input matInput placeholder="munkaidoKezdete" [(ngModel)]=tolIdo (change)="idoEllenorzese()" type="time">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-grid-tile">
-          <mat-form-field floatLabel="never">
-            <input matInput placeholder="munkaidoVege" [(ngModel)]=igIdo (change)="idoEllenorzese()" type="time">
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile class="mat-grid-tile">
-          <mat-form-field floatLabel="never">
-            <input matInput placeholder="mukaidoOrakban" [(ngModel)]=kulonbseg>
-          </mat-form-field>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-content>
-  </mat-card>
-
+<mat-dialog-content style="width: 550px; height: 300px">
+  <mat-label
+    style="margin: 0.5em; font-size: 1.5em; font-weight: bold; color: var(--default-primary-color); display: inline-block">{{ data.nap | date: 'yyyy-MM-dd' }}</mat-label>
+  <mat-grid-list cols="3" rowHeight="3em" class="mat-grid-li">
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-label style="font-size: 0.5em; font-weight: 300;">Munkaidő kezdete</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-label style="font-size: 0.5em; font-weight: 300;">Munkaidő vége</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-label style="font-size: 0.5em; font-weight: 300;">Munkaórák</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-form-field floatLabel="never">
+        <mat-label>Munkaidő kezdete</mat-label>
+        <input matInput [(ngModel)]=tolIdo (change)="idoEllenorzese()" type="time">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-form-field floatLabel="never">
+        <input matInput placeholder="munkaidoVege" [(ngModel)]=igIdo (change)="idoEllenorzese()" type="time">
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile class="mat-grid-tile">
+      <mat-form-field floatLabel="never">
+        <input matInput disabled="true" [(ngModel)]=kulonbseg>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button class="alap-gomb" (click)="megseClick()">Mégse</button>
   <button class="alap-gomb" (click)="mentesClick()">Mentés</button>
 </mat-dialog-actions>
-
