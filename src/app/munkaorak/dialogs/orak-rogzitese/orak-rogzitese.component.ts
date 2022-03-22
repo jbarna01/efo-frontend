@@ -12,16 +12,18 @@ export class OrakRogziteseComponent implements OnInit {
 
   // private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>;
   id: number;
-  nap: Date;
-  igIdo = '';
-  tolIdo = '';
-  kulonbseg = '';
+  navAdatokFk: number;
+  munkanap: Date;
+  munkaidoKezdete = '';
+  munkaidoVege = '';
+  munkaorakSzama = '';
   egyNapRogzitettAdatai: EgyNapRogzitettAdatai;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>) {
     this.id = data.id;
-    this.nap = data.nap;
+    this.navAdatokFk = data.navAdatokFk;
+    this.munkanap = data.munkanap;
     this.egyNapRogzitettAdatai = new EgyNapRogzitettAdatai();
   }
 
@@ -30,15 +32,15 @@ export class OrakRogziteseComponent implements OnInit {
 
   private idoEllenorzese(): void {
     let kulonbsegPerc = 0;
-    if (moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute") < 0) {
+    if (moment(this.munkaidoVege, 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute") < 0) {
       // this.igIdo = moment(this.tolIdo, 'HH:mm').add('60', 'minutes').format('HH:mm').toString();
-      kulonbsegPerc = moment('24:00', 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute") +
-        moment(this.igIdo, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute");
+      kulonbsegPerc = moment('24:00', 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute") +
+        moment(this.munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute");
     } else {
-      kulonbsegPerc = moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute");
+      kulonbsegPerc = moment(this.munkaidoVege, 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute");
     }
 
-    this.kulonbseg = moment().hours(0).minutes(kulonbsegPerc).format('hh:mm');
+    this.munkaorakSzama = moment().hours(0).minutes(kulonbsegPerc).format('hh:mm');
   }
 
   private megseClick() {
@@ -46,9 +48,12 @@ export class OrakRogziteseComponent implements OnInit {
   }
 
   private mentesClick() {
-    this.egyNapRogzitettAdatai.tolIdo = this.tolIdo;
-    this.egyNapRogzitettAdatai.igIdo = this.igIdo;
-    this.egyNapRogzitettAdatai.kulonbseg = this.kulonbseg;
+    this.egyNapRogzitettAdatai.id = this.id
+    this.egyNapRogzitettAdatai.navAdatokFk = this.navAdatokFk;
+    this.egyNapRogzitettAdatai.munkanap = this.munkanap;
+    this.egyNapRogzitettAdatai.munkaidoKezdete = this.munkaidoKezdete;
+    this.egyNapRogzitettAdatai.munkaidoVege = this.munkaidoVege;
+    this.egyNapRogzitettAdatai.munkaorakSzama = this.munkaorakSzama;
 
     this.dialogRef.close({data: this.egyNapRogzitettAdatai});
   }

@@ -40,8 +40,9 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
 
 export class EgyNapRogzitettAdatai {
   id: number;
-  nap: Date;
-  tolIdo: string;
-  igIdo: string;
-  kulonbseg: string;
+  navAdatokFk: number;
+  munkanap: Date;
+  munkaidoKezdete: string;
+  munkaidoVege: string;
+  munkaorakSzama: string;
 }

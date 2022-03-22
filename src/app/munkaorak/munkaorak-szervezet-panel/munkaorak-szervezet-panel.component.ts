@@ -6,12 +6,13 @@ import {
   MunkavallaloDTO,
   MunkavallaloiRogzitettAdatokControllerService, MunkavallaloiRogzitettAdatokDTO,
   NavAdatokDTO
-} from '../../../../build/openapi/efo';
+} from '../../../../build/openapi/efo'
 import {FormBuilder, FormControl} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 import {MatTableDataSource} from "@angular/material/table";
 import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
 import {MatDialog} from "@angular/material/dialog";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-munkaorak-szervezet-panel',
@@ -27,9 +28,9 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
   kodok: string[];
   kivalasztottReszlegNev: string = null;
   filteredKodok!: Observable<string[]>;
-  munkavallaloiRogzitettAdatokSource: MatTableDataSource<MunkavallaloiRogzitettAdatokDTO>;
+  // munkavallaloiRogzitettAdatokSource: MatTableDataSource<MunkavallaloiRogzitettAdatokDTO>;
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
-  displayedColumns = ['gomb'];
+  // displayedColumns = ['gomb'];
 
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
@@ -55,7 +56,7 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
     );
   }
 
-  private initRow(navAdatok: NavAdatokDTO): void {
+  private initMunkanapok(navAdatok: NavAdatokDTO): void {
 
     this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokEgyBejelents(navAdatok.id).subscribe(munkavallaloiRogzitettAdatokDTO => {
       this.munkavallaloiRogzitettAdatokDTO = munkavallaloiRogzitettAdatokDTO;
@@ -66,7 +67,7 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
   private szervezetLekereseKodAlapjan(kod: string): void {
     this.munkaltatoReszlegControllerService.reszlegKod(kod).subscribe(reszleg => {
       this.kivalasztottReszlegNev = reszleg.nev;
-      this.initRow(this.egyNavAdat);
+      this.initMunkanapok(this.egyNavAdat);
     })
   }
 
@@ -84,37 +85,32 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
 
   private munkaoraRogzites(adat: MunkavallaloiRogzitettAdatokDTO) {
     const dialogRef = this.dialog.open(OrakRogziteseComponent, {
-      data: { id: adat.id, nap: adat.munkanap}, disableClose: true});
+      data: { id: adat.id, navAdatokFk: adat.navAdatokFk,  munkanap: adat.munkanap}, disableClose: true});
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
-    //
-    //   let dolgozhozRogzitetEgyNapiMunkaora: DolgozohozRogzitettMunkaorak = new DolgozohozRogzitettMunkaorak();
-    //   dolgozhozRogzitetEgyNapiMunkaora.rogzitettNap = adat.nap;
-    //   dolgozhozRogzitetEgyNapiMunkaora.munkaidoKezdete = munkaoraAdatok.data.tolIdo;
-    //   dolgozhozRogzitetEgyNapiMunkaora.munkaidoVege = munkaoraAdatok.data.igIdo;
-    //   dolgozhozRogzitetEgyNapiMunkaora.munkaorakSzama = munkaoraAdatok.data.kulonbseg;
-    //   dolgozhozRogzitetEgyNapiMunkaora.oradij = 750;
-    //   let normalMunkaidoPerc = moment('16:00', 'HH:mm').diff(moment(munkaoraAdatok.data.tolIdo, 'HH:mm'), "minute");
-    //   dolgozhozRogzitetEgyNapiMunkaora.normalOrakSzama = moment().hours(0).minutes(normalMunkaidoPerc).format('hh:mm');
-    //   let tuloraMunkaidoPerc = moment(munkaoraAdatok.data.igIdo, 'HH:mm').diff(moment('16:00', 'HH:mm'), "minute");
-    //   dolgozhozRogzitetEgyNapiMunkaora.tulorakSzama = moment().hours(0).minutes(tuloraMunkaidoPerc).format('hh:mm');
-    //   dolgozhozRogzitetEgyNapiMunkaora.napidij = normalMunkaidoPerc/60 * dolgozhozRogzitetEgyNapiMunkaora.oradij;
-    //   dolgozhozRogzitetEgyNapiMunkaora.tuloraDij = tuloraMunkaidoPerc/60 * dolgozhozRogzitetEgyNapiMunkaora.oradij * 1.25;
-    //
-    //   this.dolgozohozRogzitettMunkaorak.push(dolgozhozRogzitetEgyNapiMunkaora);
-    //   this.rogzitettMunkavallaloiAdatok = new MatTableDataSource<DolgozohozRogzitettMunkaorak>(this.dolgozohozRogzitettMunkaorak)
-    //
-    //   console.log(munkaoraAdatok.data.tolIdo);
-    //   console.log(munkaoraAdatok.data.igIdo);
-    //   console.log(munkaoraAdatok.data.kulonbseg);
-    //   console.log('OK');
-    //
+      let vanTulora = moment(munkaoraAdatok.data.munkaidoVege, 'HH:mm').diff(moment('16:00', 'HH:mm'), "minute") > 0;
+      let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
+      munkavallaloiRogzitettAdatokDTO.id = munkaoraAdatok.data.id;
+      munkavallaloiRogzitettAdatokDTO.navAdatokFk = adat.navAdatokFk;
+      munkavallaloiRogzitettAdatokDTO.munkanap = adat.munkanap;
+      munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = munkaoraAdatok.data.munkaidoKezdete;
+      munkavallaloiRogzitettAdatokDTO.munkaidoVege = munkaoraAdatok.data.munkaidoVege;
+      munkavallaloiRogzitettAdatokDTO.munkaorakSzama = moment(munkaoraAdatok.data.munkaorakSzama, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute") / 60;
+      munkavallaloiRogzitettAdatokDTO.normalOrakSzama = moment((vanTulora ? '16:00' : munkaoraAdatok.data.munkaidoVege), 'HH:mm').diff(moment(munkaoraAdatok.data.munkaidoKezdete, 'HH:mm'), "minute") / 60;
+      munkavallaloiRogzitettAdatokDTO.oradij = 750.0;
+      munkavallaloiRogzitettAdatokDTO.napidij = munkavallaloiRogzitettAdatokDTO.normalOrakSzama * munkavallaloiRogzitettAdatokDTO.oradij;
+      if (vanTulora) {
+        munkavallaloiRogzitettAdatokDTO.tulorakSzama = moment(munkaoraAdatok.data.munkaidoVege, 'HH:mm').diff(moment('16:00', 'HH:mm'), "minute") / 60;
+        munkavallaloiRogzitettAdatokDTO.tuloradij = munkavallaloiRogzitettAdatokDTO.tulorakSzama * munkavallaloiRogzitettAdatokDTO.oradij * 1.25;
+      } else {
+        munkavallaloiRogzitettAdatokDTO.tulorakSzama = 0;
+        munkavallaloiRogzitettAdatokDTO.tuloradij = 0;
+      }
+      munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
+      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+        this.initMunkanapok(this.egyNavAdat);
+      });
     });
   }
 
 
-}
-
-export class EgySorAdat {
-  id: number;
-  nap: Date;
 }

@@ -60,6 +60,10 @@ export interface MunkavallaloiRogzitettAdatokDTO {
      */
     tuloradij?: number;
     /**
+     * Státusz
+     */
+    statusz?: string;
+    /**
      * A rekord módosítás ideje
      */
     modositasIdeje?: string;

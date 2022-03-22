@@ -181,4 +181,59 @@ export class MunkavallaloiRogzitettAdatokControllerService {
         );
     }
 
+    /**
+     * Munkavállaló rögzitett adatai mentése
+     * @param munkavallaloiRogzitettAdatokDTO 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<MunkavallaloiRogzitettAdatokDTO>;
+    public munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<MunkavallaloiRogzitettAdatokDTO>>;
+    public munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<MunkavallaloiRogzitettAdatokDTO>>;
+    public munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+        if (munkavallaloiRogzitettAdatokDTO === null || munkavallaloiRogzitettAdatokDTO === undefined) {
+            throw new Error('Required parameter munkavallaloiRogzitettAdatokDTO was null or undefined when calling munkavallaloRogzitettAdatokMentese.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                '*/*'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected !== undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.post<MunkavallaloiRogzitettAdatokDTO>(`${this.configuration.basePath}/munkavallalok-rogzitett-adatok`,
+            munkavallaloiRogzitettAdatokDTO,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
 }
