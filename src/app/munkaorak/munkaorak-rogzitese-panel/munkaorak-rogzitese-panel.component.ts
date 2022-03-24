@@ -1,8 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ComponentBase} from "../../common/utils/component-base";
-import {MunkaltatoReszlegDTO, MunkavallaloDTO, NavAdatokDTO} from "../../../../build/openapi/efo";
+import {
+  MunkaltatoReszlegDTO,
+  MunkavallaloDTO,
+  MunkavallaloiRogzitettAdatokControllerService,
+  MunkavallaloiRogzitettAdatokDTO,
+  NavAdatokDTO
+} from "../../../../build/openapi/efo";
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-munkaorak-rogzitese-panel',
@@ -12,37 +19,39 @@ import {MatDialog} from "@angular/material/dialog";
 export class MunkaorakRogzitesePanelComponent extends ComponentBase implements OnInit {
 
   @Input() egyNavAdat: NavAdatokDTO;
-  @Input() egyMunkavallalo: MunkavallaloDTO;
+  @Input() munkavallaloiRogzitettAdat: MunkavallaloiRogzitettAdatokDTO;
 
-  rogzitettMunkaidokdisplayedColumns = [ 'rogzitettNap', 'munkaidoKezdete', 'munkaidoVege', 'munkaorakSzama', 'normalOrakSzama', 'tulorakSzama', 'oradij', 'napidij', 'tuloraDij'];
+  munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
+  rogzitettMunkaidokdisplayedColumns = [ 'rogzitettNap', 'munkaidoKezdete', 'munkaidoVege', 'munkaorakSzama', 'normalOrakSzama', 'tulorakSzama', 'oradij', 'napidij', 'tuloraDij', 'osszesen', 'szervezet', 'gombok'];
 
   constructor(private formBuilder:  FormBuilder,
-              private dialog: MatDialog) {
+              private dialog: MatDialog,
+              private munkavallaloiRogzitettAdatokControllerService: MunkavallaloiRogzitettAdatokControllerService) {
     super();
   }
 
   ngOnChanges(): void {
+    if (!!this.egyNavAdat.id) {
+      this.rogzitettMunkaorakTablazatInit(this.egyNavAdat.id);
+    }
   }
 
   ngOnInit(): void {
   }
 
-  idoEllenorzese(event, egySor: FormGroup): void {
-    // let a = egySor.munkaidoKezdetek;
-    // let b = this.munkaidoVegek;
-    // if (moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute") < 0) {
-    //   this.igIdo = moment(this.tolIdo, 'HH:mm').add('60', 'minutes').format('HH:mm').toString();
-    // }
-    // let kulonbsegPerc = moment(this.igIdo, 'HH:mm').diff(moment(this.tolIdo, 'HH:mm'), "minute");
-    // this.kulonbseg = moment().hours(0).minutes(kulonbsegPerc).format('hh:mm');
+  private rogzitettMunkaorakTablazatInit(navAdatokFk: number):void {
+    if (this.munkavallaloiRogzitettAdat) {
+      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokEgyBejelents(navAdatokFk).subscribe(munkavallaloiRogzitettAdatok => {
+        this.munkavallaloiRogzitettAdatokDTO = munkavallaloiRogzitettAdatok.filter(data => data.munkaidoKezdete != null);
+      });
+    }
   }
-}
 
-export class EgyNapRogzitettAdatai {
-  id: number;
-  navAdatokFk: number;
-  munkanap: Date;
-  munkaidoKezdete: string;
-  munkaidoVege: string;
-  munkaorakSzama: string;
+  private convertPercToOraString(perc: number):string {
+    return moment().hours(0).minutes(perc * 60).format('hh:mm');
+  }
+
+  private osszegToFtString(osszeg: number) {
+    return osszeg.toString();
+  }
 }

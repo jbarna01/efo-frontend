@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MunkavallaloDTO, NavAdatokControllerService, NavAdatokDTO} from '../../../build/openapi/efo';
+import {MunkavallaloDTO, MunkavallaloiRogzitettAdatokDTO, NavAdatokControllerService, NavAdatokDTO} from '../../../build/openapi/efo';
 import {ComponentBase} from "../common/utils/component-base";
-import {MatDatepickerInputEvent} from "@angular/material/datepicker"
 
 @Component({
   selector: 'app-munkaorak',
@@ -13,6 +12,7 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
 
   kivalasztottFelhasznalo: MunkavallaloDTO = {};
   egyBejelentettNavAdat: NavAdatokDTO = {};
+  munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
 
   constructor(private navAdatokControllerService: NavAdatokControllerService) {
     super();
@@ -26,8 +26,23 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
   }
 
   private bejelentesvalasztas(felhasznaloNavAdat: NavAdatokDTO) {
-    this.navAdatokControllerService.navAdatokId(felhasznaloNavAdat.id!).subscribe(adat => {
-      this.egyBejelentettNavAdat = adat;
-    })
+    if (!!felhasznaloNavAdat) {
+      this.navAdatokControllerService.navAdatokId(felhasznaloNavAdat.id!).subscribe(adat => {
+        this.egyBejelentettNavAdat = adat;
+      });
+    }
   }
+
+  private munkavallaloiRogzitettAdatok(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO) {
+    this.munkavallaloiRogzitettAdatokDTO = munkavallaloiRogzitettAdatokDTO;
+  }
+}
+
+export class EgyNapRogzitettAdatai {
+  id: number;
+  navAdatokFk: number;
+  munkanap: Date;
+  munkaidoKezdete: string;
+  munkaidoVege: string;
+  munkaorakSzama: string;
 }

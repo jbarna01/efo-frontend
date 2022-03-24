@@ -10,11 +10,11 @@
     <div class="jobb-oldal">
       <app-munkaorak-szervezet-panel
         [egyNavAdat]="egyBejelentettNavAdat"
-        [egyMunkavallalo]="kivalasztottFelhasznalo">
+        [egyMunkavallalo]="kivalasztottFelhasznalo" (munkavallaloiRogzitettAdatok)='munkavallaloiRogzitettAdatok($event)'>
       </app-munkaorak-szervezet-panel>
       <app-munkaorak-rogzitese-panel
         [egyNavAdat]="egyBejelentettNavAdat"
-        [egyMunkavallalo]="kivalasztottFelhasznalo">
+        [munkavallaloiRogzitettAdat]="munkavallaloiRogzitettAdatokDTO">
       </app-munkaorak-rogzitese-panel>
     </div>
   </div>

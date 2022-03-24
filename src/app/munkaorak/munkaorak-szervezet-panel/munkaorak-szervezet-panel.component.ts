@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ComponentBase} from "../../common/utils/component-base";
 import {
   MunkaltatoReszlegControllerService,
@@ -23,15 +23,13 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
 
   @Input() egyNavAdat: NavAdatokDTO;
   @Input() egyMunkavallalo: MunkavallaloDTO;
+  @Output() munkavallaloiRogzitettAdatok = new EventEmitter<MunkavallaloiRogzitettAdatokDTO>();
 
   szervezetKod = new FormControl();
   kodok: string[];
   kivalasztottReszlegNev: string = null;
   filteredKodok!: Observable<string[]>;
-  // munkavallaloiRogzitettAdatokSource: MatTableDataSource<MunkavallaloiRogzitettAdatokDTO>;
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
-  // displayedColumns = ['gomb'];
-
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
               private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService,
@@ -43,10 +41,9 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
   }
 
   ngOnChanges(): void {
-    console.log('OK');
     this.szervezetKod.patchValue('');
     this.kivalasztottReszlegNev = null;
-    // this.tablazatAdatok = [];
+    this.munkavallaloiRogzitettAdatokDTO = null;
   }
 
   ngOnInit(): void {
@@ -61,7 +58,6 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
     this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokEgyBejelents(navAdatok.id).subscribe(munkavallaloiRogzitettAdatokDTO => {
       this.munkavallaloiRogzitettAdatokDTO = munkavallaloiRogzitettAdatokDTO;
     });
-    // this.munkavallaloiRogzitettAdatokSource = new MatTableDataSource<MunkavallaloiRogzitettAdatokDTO>(this.munkavallaloiRogzitettAdatokDTO);
   }
 
   private szervezetLekereseKodAlapjan(kod: string): void {
@@ -108,9 +104,9 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
       munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
       this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
         this.initMunkanapok(this.egyNavAdat);
+        this.munkavallaloiRogzitettAdatok.emit(munkavallaloiRogzitettAdatokDTO);
+
       });
     });
   }
-
-
 }

@@ -19,7 +19,7 @@
       <ng-container matColumnDef="neve">
         <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
       </ng-container>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="felhasznaloValasztas(row)"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;let i = index" [ngClass]="{ highlight: felhasznaloSelectedRowIndex === i }" (click)="felhasznaloValasztas(i, row)"></mat-row>
     </table>
     <mat-paginator [pageSize]="5">
     </mat-paginator>
@@ -43,7 +43,7 @@
            style="width: 100%; border: 1px solid var(--divider-color)">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        <mat-cell *matCellDef="let element let i = dataIndex"> {{element.id}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="kezdesNapja">
         <mat-header-cell *matHeaderCellDef>Kezdés napja</mat-header-cell>
@@ -53,7 +53,7 @@
         <mat-header-cell *matHeaderCellDef>Napok száma</mat-header-cell>
         <mat-cell *matCellDef="let element">{{element.munkanapokSzama}} nap</mat-cell>
       </ng-container>
-      <mat-row *matRowDef="let row; columns: displayedColumnsNav;" (click)="bejelentesvalasztas(row)"></mat-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsNav;let i = index" [ngClass]="{ highlight: navAdatSelectedRowIndex === i }" (click)="bejelentesvalasztas(i, row)"></mat-row>
     </table>
     <mat-paginator [pageSize]="15">
     </mat-paginator>

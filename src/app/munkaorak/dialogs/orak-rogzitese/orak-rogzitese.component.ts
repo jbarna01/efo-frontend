@@ -1,7 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {EgyNapRogzitettAdatai,MunkaorakRogzitesePanelComponent} from "../../munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component";
+import {MunkaorakRogzitesePanelComponent} from "../../munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component";
 import * as moment from "moment";
+import {EgyNapRogzitettAdatai} from "../../munkaorak.component";
 
 @Component({
   selector: 'app-orak-rogzitese',

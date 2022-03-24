@@ -119,3 +119,10 @@ input:placeholder-shown {
   /*change color of underline when focused*/
   background-color: var(--dark-primary-color) !important;;
 }
+
+.mat-row:nth-child(odd) .mat-cell {
+  background-color: #f0f0f0;
+}
+.mat-row.highlight .mat-cell {
+  background-color: var(--light-primary-color);
+}

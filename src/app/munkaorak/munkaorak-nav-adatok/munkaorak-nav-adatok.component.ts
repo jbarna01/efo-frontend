@@ -26,6 +26,9 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
   @Output() felhasznaloNavAdat = new EventEmitter<NavAdatokDTO>();
   @Output() munkavallalo = new EventEmitter<MunkavallaloDTO>();
 
+  felhasznaloSelectedRowIndex = -1;
+  navAdatSelectedRowIndex = 0;
+
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
               private navAdatokControllerService: NavAdatokControllerService) {
     super();
@@ -48,7 +51,8 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  private felhasznaloValasztas(kivalasztottFelhasznalo: MunkavallaloDTO) {
+  private felhasznaloValasztas(index: number, kivalasztottFelhasznalo: MunkavallaloDTO) {
+    this.felhasznaloSelectedRowIndex = index;
     this.kivalasztottFelhasznalo = kivalasztottFelhasznalo;
     this.munkavallalo.emit(kivalasztottFelhasznalo);
     const tajSzam = kivalasztottFelhasznalo.tajSzama;
@@ -57,12 +61,13 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
         this.navAdatok = navAdatokList;
         this.dataSourceNav = new MatTableDataSource<NavAdatokDTO>(this.navAdatok);
         this.dataSourceNav.paginator = this.paginator;
-        // this.navOsszesitettAdatLathato = false;
+        this.bejelentesvalasztas(0, this.navAdatok[0]);
       });
     }
   }
 
-  private bejelentesvalasztas(felhasznaloNavAdat: NavAdatokDTO) {
+  private bejelentesvalasztas(index: number, felhasznaloNavAdat: NavAdatokDTO) {
+    this.navAdatSelectedRowIndex = index;
     this.felhasznaloNavAdat.emit(felhasznaloNavAdat);
   }
 
