@@ -10,7 +10,7 @@
         </ng-container>
 
         <ng-container matColumnDef="rogzitettNap">
-          <mat-header-cell *matHeaderCellDef>Munka nap</mat-header-cell>
+          <mat-header-cell style="width: 200px" *matHeaderCellDef>Munka nap</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.munkanap | date: 'yyyy-MM-dd' }} </mat-cell>
         </ng-container>
 
@@ -55,18 +55,21 @@
         </ng-container>
 
         <ng-container matColumnDef="osszesen">
-          <mat-header-cell *matHeaderCellDef>Túlóradíj</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
+          <mat-header-cell *matHeaderCellDef>Összesen</mat-header-cell>
+          <mat-cell *matCellDef="let element;">{{ element.napidij + element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="szervezet">
-          <mat-header-cell *matHeaderCellDef>Túlóradíj</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Szervezet</mat-header-cell>
           <mat-cell *matCellDef="let element;">{{ element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gombok">
-          <mat-header-cell *matHeaderCellDef>Túlóradíj</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
+          <mat-header-cell *matHeaderCellDef>Müveletek</mat-header-cell>
+          <mat-cell *matCellDef="let element;">
+            <mat-icon style="color: var(--default-primary-color)">edit</mat-icon>
+            <mat-icon (click)="rekordTorlese(element)">delete</mat-icon>
+          </mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="rogzitettMunkaidokdisplayedColumns; sticky: true"></mat-header-row>

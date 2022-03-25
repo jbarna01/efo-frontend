@@ -24,6 +24,10 @@ export interface MunkavallaloiRogzitettAdatokDTO {
      */
     navAdatokFk?: number;
     /**
+     * munkaltato_reszleg_id
+     */
+    munkaltatoReszlegId?: number;
+    /**
      * A munkanap dátuma
      */
     munkanap?: string;

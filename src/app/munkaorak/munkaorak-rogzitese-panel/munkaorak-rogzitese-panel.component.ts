@@ -10,6 +10,7 @@ import {
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import * as moment from "moment";
+import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
 
 @Component({
   selector: 'app-munkaorak-rogzitese-panel',
@@ -22,9 +23,9 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
   @Input() munkavallaloiRogzitettAdat: MunkavallaloiRogzitettAdatokDTO;
 
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
-  rogzitettMunkaidokdisplayedColumns = [ 'rogzitettNap', 'munkaidoKezdete', 'munkaidoVege', 'munkaorakSzama', 'normalOrakSzama', 'tulorakSzama', 'oradij', 'napidij', 'tuloraDij', 'osszesen', 'szervezet', 'gombok'];
+  rogzitettMunkaidokdisplayedColumns = ['rogzitettNap', 'munkaidoKezdete', 'munkaidoVege', 'munkaorakSzama', 'normalOrakSzama', 'tulorakSzama', 'oradij', 'napidij', 'tuloraDij', 'osszesen', 'szervezet', 'gombok'];
 
-  constructor(private formBuilder:  FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
               private munkavallaloiRogzitettAdatokControllerService: MunkavallaloiRogzitettAdatokControllerService) {
     super();
@@ -39,7 +40,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
   ngOnInit(): void {
   }
 
-  private rogzitettMunkaorakTablazatInit(navAdatokFk: number):void {
+  private rogzitettMunkaorakTablazatInit(navAdatokFk: number): void {
     if (this.munkavallaloiRogzitettAdat) {
       this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokEgyBejelents(navAdatokFk).subscribe(munkavallaloiRogzitettAdatok => {
         this.munkavallaloiRogzitettAdatokDTO = munkavallaloiRogzitettAdatok.filter(data => data.munkaidoKezdete != null);
@@ -47,11 +48,25 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     }
   }
 
-  private convertPercToOraString(perc: number):string {
+  private convertPercToOraString(perc: number): string {
     return moment().hours(0).minutes(perc * 60).format('hh:mm');
   }
 
-  private osszegToFtString(osszeg: number) {
-    return osszeg.toString();
+  private rekordTorlese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
+
+    munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = null;
+    munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = null;
+    munkavallaloiRogzitettAdatokDTO.munkaidoVege = null;
+    munkavallaloiRogzitettAdatokDTO.munkaorakSzama = null;
+    munkavallaloiRogzitettAdatokDTO.normalOrakSzama = null;
+    munkavallaloiRogzitettAdatokDTO.oradij = null;
+    munkavallaloiRogzitettAdatokDTO.napidij = null;
+    munkavallaloiRogzitettAdatokDTO.tuloradij = null;
+    munkavallaloiRogzitettAdatokDTO.tulorakSzama = null;
+    munkavallaloiRogzitettAdatokDTO.statusz = null;
+    this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+      this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
+
+    });
   }
 }

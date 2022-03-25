@@ -27,6 +27,7 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
 
   szervezetKod = new FormControl();
   kodok: string[];
+  kivalasztottReszlegId: number = null;
   kivalasztottReszlegNev: string = null;
   filteredKodok!: Observable<string[]>;
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
@@ -62,6 +63,7 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
 
   private szervezetLekereseKodAlapjan(kod: string): void {
     this.munkaltatoReszlegControllerService.reszlegKod(kod).subscribe(reszleg => {
+      this.kivalasztottReszlegId = reszleg.id;
       this.kivalasztottReszlegNev = reszleg.nev;
       this.initMunkanapok(this.egyNavAdat);
     })
@@ -87,6 +89,7 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
       let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
       munkavallaloiRogzitettAdatokDTO.id = munkaoraAdatok.data.id;
       munkavallaloiRogzitettAdatokDTO.navAdatokFk = adat.navAdatokFk;
+      munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = this.kivalasztottReszlegId;
       munkavallaloiRogzitettAdatokDTO.munkanap = adat.munkanap;
       munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = munkaoraAdatok.data.munkaidoKezdete;
       munkavallaloiRogzitettAdatokDTO.munkaidoVege = munkaoraAdatok.data.munkaidoVege;
