@@ -32,11 +32,11 @@ export interface MunkavallaloDTO {
      */
     telepules?: string;
     /**
-     * Munkavállaló cme
+     * Munkavállaló cime
      */
     cim?: string;
     /**
-     * Munkavállaló adószűma
+     * Munkavállaló adószáma
      */
     adoszam?: string;
     /**

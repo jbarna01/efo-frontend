@@ -33,25 +33,29 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
-              private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService,
+              // private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService,
               private formBuilder:  FormBuilder,
               private dialog: MatDialog,
               private munkavallaloiRogzitettAdatokControllerService: MunkavallaloiRogzitettAdatokControllerService) {
     super();
-    this.kodokBetoltese()
+    // this.kodokBetoltese()
   }
 
   ngOnChanges(): void {
-    this.szervezetKod.patchValue('');
-    this.kivalasztottReszlegNev = null;
+    // this.szervezetKod.patchValue('');
+    // this.kivalasztottReszlegNev = null;
     this.munkavallaloiRogzitettAdatokDTO = null;
+    if (!!this.egyNavAdat.id) {
+      this.initMunkanapok(this.egyNavAdat);
+    }
   }
 
   ngOnInit(): void {
-    this.filteredKodok = this.szervezetKod.valueChanges.pipe(
-      startWith(''),
-      map(kod => this._filter(kod)),
-    );
+    // this.filteredKodok = this.szervezetKod.valueChanges.pipe(
+    //   startWith(''),
+    //   map(kod => this._filter(kod)),
+    // );
+
   }
 
   private initMunkanapok(navAdatok: NavAdatokDTO): void {
@@ -61,30 +65,33 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
     });
   }
 
-  private szervezetLekereseKodAlapjan(kod: string): void {
-    this.munkaltatoReszlegControllerService.reszlegKod(kod).subscribe(reszleg => {
-      this.kivalasztottReszlegId = reszleg.id;
-      this.kivalasztottReszlegNev = reszleg.nev;
-      this.initMunkanapok(this.egyNavAdat);
-    })
-  }
+  // private szervezetLekereseKodAlapjan(kod: string): void {
+  //   this.munkaltatoReszlegControllerService.reszlegKod(kod).subscribe(reszleg => {
+  //     this.kivalasztottReszlegId = reszleg.id;
+  //     this.kivalasztottReszlegNev = reszleg.nev;
+  //     this.initMunkanapok(this.egyNavAdat);
+  //   })
+  // }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+  //
+  //   return this.kodok.filter(kod => kod.toLowerCase().includes(filterValue));
+  // }
 
-    return this.kodok.filter(kod => kod.toLowerCase().includes(filterValue));
-  }
-
-  private kodokBetoltese(): void {
-    this.munkaltatoReszlegControllerService.reszlegekAll().subscribe(reszlegek => {
-      this.kodok = reszlegek.map(reszleg => reszleg.kod);
-    });
-  }
+  // private kodokBetoltese(): void {
+  //   this.munkaltatoReszlegControllerService.reszlegekAll().subscribe(reszlegek => {
+  //     this.kodok = reszlegek.map(reszleg => reszleg.kod);
+  //   });
+  // }
 
   private munkaoraRogzites(adat: MunkavallaloiRogzitettAdatokDTO) {
     const dialogRef = this.dialog.open(OrakRogziteseComponent, {
-      data: { id: adat.id, navAdatokFk: adat.navAdatokFk,  munkanap: adat.munkanap}, disableClose: true});
+      data: { id: adat.id, navAdatokFk: adat.navAdatokFk,  munkanap: adat.munkanap}, height:'650px', panelClass: 'orak-dialog-egyedi',  maxHeight: '650px', width:'800px', maxWidth:'800px', disableClose: true});
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
+
+      //Ezt az egészet át kell nézni
+
       let vanTulora = moment(munkaoraAdatok.data.munkaidoVege, 'HH:mm').diff(moment('16:00', 'HH:mm'), "minute") > 0;
       let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
       munkavallaloiRogzitettAdatokDTO.id = munkaoraAdatok.data.id;

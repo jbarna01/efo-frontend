@@ -1,0 +1,78 @@
+<div *ngIf="modositottRogzitettAdatok"
+  style="padding-top: 2em; width: 80%; margin: 1em auto; border: 1px solid #a0a0a0; background: #fcfcfc;box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0, 0, 0, 0.12);">
+  <mat-grid-list cols="3" rowHeight="80px" class="mat-grid-li">
+    <form [formGroup]="rogzitettAdatokForm">
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label class="placeholder">Munkanap</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.munkanap" formControlName="munkanap" matInput type="text" tabindex="1" required>
+          <mat-error>A felhasználó nevének megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Munkaidő kezdete</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.munkaidoKezdete" formControlName="munkaidoKezdete" (change)="idoEllenorzese()" matInput type="time" tabindex="7" required>
+          <mat-error>Az adószám 9 számjegy hosszú!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Munkaidő vége</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.munkaidoVege" formControlName="munkaidoVege" (change)="idoEllenorzese()" matInput type="time" tabindex="6" required>
+          <mat-error>Az adószám 10 számjegy hosszú!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Munkaórák száma</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.munkaorakSzama" formControlName="munkaorakSzama" matInput type="text" tabindex="2" required>
+          <mat-error>A anya nevét kötelező megadni!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Normál órák</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.normalOrakSzama" formControlName="normalOrakSzama" (change)="szamolas()" matInput type="text" tabindex="2" required>
+          <mat-error>A anya nevét kötelező megadni!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Túlórák</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.tulorakSzama" formControlName="tulorakSzama" matInput type="text" tabindex="3" required>
+          <mat-error>A irányítószám csak számokat tartalmazhat, és 4 számjegy hosszú!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Óradíj</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.oradij" formControlName="oradij" (change)="szamolas()" matInput type="text" tabindex="4" required>
+          <mat-error>A település megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Napidíj</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.napidij" formControlName="napidij" matInput type="text" tabindex="4" required>
+          <mat-error>A település megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <mat-form-field class="form">
+          <mat-label>Túlóradíj</mat-label>
+          <input [(ngModel)]="modositottRogzitettAdatok.tuloradij" formControlName="tuloradij" matInput type="text" tabindex="5" required>
+          <mat-error>A cím megadása kötelező!</mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+    </form>
+  </mat-grid-list>
+  <div style="display:flex; justify-content: end; padding: 1em;">
+    <button [disabled]=false (click)="bezarClick()" class="alap-button">
+      Bezár
+    </button>
+    <button [disabled]=false (click)="mentesClick()" class="alap-button" >
+      Mentés
+    </button>
+  </div>
+</div>

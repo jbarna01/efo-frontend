@@ -2,11 +2,13 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
+import { FoglalkoztatasAdatokControllerService } from './api/foglalkoztatasAdatokController.service';
 import { MunkaltatoReszlegControllerService } from './api/munkaltatoReszlegController.service';
 import { MunkavallaloControllerService } from './api/munkavallaloController.service';
 import { MunkavallaloiRogzitettAdatokControllerService } from './api/munkavallaloiRogzitettAdatokController.service';
 import { NavAdatokControllerService } from './api/navAdatokController.service';
 import { NavIdeigelenesAdatokControllerService } from './api/navIdeigelenesAdatokController.service';
+import { ReportControllerService } from './api/reportController.service';
 
 @NgModule({
   imports:      [],

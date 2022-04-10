@@ -1,7 +1,7 @@
 <mat-card *ngIf="egyNavAdat.id" style="min-height: 50%; padding: 0">
   <div class="jobb-oldal-also-panel">
     <div class="jobb-also-adat-box" style="flex-direction: column">
-      <div style="text-align: center;font-size: 1em;font-weight: 700;padding: 0.7em;color: var(--default-primary-color)">Rögzített munkaórák</div>
+      <div style="text-align: center;font-size: 1em;font-weight: 700;padding: 0.5em;color: var(--default-primary-color)">Rögzített munkaórák</div>
 
       <table *ngIf="munkavallaloiRogzitettAdat" mat-table [dataSource]='munkavallaloiRogzitettAdatokDTO' class="mat-elevation-z8" style="width: 100%">
         <ng-container matColumnDef="id">
@@ -67,8 +67,9 @@
         <ng-container matColumnDef="gombok">
           <mat-header-cell *matHeaderCellDef>Müveletek</mat-header-cell>
           <mat-cell *matCellDef="let element;">
-            <mat-icon style="color: var(--default-primary-color)">edit</mat-icon>
+            <mat-icon (click)="rekordModositasa(element)" style="color: var(--default-primary-color)">edit</mat-icon>
             <mat-icon (click)="rekordTorlese(element)">delete</mat-icon>
+            <mat-icon (click)="printEfoAdatlap(element)" style="color: var(--light-primary-color)">print</mat-icon>
           </mat-cell>
         </ng-container>
 

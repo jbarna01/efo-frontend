@@ -1,19 +1,60 @@
-.mat-dialog-title{
-  background-color: var(--default-primary-color);
-  color: white;
+.title {
+  text-align: center;
+  padding: 0.2em 0;
+  background: var(--light-primary-color);
+  color: var(--default-primary-color);
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /*background-color: DodgerBlue;*/
+}
+
+.flex-container > div {
+  /*background-color: #f1f1f1;*/
+  margin: 5px;
+  /*padding: 5px;*/
+  font-size: 1em;
+}
+
+.egy-from-box {
+  display: flex;
+  align-items: center;
+  width: 24%;
+  padding: 0 3%;
+}
+
+.mat-input-number {
   font-weight: bold;
-  font-size: 1.3em;
-  padding: 0.5em;
+  color: var(--default-primary-color);
+  text-align: right;
+}
+
+.mat-input-text {
+  font-weight: bold;
+  color: var(--default-primary-color);
   text-align: center;
 }
 
-.mat-grid-tile {
-  /*background: #FF9800;*/
-  margin: 1em auto;
-  font-size: 1.5em;
+.mat-suffix {
   color: var(--default-primary-color);
-  width: 25%!important;
+  font-weight: bold;
 }
+
+.mat-dialog-content {
+  height: 620px;
+  max-height: 620px;
+  padding: 0;
+  margin: 0;
+}
+
 .mat-form-field {
   width: 100%;
+}
+
+.check-box-text {
+  font-weight: bold;
+  color: var(--default-primary-color);
 }

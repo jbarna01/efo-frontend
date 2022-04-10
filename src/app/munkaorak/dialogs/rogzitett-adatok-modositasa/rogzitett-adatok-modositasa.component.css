@@ -1,0 +1,7 @@
+.mat-row:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+.mat-form-field {
+  width: 70%;
+}

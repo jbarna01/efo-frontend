@@ -37,6 +37,10 @@ import {MatSelectModule} from "@angular/material/select";
 import {TimePickerComponent} from './common/time-picker/time-picker.component';
 import {OrakRogziteseComponent} from './munkaorak/dialogs/orak-rogzitese/orak-rogzitese.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {RogzitettAdatokModositasaComponent} from "./munkaorak/dialogs/rogzitett-adatok-modositasa/rogzitett-adatok-modositasa.component";
+import {PdfViewerComponent} from "./report/pdf-viewer/pdf-viewer.component";
+import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,10 @@ import {MatDialogModule} from "@angular/material/dialog";
     MunkaorakSzervezetPanelComponent,
     DataPickerComponent,
     TimePickerComponent,
-    OrakRogziteseComponent
+    OrakRogziteseComponent,
+    RogzitettAdatokModositasaComponent,
+    PdfViewerComponent,
+    ExamplePdfViewerComponent
   ],
   entryComponents: [
     OrakRogziteseComponent
@@ -85,7 +92,8 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatAutocompleteModule,
     MatOptionModule,
     MatSelectModule,
-    MatDialogModule
+    MatDialogModule,
+    NgxExtendedPdfViewerModule
   ],
   exports: [
     BrowserModule,

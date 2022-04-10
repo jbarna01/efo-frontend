@@ -126,3 +126,8 @@ input:placeholder-shown {
 .mat-row.highlight .mat-cell {
   background-color: var(--light-primary-color);
 }
+.mat-dialog-container {
+  padding: 0 0 !important;
+  margin: 0 0 !important;
+  border-radius: 1em!important;
+}

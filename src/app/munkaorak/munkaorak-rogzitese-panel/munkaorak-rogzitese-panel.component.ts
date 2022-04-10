@@ -11,6 +11,8 @@ import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from "@
 import {MatDialog} from "@angular/material/dialog";
 import * as moment from "moment";
 import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
+import {RogzitettAdatokModositasaComponent} from "../dialogs/rogzitett-adatok-modositasa/rogzitett-adatok-modositasa.component";
+import {PdfViewerComponent} from "../../report/pdf-viewer/pdf-viewer.component";
 
 @Component({
   selector: 'app-munkaorak-rogzitese-panel',
@@ -52,6 +54,17 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     return moment().hours(0).minutes(perc * 60).format('hh:mm');
   }
 
+  private rekordModositasa(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
+    const dialogRef = this.dialog.open(RogzitettAdatokModositasaComponent, {
+      data: {munkavallaloiRogzitettAdatokDTO: munkavallaloiRogzitettAdatokDTO}, minWidth: 600, disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(modositottAdatok => {
+      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(modositottAdatok.data).subscribe(munkaoraAdatok => {
+        this.rogzitettMunkaorakTablazatInit(munkaoraAdatok.navAdatokFk);
+      });
+    });
+  }
+
   private rekordTorlese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
 
     munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = null;
@@ -69,4 +82,16 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
 
     });
   }
+
+  private printEfoAdatlap(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
+    console.log(munkavallaloiRogzitettAdatokDTO.id);
+    const dialogRef = this.dialog.open(PdfViewerComponent, {
+      data: {
+        id: munkavallaloiRogzitettAdatokDTO.id,
+      }, disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(printResult => {
+    });
+  }
+
 }

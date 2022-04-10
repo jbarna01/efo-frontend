@@ -1,3 +1,5 @@
+export * from './foglalkoztatasAdatokController.service';
+import { FoglalkoztatasAdatokControllerService } from './foglalkoztatasAdatokController.service';
 export * from './munkaltatoReszlegController.service';
 import { MunkaltatoReszlegControllerService } from './munkaltatoReszlegController.service';
 export * from './munkavallaloController.service';
@@ -8,4 +10,6 @@ export * from './navAdatokController.service';
 import { NavAdatokControllerService } from './navAdatokController.service';
 export * from './navIdeigelenesAdatokController.service';
 import { NavIdeigelenesAdatokControllerService } from './navIdeigelenesAdatokController.service';
-export const APIS = [MunkaltatoReszlegControllerService, MunkavallaloControllerService, MunkavallaloiRogzitettAdatokControllerService, NavAdatokControllerService, NavIdeigelenesAdatokControllerService];
+export * from './reportController.service';
+import { ReportControllerService } from './reportController.service';
+export const APIS = [FoglalkoztatasAdatokControllerService, MunkaltatoReszlegControllerService, MunkavallaloControllerService, MunkavallaloiRogzitettAdatokControllerService, NavAdatokControllerService, NavIdeigelenesAdatokControllerService, ReportControllerService];
