@@ -1,17 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ComponentBase} from "../../common/utils/component-base";
 import {
-  MunkaltatoReszlegDTO,
-  MunkavallaloDTO,
+  FoglalkoztatasAdatokControllerService,
+  FoglalkoztatasAdatokDTO,
   MunkavallaloiRogzitettAdatokControllerService,
   MunkavallaloiRogzitettAdatokDTO,
   NavAdatokDTO
 } from "../../../../build/openapi/efo";
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import * as moment from "moment";
 import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
-import {RogzitettAdatokModositasaComponent} from "../dialogs/rogzitett-adatok-modositasa/rogzitett-adatok-modositasa.component";
 import {PdfViewerComponent} from "../../report/pdf-viewer/pdf-viewer.component";
 
 @Component({
@@ -24,12 +23,13 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
   @Input() egyNavAdat: NavAdatokDTO;
   @Input() munkavallaloiRogzitettAdat: MunkavallaloiRogzitettAdatokDTO;
 
-  munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
-  rogzitettMunkaidokdisplayedColumns = ['rogzitettNap', 'munkaidoKezdete', 'munkaidoVege', 'munkaorakSzama', 'normalOrakSzama', 'tulorakSzama', 'oradij', 'napidij', 'tuloraDij', 'osszesen', 'szervezet', 'gombok'];
+  foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO[] = [];
+  rogzitettMunkaidokdisplayedColumns = ['szervezet', 'munkanapDatuma', 'munkaidoKezdete', 'munkaidoVege', 'teljesMunkaorakSzama', 'oradij', 'osszesen', 'gombok'];
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
-              private munkavallaloiRogzitettAdatokControllerService: MunkavallaloiRogzitettAdatokControllerService) {
+              private munkavallaloiRogzitettAdatokControllerService: MunkavallaloiRogzitettAdatokControllerService,
+              private foglalkoztatasAdatokControllerService: FoglalkoztatasAdatokControllerService) {
     super();
   }
 
@@ -44,8 +44,8 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
 
   private rogzitettMunkaorakTablazatInit(navAdatokFk: number): void {
     if (this.munkavallaloiRogzitettAdat) {
-      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokEgyBejelents(navAdatokFk).subscribe(munkavallaloiRogzitettAdatok => {
-        this.munkavallaloiRogzitettAdatokDTO = munkavallaloiRogzitettAdatok.filter(data => data.munkaidoKezdete != null);
+      this.foglalkoztatasAdatokControllerService.foglalkoztatasAdatokNavAdatokFk(navAdatokFk).subscribe(foglalkoztatasAdatok => {
+        this.foglalkoztatasAdatokDTO = foglalkoztatasAdatok.filter(data => data.munkaidoKezdete != null);
       });
     }
   }
@@ -54,13 +54,17 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     return moment().hours(0).minutes(perc * 60).format('hh:mm');
   }
 
-  private rekordModositasa(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
-    const dialogRef = this.dialog.open(RogzitettAdatokModositasaComponent, {
-      data: {munkavallaloiRogzitettAdatokDTO: munkavallaloiRogzitettAdatokDTO}, minWidth: 600, disableClose: true
+  private rekordModositasa(adat: FoglalkoztatasAdatokDTO): void {
+    const dialogRef = this.dialog.open(OrakRogziteseComponent, {
+      data: {adat: adat}, height: '650px', panelClass: 'orak-dialog-egyedi', maxHeight: '650px', width: '800px', maxWidth: '800px', disableClose: true
     });
-    dialogRef.afterClosed().subscribe(modositottAdatok => {
-      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(modositottAdatok.data).subscribe(munkaoraAdatok => {
-        this.rogzitettMunkaorakTablazatInit(munkaoraAdatok.navAdatokFk);
+    dialogRef.afterClosed().subscribe(munkaoraAdatok => {
+
+      let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;
+      munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
+      munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
+      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+        this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
       });
     });
   }
@@ -70,11 +74,10 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = null;
     munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = null;
     munkavallaloiRogzitettAdatokDTO.munkaidoVege = null;
-    munkavallaloiRogzitettAdatokDTO.munkaorakSzama = null;
+    munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
     munkavallaloiRogzitettAdatokDTO.normalOrakSzama = null;
     munkavallaloiRogzitettAdatokDTO.oradij = null;
-    munkavallaloiRogzitettAdatokDTO.napidij = null;
-    munkavallaloiRogzitettAdatokDTO.tuloradij = null;
+    munkavallaloiRogzitettAdatokDTO.tulorakDija = null;
     munkavallaloiRogzitettAdatokDTO.tulorakSzama = null;
     munkavallaloiRogzitettAdatokDTO.statusz = null;
     this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
@@ -92,6 +95,17 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     });
     dialogRef.afterClosed().subscribe(printResult => {
     });
+  }
+
+  private vegosszegSzamolas(foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO): number {
+
+    let szorzo = foglalkoztatasAdatokDTO.munkaszunetinap ? 2 : 1;
+
+    let normalOsszeg = foglalkoztatasAdatokDTO.oradij * foglalkoztatasAdatokDTO.normalOrakSzama;
+    let tuloraOsszeg = foglalkoztatasAdatokDTO.tulorakDija * foglalkoztatasAdatokDTO.tulorakSzama;
+    let ejszakaiOsszeg = foglalkoztatasAdatokDTO.ejszakaiOrakDija * foglalkoztatasAdatokDTO.ejszakaiOrakSzama;
+
+    return (normalOsszeg + tuloraOsszeg + ejszakaiOsszeg) * szorzo;
   }
 
 }

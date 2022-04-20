@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MunkaorakRogzitesePanelComponent} from "../../munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component";
-import {EgyNapRogzitettAdatai} from "../../munkaorak.component";
+// import {EgyNapRogzitettAdatai} from "../../munkaorak.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MunkavallaloiRogzitettAdatokDTO} from "../../../../../build/openapi/efo";
 import * as moment from "moment";
@@ -23,7 +23,7 @@ export class RogzitettAdatokModositasaComponent implements OnInit {
     normalOrakSzama: new FormControl({value: '', disabled: false}, [Validators.required]),
     tulorakSzama: new FormControl({value: '', disabled: true}, [Validators.required]),
     oradij: new FormControl({value: '', disabled: false}, [Validators.required]),
-    napidij: new FormControl({value: '', disabled: true}, [Validators.required]),
+//    napidij: new FormControl({value: '', disabled: true}, [Validators.required]),
     tuloradij: new FormControl({value: '', disabled: true}, [Validators.required]),
   });
 
@@ -51,7 +51,7 @@ export class RogzitettAdatokModositasaComponent implements OnInit {
 
   private szamolas(): void {
     this.modositottRogzitettAdatok.tulorakSzama = this.modositottRogzitettAdatok.munkaorakSzama - this.modositottRogzitettAdatok.normalOrakSzama;
-    this.modositottRogzitettAdatok.napidij = this.modositottRogzitettAdatok.oradij * this.modositottRogzitettAdatok.normalOrakSzama;
+    this.modositottRogzitettAdatok.oradij = this.modositottRogzitettAdatok.oradij * this.modositottRogzitettAdatok.normalOrakSzama;
     this.modositottRogzitettAdatok.tuloradij = this.modositottRogzitettAdatok.oradij * this.modositottRogzitettAdatok.tulorakSzama * 1.25;
   }
 

@@ -14,12 +14,12 @@
         </div>
         <div class="egy-from-box">
           <mat-form-field>
-            <mat-label>Szervezet kód</mat-label>
+            <mat-label>Szervezet név</mat-label>
             <input class="mat-input-text" matInput type="text" value="{{kivalasztottReszlegNev}}" disabled="true">
           </mat-form-field>
         </div>
         <div class="egy-from-box">
-          <mat-checkbox class="check-box-text" [(ngModel)]="munkaszunetinap" formControlName="munakszunetinap" (change)="unnepnapSzamolasa()"
+          <mat-checkbox class="check-box-text" [(ngModel)]="munkaszunetinap" formControlName="munkaszunetinap" (change)="unnepnapSzamolasa()"
                         tabindex="0">Munkaszüneti nap
           </mat-checkbox>
         </div>
@@ -52,7 +52,7 @@
         <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Napidíj</mat-label>
-            <input class="mat-input-number" [(ngModel)]="napidij" formControlName="napidij" matInput type="number" tabindex="6"
+            <input class="mat-input-number" [(ngModel)]="oradij" formControlName="oradij" matInput type="number" tabindex="6"
                    (change)="munkadijakSzamolasa()" required>
             <span class="mat-suffix" matSuffix> Ft</span>
             <mat-error>Csak számokat tartalmazhat</mat-error>
@@ -103,7 +103,8 @@
         <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Éjszakai pótlék</mat-label>
-            <input class="mat-input-number" [(ngModel)]="ejszakaiPotlek" formControlName="ejszakaiPotlek" matInput type="number" tabindex="12" required>
+            <input class="mat-input-number" [(ngModel)]="ejszakaiPotlek" formControlName="ejszakaiPotlek" matInput type="number" tabindex="12"
+                   required>
             <span class="mat-suffix" matSuffix> Ft</span>
             <mat-error>Csak számokat tartalmazhat</mat-error>
           </mat-form-field>
@@ -173,10 +174,10 @@
   </form>
 
   <div style="display:flex; justify-content: end; padding: 1em;">
-    <button class="alap-button">
-      Szerkeszt
+    <button class="alap-button" (click)="megseClick()">
+      mégse
     </button>
-    <button class="alap-button">
+    <button class="alap-button" (click)="mentesClick()">
       Mentés
     </button>
   </div>

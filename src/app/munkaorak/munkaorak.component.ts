@@ -27,7 +27,7 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
 
   private bejelentesvalasztas(felhasznaloNavAdat: NavAdatokDTO) {
     if (!!felhasznaloNavAdat) {
-      this.navAdatokControllerService.navAdatokId(felhasznaloNavAdat.id!).subscribe(adat => {
+      this.navAdatokControllerService.navAdatokFk(felhasznaloNavAdat.id!).subscribe(adat => {
         this.egyBejelentettNavAdat = adat;
       });
     }
@@ -38,11 +38,3 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
   }
 }
 
-export class EgyNapRogzitettAdatai {
-  id: number;
-  navAdatokFk: number;
-  munkanap: Date;
-  munkaidoKezdete: string;
-  munkaidoVege: string;
-  munkaorakSzama: string;
-}

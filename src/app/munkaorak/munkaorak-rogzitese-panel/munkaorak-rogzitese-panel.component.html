@@ -3,65 +3,50 @@
     <div class="jobb-also-adat-box" style="flex-direction: column">
       <div style="text-align: center;font-size: 1em;font-weight: 700;padding: 0.5em;color: var(--default-primary-color)">Rögzített munkaórák</div>
 
-      <table *ngIf="munkavallaloiRogzitettAdat" mat-table [dataSource]='munkavallaloiRogzitettAdatokDTO' class="mat-elevation-z8" style="width: 100%">
+      <table *ngIf="munkavallaloiRogzitettAdat" mat-table [dataSource]='foglalkoztatasAdatokDTO' class="mat-elevation-z8" style="width: 100%">
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
           <mat-cell *matCellDef="let element"> {{element.id }} </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="rogzitettNap">
-          <mat-header-cell style="width: 200px" *matHeaderCellDef>Munka nap</mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.munkanap | date: 'yyyy-MM-dd' }} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="munkaidoKezdete">
-          <mat-header-cell *matHeaderCellDef>Kezdet</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.munkaidoKezdete }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="munkaidoVege">
-          <mat-header-cell *matHeaderCellDef>Vége</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.munkaidoVege }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="munkaorakSzama">
-          <mat-header-cell *matHeaderCellDef>Munkaórák</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ convertPercToOraString(element.munkaorakSzama) }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="normalOrakSzama">
-          <mat-header-cell *matHeaderCellDef>Normál órák</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ convertPercToOraString(element.normalOrakSzama) }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="tulorakSzama">
-          <mat-header-cell *matHeaderCellDef>Túlórák</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ convertPercToOraString(element.tulorakSzama) }}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="oradij">
-          <mat-header-cell *matHeaderCellDef>Óradíj</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.oradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="napidij">
-          <mat-header-cell *matHeaderCellDef>Napidíj</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.napidij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="tuloraDij">
-          <mat-header-cell *matHeaderCellDef>Túlóradíj</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="osszesen">
-          <mat-header-cell *matHeaderCellDef>Összesen</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.napidij + element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
+        <ng-container matColumnDef="reszlegKod">
+          <mat-header-cell *matHeaderCellDef>reszlegKod</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.reszlegKod }} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="szervezet">
-          <mat-header-cell *matHeaderCellDef>Szervezet</mat-header-cell>
-          <mat-cell *matCellDef="let element;">{{ element.tuloradij | currency: 'HUF':'':'1.0-0'}}</mat-cell>
+          <mat-header-cell style="min-width: 250px;justify-content: flex-start" *matHeaderCellDef>Szervezet</mat-header-cell>
+          <mat-cell style="min-width: 250px;justify-content: flex-start" *matCellDef="let element;">{{ element.reszlegNeve }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="munkanapDatuma">
+          <mat-header-cell style="justify-content: center" *matHeaderCellDef>Munka nap</mat-header-cell>
+          <mat-cell style="justify-content: center" *matCellDef="let element"> {{element.munkanapDatuma | date: 'yyyy-MM-dd' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="munkaidoKezdete">
+          <mat-header-cell style="justify-content: center" *matHeaderCellDef>Kezdete</mat-header-cell>
+          <mat-cell style="justify-content: center" *matCellDef="let element;">{{ element.munkaidoKezdete }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="munkaidoVege">
+          <mat-header-cell style="justify-content: center" *matHeaderCellDef>Vége</mat-header-cell>
+          <mat-cell style="justify-content: center" *matCellDef="let element;">{{ element.munkaidoVege }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="teljesMunkaorakSzama">
+          <mat-header-cell style="justify-content: flex-end" *matHeaderCellDef>Munkaórák</mat-header-cell>
+          <mat-cell style="justify-content: flex-end" *matCellDef="let element;">{{ element.teljesMunkaorakSzama }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="oradij">
+          <mat-header-cell style="justify-content: flex-end" *matHeaderCellDef>Óradíj</mat-header-cell>
+          <mat-cell style="justify-content: flex-end" *matCellDef="let element;">{{ element.oradij | currency: 'HUF':'':'1.0-0'}} Ft</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="osszesen">
+          <mat-header-cell style="justify-content: flex-end; padding-right: 1em" *matHeaderCellDef>Összesen</mat-header-cell>
+          <mat-cell style="justify-content: flex-end; padding-right: 1em" *matCellDef="let element;">{{ vegosszegSzamolas(element) | currency: 'HUF':'':'1.0-0'}} Ft</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="gombok">

@@ -97,7 +97,7 @@
         <div style="text-align: center;font-size: 1em;font-weight: 700;padding: 0.5em;color: var(--default-primary-color)">Munkanapok</div>
       <mat-grid-list cols="5" rowHeight="4em">
         <mat-grid-tile *ngFor="let element of munkavallaloiRogzitettAdatokDTO">
-          <button class="alap-button" [disabled]="element.munkaidoKezdete" (click)="munkaoraRogzites(element)">{{element.munkanap | date: 'yyyy-MM-dd' }}</button>
+          <button class="alap-button" [disabled]="element.munkaidoKezdete" (click)="munkaoraRogzites(element)">{{element.munkanapDatuma | date: 'yyyy-MM-dd' }}</button>
         </mat-grid-tile>
       </mat-grid-list>
     </div>

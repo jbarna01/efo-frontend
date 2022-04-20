@@ -4,7 +4,7 @@
     <form [formGroup]="rogzitettAdatokForm">
       <mat-grid-tile>
         <mat-form-field class="form">
-          <mat-label class="placeholder">Munkanap</mat-label>
+          <mat-label class="placeholder">Munkanap1</mat-label>
           <input [(ngModel)]="modositottRogzitettAdatok.munkanap" formControlName="munkanap" matInput type="text" tabindex="1" required>
           <mat-error>A felhasználó nevének megadása kötelező!</mat-error>
         </mat-form-field>
@@ -51,13 +51,13 @@
           <mat-error>A település megadása kötelező!</mat-error>
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile>
-        <mat-form-field class="form">
-          <mat-label>Napidíj</mat-label>
-          <input [(ngModel)]="modositottRogzitettAdatok.napidij" formControlName="napidij" matInput type="text" tabindex="4" required>
-          <mat-error>A település megadása kötelező!</mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
+<!--      <mat-grid-tile>-->
+<!--        <mat-form-field class="form">-->
+<!--          <mat-label>Napidíj</mat-label>-->
+<!--          <input [(ngModel)]="modositottRogzitettAdatok.napidij" formControlName="napidij" matInput type="text" tabindex="4" required>-->
+<!--          <mat-error>A település megadása kötelező!</mat-error>-->
+<!--        </mat-form-field>-->
+<!--      </mat-grid-tile>-->
       <mat-grid-tile>
         <mat-form-field class="form">
           <mat-label>Túlóradíj</mat-label>

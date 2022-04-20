@@ -2,9 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MunkaorakRogzitesePanelComponent} from "../../munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component";
 import * as moment from "moment";
-import {EgyNapRogzitettAdatai} from "../../munkaorak.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MunkaltatoReszlegControllerService} from "../../../../../build/openapi/efo";
+import {MunkaltatoReszlegControllerService, MunkavallaloiRogzitettAdatokDTO} from "../../../../../build/openapi/efo";
 import {ComponentBase} from "../../../common/utils/component-base";
 
 @Component({
@@ -14,19 +13,24 @@ import {ComponentBase} from "../../../common/utils/component-base";
 })
 export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
-  // private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>;
   id: number;
   navAdatokFk: number;
-  munkanap: Date;
+  munkanapDatuma: Date;
   munkaidoKezdete: string = '';
   munkaidoVege: string = '';
   munkaorakSzama: string = '';
+  teljesMunkaidoPercekben: number = 0;
   normalMunkaorakSzama: string = '';
+  normalMunkaidoPercekben: number = 0;
   tuloraMunkaorakSzama: string = '';
+  tuloraMunkaidoPercekben: number = 0;
   ejszakaiMunkaorakSzama: string = '';
+  ejszakaiMunkaidoPercekben: number = 0;
   unnepnapiMunkaorakSzama: string = '';
-  egyNapRogzitettAdatai: EgyNapRogzitettAdatai;
-  napidij: number = 0;
+  munkavallaloiRogzitettAdatok: MunkavallaloiRogzitettAdatokDTO;
+
+  oradij: number = 0;
+
   napidijOsszeg: number = 0;
   tuloraDij: number = 0;
   tuloraDijOsszeg: number = 0;
@@ -44,13 +48,13 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   rogzitettAdatokForm: FormGroup = new FormGroup({
     szervezetKod: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.required]),
-    munakszunetinap: new FormControl({value: false, disabled: false}, [Validators.required]),
+    munkaszunetinap: new FormControl({value: false, disabled: false}, [Validators.required]),
 
     munkaidoKezdete: new FormControl({value: '', disabled: false}, [Validators.required]),
     munkaidoVege: new FormControl({value: '', disabled: false}, [Validators.required]),
     munkaorakSzama: new FormControl({value: '', disabled: true}, [Validators.required]),
 
-    napidij: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.required]),
+    oradij: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.required]),
     normalMunkaorakSzama: new FormControl({value: '', disabled: true}, [Validators.required]),
     napidijOsszeg: new FormControl({value: '', disabled: true}, [Validators.required]),
     tuloraDij: new FormControl({value: '', disabled: true}, [Validators.required]),
@@ -73,10 +77,24 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
               private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>,
               private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService) {
     super();
-    this.id = data.id;
-    this.navAdatokFk = data.navAdatokFk;
-    this.munkanap = data.munkanap;
-    this.egyNapRogzitettAdatai = new EgyNapRogzitettAdatai();
+    this.id = data.adat.id;
+    this.navAdatokFk = data.adat.navAdatokFk;
+    this.munkanapDatuma = data.adat.munkanapDatuma;
+    this.munkavallaloiRogzitettAdatok = data.adat;
+
+
+    if (data.adat.munkaidoKezdete != null) {
+      this.munkavallaloiRogzitettAdatok = data.adat;
+      this.szervezetKod = this.data.adat.reszlegKod;
+      this.kivalasztottReszlegNev = this.data.adat.reszlegNeve;
+      this.munkaidoKezdete = this.data.adat.munkaidoKezdete;
+      this.munkaidoVege = this.data.adat.munkaidoVege;
+      this.oradij = this.data.adat.oradij;
+      this.munkaszunetinap = this.data.adat.munkaszunetinap;
+      this.szakkepzetsegetIgenyel = this.data.adat.szakkepzetsegetIgenyel;
+      this.idoEllenorzese();
+      this.munkadijakSzamolasa();
+    }
   }
 
   ngOnInit(): void {
@@ -84,23 +102,23 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   private idoEllenorzese(): void {
     if ((this.munkaidoKezdete.length > 0) && (this.munkaidoVege.length > 0)) {
-      let teljesMunkaidoPercekben = this.teljesMunkaidoSzamolas(this.munkaidoKezdete, this.munkaidoVege);
-      let normalMunkaidoPercekben = this.normalMunkaidoSzamolas(teljesMunkaidoPercekben);
-      let tuloraMunkaidoPercekben = this.tuloraMunkaidoSzamolas(teljesMunkaidoPercekben);
-      let ejszakaiMunkaidoPercekben = this.ejszakaiMunkaidoSzamolas(this.munkaidoKezdete, this.munkaidoVege);
-      this.munkaorakSzama = moment().hours(0).minutes(teljesMunkaidoPercekben).format('HH:mm');
-      this.unnepnapiMunkaorakSzama = this.munkaszunetinap ? moment().hours(0).minutes(teljesMunkaidoPercekben).format('HH:mm') : '00:00';
-      this.normalMunkaorakSzama = moment().hours(0).minutes(normalMunkaidoPercekben).format('HH:mm');
-      this.tuloraMunkaorakSzama = moment().hours(0).minutes(tuloraMunkaidoPercekben).format('HH:mm');
-      this.ejszakaiMunkaorakSzama = moment().hours(0).minutes(ejszakaiMunkaidoPercekben).format('HH:mm');
+      this.teljesMunkaidoPercekben = this.teljesMunkaidoSzamolas(this.munkaidoKezdete, this.munkaidoVege);
+      this.normalMunkaidoPercekben = this.normalMunkaidoSzamolas(this.teljesMunkaidoPercekben);
+      this.tuloraMunkaidoPercekben = this.tuloraMunkaidoSzamolas(this.teljesMunkaidoPercekben);
+      this.ejszakaiMunkaidoPercekben = this.ejszakaiMunkaidoSzamolas(this.munkaidoKezdete, this.munkaidoVege, this.teljesMunkaidoPercekben);
+      this.munkaorakSzama = moment().hours(0).minutes(this.teljesMunkaidoPercekben).format('HH:mm');
+      this.unnepnapiMunkaorakSzama = this.munkaszunetinap ? moment().hours(0).minutes(this.teljesMunkaidoPercekben).format('HH:mm') : '00:00';
+      this.normalMunkaorakSzama = moment().hours(0).minutes(this.normalMunkaidoPercekben).format('HH:mm');
+      this.tuloraMunkaorakSzama = moment().hours(0).minutes(this.tuloraMunkaidoPercekben).format('HH:mm');
+      this.ejszakaiMunkaorakSzama = moment().hours(0).minutes(this.ejszakaiMunkaidoPercekben).format('HH:mm');
       this.osszegekkSzamolasa();
     }
   }
 
   private munkadijakSzamolasa(): void {
-    this.tuloraDij = this.napidij * 1.5;
-    this.ejszakaiPotlek = this.napidij * 0.15;
-    this.unnepnapiPotlek = this.munkaszunetinap ? this.napidij : 0;
+    this.tuloraDij = this.oradij * 1.5;
+    this.ejszakaiPotlek = this.oradij * 0.15;
+    this.unnepnapiPotlek = this.munkaszunetinap ? this.oradij : 0;
     this.osszegekkSzamolasa();
   }
 
@@ -126,51 +144,76 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     return (teljesMunkaidoPercekben > 480) ? teljesMunkaidoPercekben - 480 : 0;
   }
 
-  private ejszakaiMunkaidoSzamolas(munkaidoKezdete: string, munkaidoVege: string): number {
+  private ejszakaiMunkaidoSzamolas(munkaidoKezdete: string, munkaidoVege: string, teljesMunkaidoPercek: number): number {
     let _06_OraPercek = 360;
     let _22_OraPercek = 1320;
     let _24_OraPercek = 1440;
 
+    munkaidoVege = munkaidoVege == '00:00' ? '24:00' : munkaidoVege;
+
     let munkaidoKezdetePercek = (moment(munkaidoKezdete, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute"));
     let munkaidoVegePercek = (moment(munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute"));
+    let _teljesMunkaidoVegeOsszPerc = munkaidoKezdetePercek + teljesMunkaidoPercek;
 
     let _06_elottiEjszakaiPercek = 0;
     let _22_utaniEjszakaiPercek = 0;
 
-    //22-24 -> MK<22  :: (MV<22, 22<MV<=24, E-MV:24)
-    if (munkaidoKezdetePercek < _22_OraPercek) {
-      if (munkaidoVegePercek > _22_OraPercek) {
-        _22_utaniEjszakaiPercek = munkaidoVegePercek < _24_OraPercek ? munkaidoVegePercek - _22_OraPercek : 120;
+    if (_teljesMunkaidoVegeOsszPerc > _24_OraPercek) {
+      if (munkaidoKezdetePercek > _22_OraPercek) {
+        _22_utaniEjszakaiPercek = _24_OraPercek - munkaidoKezdetePercek;
+      } else {
+        _22_utaniEjszakaiPercek = 120;
+      }
+    } else if (_teljesMunkaidoVegeOsszPerc > _22_OraPercek) {
+      if (munkaidoKezdetePercek > _22_OraPercek) {
+        _22_utaniEjszakaiPercek = munkaidoVegePercek - munkaidoKezdetePercek;
+      } else {
+        _22_utaniEjszakaiPercek = munkaidoVegePercek - _22_OraPercek;
       }
     }
 
-    //22-24 -> MK>22 és MK<=24  :: (22>MV<=24, E-MV:24:00)
-    if (munkaidoKezdetePercek > _22_OraPercek) {
-      _22_utaniEjszakaiPercek = (munkaidoVegePercek > _22_OraPercek && munkaidoVegePercek <= _24_OraPercek) ? munkaidoVegePercek - munkaidoKezdetePercek : _24_OraPercek - munkaidoKezdetePercek;
+    if (_teljesMunkaidoVegeOsszPerc > _24_OraPercek) {
+      if (munkaidoKezdetePercek > _06_OraPercek) {
+        if (_teljesMunkaidoVegeOsszPerc < 1800) {
+          _06_elottiEjszakaiPercek = _teljesMunkaidoVegeOsszPerc - _24_OraPercek
+        } else {
+          _06_elottiEjszakaiPercek = _06_OraPercek;
+        }
+      } else {
+        if (_teljesMunkaidoVegeOsszPerc < 1800) {
+          _06_elottiEjszakaiPercek = _teljesMunkaidoVegeOsszPerc - _24_OraPercek - munkaidoKezdetePercek
+        } else {
+          _06_elottiEjszakaiPercek = _06_OraPercek - munkaidoKezdetePercek;
+        }
+      }
+    } else {
+      if ((munkaidoKezdetePercek >= 0) && (munkaidoKezdetePercek < _06_OraPercek)) {
+        if (munkaidoVegePercek < 360) {
+          _06_elottiEjszakaiPercek = munkaidoVegePercek - munkaidoKezdetePercek;
+        } else {
+          _06_elottiEjszakaiPercek = 360 - munkaidoKezdetePercek;
+        }
+      }
     }
 
-    //00-06 -> MK>0 és MK<6 ::(MV<=6, E-MV:06:00)
-    if (munkaidoKezdetePercek > 0 && munkaidoVegePercek < _06_OraPercek) {
-      _06_elottiEjszakaiPercek = (munkaidoVegePercek < _06_OraPercek) ? munkaidoVegePercek - munkaidoKezdetePercek : _06_OraPercek - munkaidoKezdetePercek;
-    }
     return _06_elottiEjszakaiPercek + _22_utaniEjszakaiPercek;
   }
 
   private unnepnapSzamolasa() {
-    if (this.munkaidoKezdete.length > 0 && this.munkaidoVege.length > 0 && this.napidij > 0) {
+    if (this.munkaidoKezdete.length > 0 && this.munkaidoVege.length > 0 && this.oradij > 0) {
       let teljesMunkaidoPercekben = this.teljesMunkaidoSzamolas(this.munkaidoKezdete, this.munkaidoVege);
-      this.unnepnapiPotlek = this.munkaszunetinap ? this.napidij : 0;
+      this.unnepnapiPotlek = this.munkaszunetinap ? this.oradij : 0;
       this.unnepnapiMunkaorakSzama = this.munkaszunetinap ? moment().hours(0).minutes(teljesMunkaidoPercekben).format('HH:mm') : '00:00';
       this.osszegekkSzamolasa();
     }
   }
 
   private osszegekkSzamolasa() {
-    if ((this.munkaidoKezdete.length > 0) && (this.munkaidoVege.length > 0) && (!!this.napidij) && (this.napidij > 0))
-      this.napidijOsszeg = Math.round(moment(this.normalMunkaorakSzama, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute") * this.napidij / 60);
-    this.tuloraDijOsszeg = Math.round(moment(this.tuloraMunkaorakSzama, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute") * this.tuloraDij / 60);
-    this.ejszakaiPotlekOsszeg = Math.round(moment(this.ejszakaiMunkaorakSzama, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute") * this.ejszakaiPotlek / 60);
-    this.unnepnapiPotlekOsszeg = this.munkaszunetinap ? Math.round(this.napidijOsszeg + this.tuloraDijOsszeg + this.ejszakaiPotlekOsszeg + this.unnepnapiPotlekOsszeg) : 0;
+    if ((this.munkaidoKezdete.length > 0) && (this.munkaidoVege.length > 0) && (!!this.oradij) && (this.oradij > 0))
+      this.napidijOsszeg = Math.round(this.normalMunkaidoPercekben / 60 * this.oradij);
+    this.tuloraDijOsszeg = Math.round(this.tuloraMunkaidoPercekben / 60 * this.tuloraDij);
+    this.ejszakaiPotlekOsszeg = Math.round(this.ejszakaiMunkaidoPercekben / 60 * this.ejszakaiPotlek);
+    this.unnepnapiPotlekOsszeg = this.munkaszunetinap ? Math.round(this.napidijOsszeg + this.tuloraDijOsszeg + this.ejszakaiPotlekOsszeg) : 0;
     this.osszesen = Math.round(this.napidijOsszeg + this.tuloraDijOsszeg + this.ejszakaiPotlekOsszeg + this.unnepnapiPotlekOsszeg);
   }
 
@@ -192,14 +235,22 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   }
 
   private mentesClick() {
-    this.egyNapRogzitettAdatai.id = this.id
-    this.egyNapRogzitettAdatai.navAdatokFk = this.navAdatokFk;
-    this.egyNapRogzitettAdatai.munkanap = this.munkanap;
-    this.egyNapRogzitettAdatai.munkaidoKezdete = this.munkaidoKezdete;
-    this.egyNapRogzitettAdatai.munkaidoVege = this.munkaidoVege;
-    this.egyNapRogzitettAdatai.munkaorakSzama = this.munkaorakSzama;
+    this.munkavallaloiRogzitettAdatok.id = this.id
+    this.munkavallaloiRogzitettAdatok.navAdatokFk = this.navAdatokFk;
+    this.munkavallaloiRogzitettAdatok.munkaltatoReszlegId = this.kivalasztottReszlegId;
+    this.munkavallaloiRogzitettAdatok.munkaidoKezdete = this.munkaidoKezdete;
+    this.munkavallaloiRogzitettAdatok.munkaidoVege = this.munkaidoVege;
+    this.munkavallaloiRogzitettAdatok.teljesMunkaorakSzama = this.teljesMunkaidoPercekben / 60;
+    this.munkavallaloiRogzitettAdatok.normalOrakSzama = this.normalMunkaidoPercekben / 60;
+    this.munkavallaloiRogzitettAdatok.tulorakSzama = this.tuloraMunkaidoPercekben / 60;
+    this.munkavallaloiRogzitettAdatok.ejszakaiOrakSzama = this.ejszakaiMunkaidoPercekben / 60;
+    this.munkavallaloiRogzitettAdatok.oradij = this.oradij;
+    this.munkavallaloiRogzitettAdatok.tulorakDija = this.tuloraDij;
+    this.munkavallaloiRogzitettAdatok.ejszakaiOrakDija = this.ejszakaiPotlek;
+    this.munkavallaloiRogzitettAdatok.munkaszunetinap = this.munkaszunetinap;
+    this.munkavallaloiRogzitettAdatok.szakkepzetsegetIgenyel = this.szakkepzetsegetIgenyel;
 
-    this.dialogRef.close({data: this.egyNapRogzitettAdatai});
+    this.dialogRef.close({data: this.munkavallaloiRogzitettAdatok});
   }
 
 }
