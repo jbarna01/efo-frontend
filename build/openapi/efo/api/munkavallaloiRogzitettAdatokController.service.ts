@@ -86,22 +86,22 @@ export class MunkavallaloiRogzitettAdatokControllerService {
 
     /**
      * A munkavállaló egy bejelentéshez tartozó rögzitett adatok
-     * @param navAdatokId 
+     * @param navAdatokFk 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public munkavallaloRogzitettAdatokEgyBejelents(navAdatokId: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<MunkavallaloiRogzitettAdatokDTO>>;
-    public munkavallaloRogzitettAdatokEgyBejelents(navAdatokId: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<MunkavallaloiRogzitettAdatokDTO>>>;
-    public munkavallaloRogzitettAdatokEgyBejelents(navAdatokId: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<MunkavallaloiRogzitettAdatokDTO>>>;
-    public munkavallaloRogzitettAdatokEgyBejelents(navAdatokId: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (navAdatokId === null || navAdatokId === undefined) {
-            throw new Error('Required parameter navAdatokId was null or undefined when calling munkavallaloRogzitettAdatokEgyBejelents.');
+    public munkavallaloRogzitettAdatokEgyBejelentes(navAdatokFk: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<MunkavallaloiRogzitettAdatokDTO>>;
+    public munkavallaloRogzitettAdatokEgyBejelentes(navAdatokFk: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<MunkavallaloiRogzitettAdatokDTO>>>;
+    public munkavallaloRogzitettAdatokEgyBejelentes(navAdatokFk: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<MunkavallaloiRogzitettAdatokDTO>>>;
+    public munkavallaloRogzitettAdatokEgyBejelentes(navAdatokFk: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+        if (navAdatokFk === null || navAdatokFk === undefined) {
+            throw new Error('Required parameter navAdatokFk was null or undefined when calling munkavallaloRogzitettAdatokEgyBejelentes.');
         }
 
         let queryParameters = new HttpParams({encoder: this.encoder});
-        if (navAdatokId !== undefined && navAdatokId !== null) {
+        if (navAdatokFk !== undefined && navAdatokFk !== null) {
           queryParameters = this.addToHttpParams(queryParameters,
-            <any>navAdatokId, 'navAdatokId');
+            <any>navAdatokFk, 'navAdatokFk');
         }
 
         let headers = this.defaultHeaders;

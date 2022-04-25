@@ -90,12 +90,12 @@ export class FoglalkoztatasAdatokControllerService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public foglalkoztatasAdatokIDId(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<FoglalkoztatasAdatokDTO>;
-    public foglalkoztatasAdatokIDId(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<FoglalkoztatasAdatokDTO>>;
-    public foglalkoztatasAdatokIDId(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<FoglalkoztatasAdatokDTO>>;
-    public foglalkoztatasAdatokIDId(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    public foglalkoztatasAdatokId(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<FoglalkoztatasAdatokDTO>;
+    public foglalkoztatasAdatokId(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<FoglalkoztatasAdatokDTO>>;
+    public foglalkoztatasAdatokId(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<FoglalkoztatasAdatokDTO>>;
+    public foglalkoztatasAdatokId(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
         if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling foglalkoztatasAdatokIDId.');
+            throw new Error('Required parameter id was null or undefined when calling foglalkoztatasAdatokId.');
         }
 
         let headers = this.defaultHeaders;
@@ -119,6 +119,51 @@ export class FoglalkoztatasAdatokControllerService {
         }
 
         return this.httpClient.get<FoglalkoztatasAdatokDTO>(`${this.configuration.basePath}/foglalkoztatas-adatok/${encodeURIComponent(String(id))}`,
+            {
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Egy foglalkoztatás adat ID alapján
+     * @param navAdatokFk 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public foglalkoztatasAdatokNavAdatokFk(navAdatokFk: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<FoglalkoztatasAdatokDTO>>;
+    public foglalkoztatasAdatokNavAdatokFk(navAdatokFk: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<FoglalkoztatasAdatokDTO>>>;
+    public foglalkoztatasAdatokNavAdatokFk(navAdatokFk: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<FoglalkoztatasAdatokDTO>>>;
+    public foglalkoztatasAdatokNavAdatokFk(navAdatokFk: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+        if (navAdatokFk === null || navAdatokFk === undefined) {
+            throw new Error('Required parameter navAdatokFk was null or undefined when calling foglalkoztatasAdatokNavAdatokFk.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                '*/*'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<Array<FoglalkoztatasAdatokDTO>>(`${this.configuration.basePath}/foglalkoztatas-adatok/navadatok${encodeURIComponent(String(navAdatokFk))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

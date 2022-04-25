@@ -85,16 +85,16 @@ export class ReportControllerService {
 
     /**
      * Visszaad egy dolgozó OFO NAV nyomtatványát
-     * @param kod 
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public reportPdf(kod: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<string>>;
-    public reportPdf(kod: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<string>>>;
-    public reportPdf(kod: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<string>>>;
-    public reportPdf(kod: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
-        if (kod === null || kod === undefined) {
-            throw new Error('Required parameter kod was null or undefined when calling reportPdf.');
+    public reportPdf(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Blob>;
+    public reportPdf(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Blob>>;
+    public reportPdf(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Blob>>;
+    public reportPdf(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling reportPdf.');
         }
 
         let headers = this.defaultHeaders;
@@ -112,14 +112,9 @@ export class ReportControllerService {
         }
 
 
-        let responseType: 'text' | 'json' = 'json';
-        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
-            responseType = 'text';
-        }
-
-        return this.httpClient.get<Array<string>>(`${this.configuration.basePath}/report/pdf/${encodeURIComponent(String(kod))}`,
+        return this.httpClient.get(`${this.configuration.basePath}/report/pdf/${encodeURIComponent(String(id))}`,
             {
-                responseType: <any>responseType,
+                responseType: "blob",
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

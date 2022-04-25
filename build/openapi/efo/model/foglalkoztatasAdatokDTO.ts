@@ -20,6 +20,10 @@ export interface FoglalkoztatasAdatokDTO {
      */
     id?: number;
     /**
+     * NAV adat ID
+     */
+    navAdatokFk?: number;
+    /**
      * Munkáltató neve
      */
     munkaltatoNeve?: string;
@@ -46,11 +50,7 @@ export interface FoglalkoztatasAdatokDTO {
     /**
      * A munkanap dátuma
      */
-    munkanap?: string;
-    /**
-     * Napdij
-     */
-    napidij?: number;
+    munkanapDatuma?: string;
     /**
      * Munkaidő kezdete
      */
@@ -60,24 +60,56 @@ export interface FoglalkoztatasAdatokDTO {
      */
     munkaidoVege?: string;
     /**
-     * Munkaórák száma
+     * Teljes munkaórák száma
      */
-    munkaorakSzama?: number;
-    /**
-     * Normál munkaórák száma
-     */
-    normalOrakSzama?: number;
-    /**
-     * Túlórák száma
-     */
-    tulorakSzama?: number;
+    teljesMunkaorakSzama?: number;
     /**
      * Óradij
      */
     oradij?: number;
     /**
-     * Túlóradíj
+     * Normál munkaórák száma
      */
-    tuloradij?: number;
+    normalOrakSzama?: number;
+    /**
+     * Túlóradij
+     */
+    tulorakDija?: number;
+    /**
+     * Túlórák száma
+     */
+    tulorakSzama?: number;
+    /**
+     * Éjszakai óradíj
+     */
+    ejszakaiOrakDija?: number;
+    /**
+     * Éjszakai munkaórák száma
+     */
+    ejszakaiOrakSzama?: number;
+    /**
+     * Munkaszüneti nap
+     */
+    munkaszunetinap?: boolean;
+    /**
+     * Szakképzetséget igényel
+     */
+    szakkepzetsegetIgenyel?: boolean;
+    /**
+     * Státusz
+     */
+    statusz?: string;
+    /**
+     * Részleg kód
+     */
+    reszlegKod?: string;
+    /**
+     * Részleg neve
+     */
+    reszlegNeve?: string;
+    /**
+     * PDF állomány
+     */
+    pdf?: Array<string>;
 }
 
