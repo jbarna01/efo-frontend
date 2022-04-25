@@ -19,13 +19,17 @@
   font-size: 1em;
 }
 
-.egy-from-box {
+.egy-from-box, .ket-from-box {
   display: flex;
   align-items: center;
-  width: 24%;
+  width: 13%;
   padding: 0 3%;
 }
 
+.ket-from-box {
+  width: 26%;
+  padding: 0 3%;
+}
 .mat-input-number {
   font-weight: bold;
   color: var(--default-primary-color);

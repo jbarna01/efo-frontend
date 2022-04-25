@@ -51,7 +51,7 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
 
   private munkaoraRogzites(adat: MunkavallaloiRogzitettAdatokDTO) {
     const dialogRef = this.dialog.open(OrakRogziteseComponent, {
-      data: {adat: adat}, height: '650px', panelClass: 'orak-dialog-egyedi', maxHeight: '650px', width: '800px', maxWidth: '800px', disableClose: true
+      data: {adat: adat}, height: '630px', panelClass: 'orak-dialog-egyedi', maxHeight: '630px', width: '800px', maxWidth: '800px', disableClose: true
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
 

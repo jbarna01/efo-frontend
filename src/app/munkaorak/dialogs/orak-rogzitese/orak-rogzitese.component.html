@@ -6,26 +6,34 @@
         <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Szervezet kód</mat-label>
-            <input class="mat-input-text" [(ngModel)]="szervezetKod" formControlName="szervezetKod" matInput type="text" tabindex="2"
+            <input class="mat-input-text" [(ngModel)]="szervezetKod" formControlName="szervezetKod" matInput type="text" tabindex="1"
                    (blur)="szervezetLekereseKodAlapjan()"
                    required>
             <mat-error>A szervezeti kód csak számokat tartalmazhat</mat-error>
           </mat-form-field>
         </div>
-        <div class="egy-from-box">
+        <div class="ket-from-box">
           <mat-form-field>
             <mat-label>Szervezet név</mat-label>
             <input class="mat-input-text" matInput type="text" value="{{kivalasztottReszlegNev}}" disabled="true">
           </mat-form-field>
         </div>
-        <div class="egy-from-box">
-          <mat-checkbox class="check-box-text" [(ngModel)]="munkaszunetinap" formControlName="munkaszunetinap" (change)="unnepnapSzamolasa()"
-                        tabindex="0">Munkaszüneti nap
+        <div class="ket-from-box">
+          <mat-checkbox class="check-box-text" [(ngModel)]="munkaszunetinap" formControlName="munkaszunetinap" (change)="unnepnapSzamolasa()">Munkaszüneti nap
           </mat-checkbox>
         </div>
       </div>
 
       <div class="flex-container">
+        <div class="egy-from-box">
+          <mat-form-field>
+            <mat-label>Óradíj</mat-label>
+            <input class="mat-input-number" [(ngModel)]="oradij" formControlName="oradij" matInput type="number" tabindex="2"
+                   (change)="munkadijakSzamolasa()" required>
+            <span class="mat-suffix" matSuffix> Ft</span>
+            <mat-error>Csak számokat tartalmazhat</mat-error>
+          </mat-form-field>
+        </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Munkaidő kezdete</mat-label>
@@ -43,32 +51,13 @@
         <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Teljes munkaidő</mat-label>
-            <input class="mat-input-text" [(ngModel)]="munkaorakSzama" formControlName="munkaorakSzama" matInput type="text" tabindex="5" required>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <div class="flex-container">
-        <div class="egy-from-box">
-          <mat-form-field>
-            <mat-label>Napidíj</mat-label>
-            <input class="mat-input-number" [(ngModel)]="oradij" formControlName="oradij" matInput type="number" tabindex="6"
-                   (change)="munkadijakSzamolasa()" required>
-            <span class="mat-suffix" matSuffix> Ft</span>
-            <mat-error>Csak számokat tartalmazhat</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="egy-from-box">
-          <mat-form-field class="form">
-            <mat-label>Normál munkaórák</mat-label>
-            <input class="mat-input-text" [(ngModel)]="normalMunkaorakSzama" formControlName="normalMunkaorakSzama" matInput type="text" tabindex="7"
-                   required>
+            <input class="mat-input-text" [(ngModel)]="munkaorakSzama" formControlName="munkaorakSzama" matInput type="text">
           </mat-form-field>
         </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Normál munkadíj összeg</mat-label>
-            <input class="mat-input-number" [(ngModel)]="napidijOsszeg" formControlName="napidijOsszeg" matInput type="number" tabindex="8">
+            <input class="mat-input-number" [(ngModel)]="napidijOsszeg" formControlName="napidijOsszeg" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
           </mat-form-field>
         </div>
@@ -78,22 +67,34 @@
         <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Túlóra díj</mat-label>
-            <input class="mat-input-number" [(ngModel)]="tuloraDij" formControlName="tuloraDij" matInput type="number" tabindex="9" required>
+            <input class="mat-input-number" [(ngModel)]="tuloraDij" formControlName="tuloraDij" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
             <mat-error>Csak számokat tartalmazhat</mat-error>
           </mat-form-field>
         </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
+            <mat-label>Túlóra kezdete</mat-label>
+            <input class="mat-input-text" [(ngModel)]="tuloraMunkaidoKezdete" formControlName="tuloraMunkaidoKezdete" matInput type="time">
+          </mat-form-field>
+        </div>
+        <div class="egy-from-box">
+          <mat-form-field class="form">
+            <mat-label>Túlóra vége</mat-label>
+            <input class="mat-input-text" [(ngModel)]="tuloraMunkaidoVege" formControlName="tuloraMunkaidoVege" matInput (change)="idoEllenorzese()"
+                   type="time">
+          </mat-form-field>
+        </div>
+        <div class="egy-from-box">
+          <mat-form-field class="form">
             <mat-label>Túlórák</mat-label>
-            <input class="mat-input-text" [(ngModel)]="tuloraMunkaorakSzama" formControlName="tuloraMunkaorakSzama" matInput type="text" tabindex="10"
-                   required>
+            <input class="mat-input-text" [(ngModel)]="tuloraMunkaorakSzama" formControlName="tuloraMunkaorakSzama" matInput type="text">
           </mat-form-field>
         </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Túlóradíj összeg</mat-label>
-            <input class="mat-input-number" [(ngModel)]="tuloraDijOsszeg" formControlName="tuloraDijOsszeg" matInput type="number" tabindex="11">
+            <input class="mat-input-number" [(ngModel)]="tuloraDijOsszeg" formControlName="tuloraDijOsszeg" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
           </mat-form-field>
         </div>
@@ -103,24 +104,33 @@
         <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Éjszakai pótlék</mat-label>
-            <input class="mat-input-number" [(ngModel)]="ejszakaiPotlek" formControlName="ejszakaiPotlek" matInput type="number" tabindex="12"
-                   required>
+            <input class="mat-input-number" [(ngModel)]="ejszakaiPotlek" formControlName="ejszakaiPotlek" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
             <mat-error>Csak számokat tartalmazhat</mat-error>
           </mat-form-field>
         </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
+            <mat-label>Éjszakai m. kezdete</mat-label>
+            <input class="mat-input-text" [(ngModel)]="ejszakaiMunkaidoKezdete" formControlName="ejszakaiMunkaidoKezdete" matInput type="time">
+          </mat-form-field>
+        </div>
+        <div class="egy-from-box">
+          <mat-form-field class="form">
+            <mat-label>Éjszakai m. vége</mat-label>
+            <input class="mat-input-text" [(ngModel)]="ejszakaiMunkaidoVege" formControlName="ejszakaiMunkaidoVege" matInput type="time">
+          </mat-form-field>
+        </div>
+        <div class="egy-from-box">
+          <mat-form-field class="form">
             <mat-label>Éjszakai órák</mat-label>
-            <input class="mat-input-text" [(ngModel)]="ejszakaiMunkaorakSzama" formControlName="ejszakaiMunkaorakSzama" matInput type="text"
-                   tabindex="13" required>
+            <input class="mat-input-text" [(ngModel)]="ejszakaiMunkaorakSzama" formControlName="ejszakaiMunkaorakSzama" matInput type="text">
           </mat-form-field>
         </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Éjszakai pótlék összeg</mat-label>
-            <input class="mat-input-number" [(ngModel)]="ejszakaiPotlekOsszeg" formControlName="ejszakaiPotlekOsszeg" matInput type="number"
-                   tabindex="14">
+            <input class="mat-input-number" [(ngModel)]="ejszakaiPotlekOsszeg" formControlName="ejszakaiPotlekOsszeg" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
           </mat-form-field>
         </div>
@@ -130,32 +140,35 @@
         <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Ünnepnapi díjazás</mat-label>
-            <input class="mat-input-number" [(ngModel)]="unnepnapiPotlek" formControlName="unnepnapiPotlek" matInput type="number" tabindex="15"
-                   required>
+            <input class="mat-input-number" [(ngModel)]="unnepnapiPotlek" formControlName="unnepnapiPotlek" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
             <mat-error>Csak számokat tartalmazhat</mat-error>
           </mat-form-field>
         </div>
         <div class="egy-from-box">
+          &nbsp;
+        </div>
+        <div class="egy-from-box">
+          &nbsp;
+        </div>
+        <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Ünnepnapi órák</mat-label>
-            <input class="mat-input-text" [(ngModel)]="unnepnapiMunkaorakSzama" formControlName="unnepnapiMunkaorakSzama" matInput type="text"
-                   tabindex="16" required>
+            <input class="mat-input-text" [(ngModel)]="unnepnapiMunkaorakSzama" formControlName="unnepnapiMunkaorakSzama" matInput type="text">
           </mat-form-field>
         </div>
         <div class="egy-from-box">
           <mat-form-field class="form">
             <mat-label>Ünnepnepi pótlék összeg</mat-label>
-            <input class="mat-input-number" [(ngModel)]="unnepnapiPotlekOsszeg" formControlName="unnepnapiPotlekOsszeg" matInput type="number"
-                   tabindex="17">
+            <input class="mat-input-number" [(ngModel)]="unnepnapiPotlekOsszeg" formControlName="unnepnapiPotlekOsszeg" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
           </mat-form-field>
         </div>
       </div>
 
       <div class="flex-container">
-        <div class="egy-from-box">
-          <mat-checkbox [(ngModel)]="szakkepzetsegetIgenyel" formControlName="szakkepzetsegetIgenyel" class="check-box-text" tabindex="1">
+        <div class="ket-from-box">
+          <mat-checkbox [(ngModel)]="szakkepzetsegetIgenyel" formControlName="szakkepzetsegetIgenyel" class="check-box-text" tabindex="5">
             Szakképzetséget igényel
           </mat-checkbox>
         </div>
@@ -163,9 +176,12 @@
           &nbsp;
         </div>
         <div class="egy-from-box">
+          &nbsp;
+        </div>
+        <div class="egy-from-box">
           <mat-form-field>
             <mat-label>Összesen</mat-label>
-            <input class="mat-input-number" [(ngModel)]="osszesen" formControlName="osszesen" matInput type="number" tabindex="18" required>
+            <input class="mat-input-number" [(ngModel)]="osszesen" formControlName="osszesen" matInput type="number">
             <span class="mat-suffix" matSuffix> Ft</span>
           </mat-form-field>
         </div>
