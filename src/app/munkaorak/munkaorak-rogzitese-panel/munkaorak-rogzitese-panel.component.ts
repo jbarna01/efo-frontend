@@ -12,6 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 import * as moment from "moment";
 import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
 import {PdfViewerComponent} from "../../report/pdf-viewer/pdf-viewer.component";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-munkaorak-rogzitese-panel',
@@ -59,14 +60,37 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
       data: {adat: adat}, height: '630px', panelClass: 'orak-dialog-egyedi', maxHeight: '630px', width: '800px', maxWidth: '800px', disableClose: true
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
-
-      let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;
-      munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
-      munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
-      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data)).subscribe(munkavallaloiRogzitettAdatokDTO => {
         this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
       });
     });
+  }
+
+  private getMunkavallaloiRogzitettAdatokDTO(foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO): MunkavallaloiRogzitettAdatokDTO {
+    let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
+    munkavallaloiRogzitettAdatokDTO.id = foglalkoztatasAdatokDTO.id;
+    munkavallaloiRogzitettAdatokDTO.navAdatokFk = foglalkoztatasAdatokDTO.navAdatokFk;
+    munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = parseInt(foglalkoztatasAdatokDTO.reszlegId);
+    munkavallaloiRogzitettAdatokDTO.munkanapDatuma = foglalkoztatasAdatokDTO.munkanapDatuma.replace('.', '-').replace('.', '-') + 'T00:00:00Z';
+    munkavallaloiRogzitettAdatokDTO.oradij = foglalkoztatasAdatokDTO.oradij;
+    munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = foglalkoztatasAdatokDTO.munkaidoKezdete;
+    munkavallaloiRogzitettAdatokDTO.munkaidoVege = foglalkoztatasAdatokDTO.munkaidoVege;
+    munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = foglalkoztatasAdatokDTO.teljesMunkaorakSzama;
+    munkavallaloiRogzitettAdatokDTO.tulorakDija = foglalkoztatasAdatokDTO.tulorakDija;
+    munkavallaloiRogzitettAdatokDTO.tuloraMunkaidoKezdete = foglalkoztatasAdatokDTO.tuloraMunkaidoKezdete;
+    munkavallaloiRogzitettAdatokDTO.tuloraMunkaidoVege = foglalkoztatasAdatokDTO.tuloraMunkaidoVege;
+    munkavallaloiRogzitettAdatokDTO.tulorakSzama = foglalkoztatasAdatokDTO.tulorakSzama;
+    munkavallaloiRogzitettAdatokDTO.ejszakaiOrakDija = foglalkoztatasAdatokDTO.ejszakaiOrakDija;
+    munkavallaloiRogzitettAdatokDTO.ejszakaiMunkaidoKezdete = foglalkoztatasAdatokDTO.ejszakaiMunkaidoKezdete;
+    munkavallaloiRogzitettAdatokDTO.ejszakaiMunkaidoVege = foglalkoztatasAdatokDTO.ejszakaiMunkaidoVege;
+    munkavallaloiRogzitettAdatokDTO.ejszakaiOrakSzama = foglalkoztatasAdatokDTO.ejszakaiOrakSzama;
+    munkavallaloiRogzitettAdatokDTO.munkaszunetinap = foglalkoztatasAdatokDTO.munkaszunetinap;
+    munkavallaloiRogzitettAdatokDTO.munkadijOsszesen = foglalkoztatasAdatokDTO.munkadijOsszesen;
+    munkavallaloiRogzitettAdatokDTO.szakkepzetsegetIgenyel = foglalkoztatasAdatokDTO.szakkepzetsegetIgenyel == 'IGENYEL' ? true : false;
+    munkavallaloiRogzitettAdatokDTO.pdf = null;
+    munkavallaloiRogzitettAdatokDTO.statusz = foglalkoztatasAdatokDTO.statusz;
+    munkavallaloiRogzitettAdatokDTO.modositasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
+    return munkavallaloiRogzitettAdatokDTO;
   }
 
   private rekordTorlese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
@@ -75,7 +99,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = null;
     munkavallaloiRogzitettAdatokDTO.munkaidoVege = null;
     munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
-    munkavallaloiRogzitettAdatokDTO.normalOrakSzama = null;
+    munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
     munkavallaloiRogzitettAdatokDTO.oradij = null;
     munkavallaloiRogzitettAdatokDTO.tulorakDija = null;
     munkavallaloiRogzitettAdatokDTO.tulorakSzama = null;
@@ -101,11 +125,11 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
 
     let szorzo = foglalkoztatasAdatokDTO.munkaszunetinap ? 2 : 1;
 
-    let normalOsszeg = foglalkoztatasAdatokDTO.oradij * foglalkoztatasAdatokDTO.normalOrakSzama;
+    let normalOsszeg = foglalkoztatasAdatokDTO.oradij * foglalkoztatasAdatokDTO.teljesMunkaorakSzama;
     let tuloraOsszeg = foglalkoztatasAdatokDTO.tulorakDija * foglalkoztatasAdatokDTO.tulorakSzama;
     let ejszakaiOsszeg = foglalkoztatasAdatokDTO.ejszakaiOrakDija * foglalkoztatasAdatokDTO.ejszakaiOrakSzama;
 
-    return (normalOsszeg + tuloraOsszeg + ejszakaiOsszeg) * szorzo;
+    return (normalOsszeg * szorzo) + tuloraOsszeg + ejszakaiOsszeg;
   }
 
 }

@@ -32,6 +32,10 @@ export interface MunkavallaloiRogzitettAdatokDTO {
      */
     munkanapDatuma?: string;
     /**
+     * Óradij
+     */
+    oradij?: number;
+    /**
      * Munkaidő kezdete
      */
     munkaidoKezdete?: string;
@@ -44,33 +48,45 @@ export interface MunkavallaloiRogzitettAdatokDTO {
      */
     teljesMunkaorakSzama?: number;
     /**
-     * Normál munkaórák száma
+     * Túlórák díja
      */
-    normalOrakSzama?: number;
+    tulorakDija?: number;
+    /**
+     * Túlórák kezdete
+     */
+    tuloraMunkaidoKezdete?: string;
+    /**
+     * Túlórák vége
+     */
+    tuloraMunkaidoVege?: string;
     /**
      * Túlórák száma
      */
     tulorakSzama?: number;
     /**
-     * Éjszakai órák száma
-     */
-    ejszakaiOrakSzama?: number;
-    /**
-     * Óradij
-     */
-    oradij?: number;
-    /**
-     * Túlórák díja
-     */
-    tulorakDija?: number;
-    /**
      * Éjszakai órák díja
      */
     ejszakaiOrakDija?: number;
     /**
+     * Éjszakai órák kezdete
+     */
+    ejszakaiMunkaidoKezdete?: string;
+    /**
+     * Éjszakai órák vége
+     */
+    ejszakaiMunkaidoVege?: string;
+    /**
+     * Éjszakai órák száma
+     */
+    ejszakaiOrakSzama?: number;
+    /**
      * Munkaszünetinap?
      */
     munkaszunetinap?: boolean;
+    /**
+     * Összes munkadíj
+     */
+    munkadijOsszesen?: number;
     /**
      * Szakképzetséget igényel
      */

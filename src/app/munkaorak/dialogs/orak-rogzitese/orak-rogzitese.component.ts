@@ -272,18 +272,21 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     this.munkavallaloiRogzitettAdatok.id = this.id
     this.munkavallaloiRogzitettAdatok.navAdatokFk = this.navAdatokFk;
     this.munkavallaloiRogzitettAdatok.munkaltatoReszlegId = this.kivalasztottReszlegId;
+    this.munkavallaloiRogzitettAdatok.oradij = this.oradij;
     this.munkavallaloiRogzitettAdatok.munkaidoKezdete = this.munkaidoKezdete;
     this.munkavallaloiRogzitettAdatok.munkaidoVege = this.munkaidoVege;
     this.munkavallaloiRogzitettAdatok.teljesMunkaorakSzama = this.teljesMunkaidoPercekben / 60;
-    this.munkavallaloiRogzitettAdatok.normalOrakSzama = this.normalMunkaidoPercekben / 60;
-    this.munkavallaloiRogzitettAdatok.tulorakSzama = this.tuloraMunkaidoPercekben / 60;
-    this.munkavallaloiRogzitettAdatok.ejszakaiOrakSzama = this.ejszakaiMunkaidoPercekben / 60;
-    this.munkavallaloiRogzitettAdatok.oradij = this.oradij;
     this.munkavallaloiRogzitettAdatok.tulorakDija = this.tuloraDij;
+    this.munkavallaloiRogzitettAdatok.tuloraMunkaidoKezdete = this.tuloraMunkaidoKezdete;
+    this.munkavallaloiRogzitettAdatok.tuloraMunkaidoVege = this.tuloraMunkaidoVege;
+    this.munkavallaloiRogzitettAdatok.tulorakSzama = this.tuloraMunkaidoPercekben / 60;
     this.munkavallaloiRogzitettAdatok.ejszakaiOrakDija = this.ejszakaiPotlek;
+    this.munkavallaloiRogzitettAdatok.ejszakaiMunkaidoKezdete = this.ejszakaiMunkaidoKezdete;
+    this.munkavallaloiRogzitettAdatok.ejszakaiMunkaidoVege = this.ejszakaiMunkaidoVege;
+    this.munkavallaloiRogzitettAdatok.ejszakaiOrakSzama = this.ejszakaiMunkaidoPercekben / 60;
     this.munkavallaloiRogzitettAdatok.munkaszunetinap = this.munkaszunetinap;
+    this.munkavallaloiRogzitettAdatok.munkadijOsszesen = this.osszesen;
     this.munkavallaloiRogzitettAdatok.szakkepzetsegetIgenyel = this.szakkepzetsegetIgenyel;
-
     this.dialogRef.close({data: this.munkavallaloiRogzitettAdatok});
   }
 
