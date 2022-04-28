@@ -54,14 +54,17 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
       data: {adat: adat}, height: '630px', panelClass: 'orak-dialog-egyedi', maxHeight: '630px', width: '800px', maxWidth: '800px', disableClose: true
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
-
-      let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;
-      munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
-      munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
-      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
-        this.initMunkanapok(this.egyNavAdat);
-        this.munkavallaloiRogzitettAdatok.emit(munkavallaloiRogzitettAdatokDTO);
-      });
+      if (munkaoraAdatok.data == 'INAKTIV') {
+        console.log(munkaoraAdatok.data)
+      } else if (munkaoraAdatok.data != null) {
+        let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;
+        munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
+        munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
+        this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+          this.initMunkanapok(this.egyNavAdat);
+          this.munkavallaloiRogzitettAdatok.emit(munkavallaloiRogzitettAdatokDTO);
+        });
+      }
     });
   }
 }

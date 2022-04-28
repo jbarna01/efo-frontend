@@ -13,6 +13,9 @@ import {ComponentBase} from "../../../common/utils/component-base";
 })
 export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
+  isInaktivGomb = false;
+  fejlecCime = '';
+
   id: number;
   navAdatokFk: number;
   munkanapDatuma: Date;
@@ -86,6 +89,8 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
               private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>,
               private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService) {
     super();
+    this.isInaktivGomb = !!data.adat.pdf ? true : false;
+    this.fejlecCime = !!data.adat.pdf ? 'Munkaórák módosítása' : 'Munkaórák rögzítése';
     this.id = data.adat.id;
     this.navAdatokFk = data.adat.navAdatokFk;
     this.munkanapDatuma = data.adat.munkanapDatuma;
@@ -266,6 +271,10 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   private megseClick() {
     this.dialogRef.close({data: null});
+  }
+
+  private inaktivClick() {
+    this.dialogRef.close({data: 'INAKTIV'});
   }
 
   private mentesClick() {

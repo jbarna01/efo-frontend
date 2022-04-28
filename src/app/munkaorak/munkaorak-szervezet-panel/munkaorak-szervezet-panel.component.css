@@ -80,11 +80,29 @@
   width: 100%;
 }
 
-/*.kozepso-felso-adat-box {*/
-/*  width: 25%;*/
-/*}*/
-
 .jobb-felso-adat-box {
   width: 100%;
   margin-top: 0px;
+}
+
+.bg-black {
+  background: #707070;
+  color: white;
+  background:
+    linear-gradient(to top left,
+    rgba(120,120,120,1) 0%,
+    rgba(120,120,120,1) calc(50% - 2px),
+    rgba(0,0,0,1) 50%,
+    rgba(120,120,120,1) calc(50% + 2px),
+    rgba(120,120,120,1) 100%);
+    /*linear-gradient(to top right,*/
+    /*rgba(120,120,120,0) 0%,*/
+    /*rgba(120,120,120,0) calc(50% - 2px),*/
+    /*rgba(0,0,0,1) 50%,*/
+    /*rgba(120,120,120,1) calc(50% + 2px),*/
+    /*rgba(120,120,120,1) 100%);*/
+}
+.bg-pink {
+  background: var(--default-primary-color);
+  color: var(--text-primary-color);
 }

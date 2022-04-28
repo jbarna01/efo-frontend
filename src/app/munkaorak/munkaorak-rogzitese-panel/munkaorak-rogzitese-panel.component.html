@@ -52,9 +52,9 @@
         <ng-container matColumnDef="gombok">
           <mat-header-cell *matHeaderCellDef>Müveletek</mat-header-cell>
           <mat-cell *matCellDef="let element;">
-            <mat-icon (click)="rekordModositasa(element)" style="color: var(--default-primary-color)">edit</mat-icon>
-            <mat-icon (click)="rekordTorlese(element)">delete</mat-icon>
-            <mat-icon (click)="printEfoAdatlap(element)" style="color: var(--light-primary-color)">print</mat-icon>
+            <mat-icon class="vezerlo-ikon-ceruza" (click)="rekordModositasa(element)">edit</mat-icon>
+            <mat-icon class="vezerlo-ikon-kuka" (click)="rekordTorlese(element)">delete</mat-icon>
+            <mat-icon class="vezerlo-ikon-print" (click)="printEfoAdatlap(element)" style="color: var(--default-primary-color)">print</mat-icon>
           </mat-cell>
         </ng-container>
 

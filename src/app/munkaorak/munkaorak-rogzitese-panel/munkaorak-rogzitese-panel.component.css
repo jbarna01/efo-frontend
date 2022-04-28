@@ -7,6 +7,21 @@
 .mat-grid-tile {
   padding-top: 5em;
 }
+.vezerlo-ikon-ceruza, .vezerlo-ikon-kuka, .vezerlo-ikon-print {
+  cursor: pointer;
+}
+.vezerlo-ikon-ceruza {
+  color: var(--green-color);
+}
+.vezerlo-ikon-kuka {
+  color: var(--red-color);
+}
+.vezerlo-ikon-print {
+  color: var(--blue-color);
+}
+
+
+
 
 .jobb-oldal-also-panel {
   display: flex;

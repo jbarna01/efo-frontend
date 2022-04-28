@@ -1,5 +1,5 @@
 <mat-dialog-content>
-  <h2 class="title">Munkaórák rögzítése</h2>
+  <h2 class="title">{{ fejlecCime }}</h2>
   <form [formGroup]="rogzitettAdatokForm">
     <div>
       <div class="flex-container">
@@ -190,6 +190,9 @@
   </form>
 
   <div style="display:flex; justify-content: end; padding: 1em;">
+    <button *ngIf="!isInaktivGomb" class="alap-button" (click)="inaktivClick()">
+      Inaktív
+    </button>
     <button class="alap-button" (click)="megseClick()">
       mégse
     </button>

@@ -60,9 +60,11 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
       data: {adat: adat}, height: '630px', panelClass: 'orak-dialog-egyedi', maxHeight: '630px', width: '800px', maxWidth: '800px', disableClose: true
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
-      this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data)).subscribe(munkavallaloiRogzitettAdatokDTO => {
-        this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
-      });
+      if (munkaoraAdatok.data != null && munkaoraAdatok.data != 'INAKTIV') {
+        this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data)).subscribe(munkavallaloiRogzitettAdatokDTO => {
+          this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
+        });
+      }
     });
   }
 
