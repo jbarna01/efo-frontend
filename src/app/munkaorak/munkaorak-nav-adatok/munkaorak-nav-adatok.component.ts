@@ -39,7 +39,7 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
   }
 
   private munkavalalokLekerdezese(): void {
-    this.munkavallaloControllerService.munkavallalokHianyos().subscribe(munkavallalokList => {
+    this.munkavallaloControllerService.munkavallalokHianyos('KITOLTOTT').subscribe(munkavallalokList => {
       this.munkavallalok = munkavallalokList;
       this.dataSource = new MatTableDataSource<MunkavallaloDTO>(this.munkavallalok);
       this.dataSource.paginator = this.paginator;

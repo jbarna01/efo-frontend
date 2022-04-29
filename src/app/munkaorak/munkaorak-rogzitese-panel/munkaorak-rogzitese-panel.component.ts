@@ -26,6 +26,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
 
   foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO[] = [];
   rogzitettMunkaidokdisplayedColumns = ['szervezet', 'munkanapDatuma', 'munkaidoKezdete', 'munkaidoVege', 'teljesMunkaorakSzama', 'oradij', 'osszesen', 'gombok'];
+  showSpinner = false;
 
   constructor(private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -61,8 +62,10 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
       if (munkaoraAdatok.data != null && munkaoraAdatok.data != 'INAKTIV') {
+        this.showSpinner = true;
         this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data)).subscribe(munkavallaloiRogzitettAdatokDTO => {
           this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
+          this.showSpinner = false;
         });
       }
     });

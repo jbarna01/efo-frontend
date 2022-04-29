@@ -21,10 +21,14 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
+  filterMezoErteke = '';
   inputMezokTiltva: boolean = true;
+  filterMezoLetiltva: boolean = false;
+  tableKlikkLetiltva: boolean = false;
+  megseGombTiltva: boolean = true;
   szerkestesGombTiltva: boolean = true;
   mentesGombTiltva: boolean = true;
-
+  mindenMunkavallalo: boolean = false;
 
   munkavallaloForm: FormGroup = new FormGroup({
     munkavallaloNev: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
@@ -40,21 +44,31 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService) {
     super();
-    this.munkavalalokLekerdezese();
+    // this.munkavalalokLekerdezese();
   }
 
   ngOnInit(): void {
+
   }
 
   ngAfterViewInit() {
+    this.changeMindenMunkavallalo();
   }
 
   private munkavalalokLekerdezese(): void {
-    this.munkavallaloControllerService.munkavallalokHianyos().subscribe(munkavallalokList => {
-      this.munkavallalok = munkavallalokList;
-      this.dataSource = new MatTableDataSource<MunkavallaloDTO>(this.munkavallalok);
-      this.dataSource.paginator = this.paginator;
-    });
+    if (this.mindenMunkavallalo) {
+      this.munkavallaloControllerService.munkavallalokHianyos('HIANYOS').subscribe(munkavallalokList => {
+        this.munkavallalok = munkavallalokList;
+        this.dataSource = new MatTableDataSource<MunkavallaloDTO>(this.munkavallalok);
+        this.dataSource.paginator = this.paginator;
+      });
+    } else {
+      this.munkavallaloControllerService.munkavallalokAll().subscribe(munkavallalokList => {
+        this.munkavallalok = munkavallalokList;
+        this.dataSource = new MatTableDataSource<MunkavallaloDTO>(this.munkavallalok);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
   }
 
   private applyFilter(event: Event) {
@@ -63,17 +77,39 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   }
 
   private felhasznaloValasztas(kivalasztottFelhasznalo: MunkavallaloDTO) {
-    this.szerkesztettFelhasznalo = kivalasztottFelhasznalo;
-    this.szerkestesGombTiltva = false;
+    if (!this.tableKlikkLetiltva) {
+      this.szerkesztettFelhasznalo = kivalasztottFelhasznalo;
+      this.szerkestesGombTiltva = false;
+      this.filterMezoErteke = '';
+    }
+  }
+
+  private megseGomb() {
+    this.szerkesztettFelhasznalo = {};
+    this.munkavalalokLekerdezese();
+    this.filterMezoLetiltva = false;
+    this.tableKlikkLetiltva = false;
+    this.megseGombTiltva = true;
+    this.szerkestesGombTiltva = true;
+    this.mentesGombTiltva = true;
+    this.munkavallaloForm.disable();
+    this.munkavallaloForm.controls['munkavallaloNev'].disable();
+    this.munkavallaloForm.controls['tajSzam'].disable();
+    this.munkavallaloForm.controls['adoszam'].disable();
+    this.filterMezoErteke = '';
   }
 
   private szerkesztesEndegelyezese() {
+    this.filterMezoLetiltva = true;
+    this.tableKlikkLetiltva = true;
+    this.megseGombTiltva = false;
     this.szerkestesGombTiltva = true;
     this.mentesGombTiltva = false;
     this.munkavallaloForm.enable();
     this.munkavallaloForm.controls['munkavallaloNev'].disable();
     this.munkavallaloForm.controls['tajSzam'].disable();
     this.munkavallaloForm.controls['adoszam'].disable();
+    this.filterMezoErteke = '';
   }
 
   private munkavallaloMentese(): void {
@@ -82,9 +118,13 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
       console.log('Hiányos adatbegadás')
     } else {
       this.mentes();
+      this.filterMezoLetiltva = false;
+      this.tableKlikkLetiltva = false;
+      this.megseGombTiltva = true;
       this.szerkestesGombTiltva = true;
       this.mentesGombTiltva = true;
       this.munkavallaloForm.disable();
+      this.filterMezoErteke = '';
     }
   }
 
@@ -93,5 +133,12 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
       this.szerkesztettFelhasznalo = munkavallalo;
       this.munkavalalokLekerdezese();
     });
+  }
+
+  private changeMindenMunkavallalo() {
+    this.mindenMunkavallalo = !this.mindenMunkavallalo;
+    this.szerkesztettFelhasznalo = {};
+    this.munkavalalokLekerdezese();
+    this.filterMezoErteke = '';
   }
 }

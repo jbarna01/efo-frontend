@@ -228,13 +228,17 @@ export class MunkavallaloControllerService {
 
     /**
      * Összes hiányos adatú munkavallalo lekérdezése
+     * @param filter 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public munkavallalokHianyos(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<MunkavallaloDTO>>;
-    public munkavallalokHianyos(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<MunkavallaloDTO>>>;
-    public munkavallalokHianyos(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<MunkavallaloDTO>>>;
-    public munkavallalokHianyos(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+    public munkavallalokHianyos(filter: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<MunkavallaloDTO>>;
+    public munkavallalokHianyos(filter: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<MunkavallaloDTO>>>;
+    public munkavallalokHianyos(filter: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<MunkavallaloDTO>>>;
+    public munkavallalokHianyos(filter: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+        if (filter === null || filter === undefined) {
+            throw new Error('Required parameter filter was null or undefined when calling munkavallalokHianyos.');
+        }
 
         let headers = this.defaultHeaders;
 
@@ -256,7 +260,7 @@ export class MunkavallaloControllerService {
             responseType = 'text';
         }
 
-        return this.httpClient.get<Array<MunkavallaloDTO>>(`${this.configuration.basePath}/munkavallalok/hianyos`,
+        return this.httpClient.get<Array<MunkavallaloDTO>>(`${this.configuration.basePath}/munkavallalok/szurt${encodeURIComponent(String(filter))}`,
             {
                 responseType: <any>responseType,
                 withCredentials: this.configuration.withCredentials,

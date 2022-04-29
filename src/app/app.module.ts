@@ -41,6 +41,8 @@ import {RogzitettAdatokModositasaComponent} from "./munkaorak/dialogs/rogzitett-
 import {PdfViewerComponent} from "./report/pdf-viewer/pdf-viewer.component";
 import { ExamplePdfViewerComponent } from './example-pdf-viewer/example-pdf-viewer.component';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -67,34 +69,36 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
   entryComponents: [
     OrakRogziteseComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    FormsModule,
-    CommonModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatInputModule,
-    FormsModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatGridListModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatAutocompleteModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatDialogModule,
-    NgxExtendedPdfViewerModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        CommonModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatGridListModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatAutocompleteModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatDialogModule,
+        NgxExtendedPdfViewerModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule
+    ],
   exports: [
     BrowserModule,
     BrowserAnimationsModule,

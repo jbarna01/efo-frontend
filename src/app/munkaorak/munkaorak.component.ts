@@ -13,6 +13,7 @@ export class MunkaorakComponent extends ComponentBase implements OnInit {
   kivalasztottFelhasznalo: MunkavallaloDTO = {};
   egyBejelentettNavAdat: NavAdatokDTO = {};
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
+  showSpinner = false;
 
   constructor(private navAdatokControllerService: NavAdatokControllerService) {
     super();

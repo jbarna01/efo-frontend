@@ -25,6 +25,8 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
   kivalasztottReszlegId: number = null;
   munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO[] = [];
 
+  showSpinner = false;
+
   constructor(private munkavallaloControllerService: MunkavallaloControllerService,
               private formBuilder: FormBuilder,
               private dialog: MatDialog,
@@ -57,12 +59,14 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
       if (munkaoraAdatok.data == 'INAKTIV') {
         console.log(munkaoraAdatok.data)
       } else if (munkaoraAdatok.data != null) {
+        this.showSpinner = true;
         let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;
         munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
         munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
         this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
           this.initMunkanapok(this.egyNavAdat);
           this.munkavallaloiRogzitettAdatok.emit(munkavallaloiRogzitettAdatokDTO);
+          this.showSpinner = false;
         });
       }
     });

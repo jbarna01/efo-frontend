@@ -4,12 +4,22 @@
 
 <div class="mat-elevation-z8" style="width: 80%; margin: 2em auto;">
 
-  <mat-form-field appearance="standard">
-    <mat-label>Keresés</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Keresés" #input>
-  </mat-form-field>
+  <div style="display: flex">
+    <div style="display: flex;margin: 0 5em; width: 50%">
+      <mat-form-field appearance="standard">
+        <mat-label>Keresés</mat-label>
+        <input matInput [(ngModel)]="filterMezoErteke" (keyup)="applyFilter($event)" placeholder="Keresés" #input [disabled]="filterMezoLetiltva">
+        <button *ngIf="filterMezoErteke" matSuffix mat-icon-button aria-label="Clear" (click)="filterMezoErteke=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div style="display: flex; align-items: center">
+      <mat-checkbox [checked]="mindenMunkavallalo" (click)="changeMindenMunkavallalo()">Minden munkavállalót jelenítse meg</mat-checkbox>
+    </div>
+  </div>
 
-  <table mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%">
+  <table  mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%">
 
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
@@ -119,10 +129,13 @@
     </form>
   </mat-grid-list>
   <div style="display:flex; justify-content: end; padding: 1em;">
+    <button [disabled]=megseGombTiltva (click)="megseGomb()" class="alap-button">
+      mégse
+    </button>
     <button [disabled]=szerkestesGombTiltva (click)="szerkesztesEndegelyezese()" class="alap-button">
       Szerkeszt
     </button>
-    <button [disabled]=mentesGombTiltva (click)="munkavallaloMentese()" class="alap-button" >
+    <button [disabled]=mentesGombTiltva (click)="munkavallaloMentese()" class="alap-button">
       Mentés
     </button>
   </div>
