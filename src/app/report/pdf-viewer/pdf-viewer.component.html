@@ -1,0 +1,19 @@
+<mat-dialog-content>
+
+  <mat-card class="dialog_ablak">
+    <mat-card-content style="padding: 0">
+      <ngx-extended-pdf-viewer (afterPrint)="nyomtatasBefejezodott()" [height]="'60vh'" [useBrowserLocale]="true"
+                               [showBookmarkButton]="false" [showDownloadButton]="false" [showFindButton]="false"
+                               [showHandToolButton]="false" [showOpenFileButton]="false" [showPresentationModeButton]="false"
+                               [showPropertiesButton]="false" [showSecondaryToolbarButton]="false"
+                               [showSidebarButton]="false"
+                               [showPrintButton]="true"
+                               [src]="pdfSrc">
+      </ngx-extended-pdf-viewer>
+    </mat-card-content>
+  </mat-card>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="alap-gomb" [mat-dialog-close] = false tabindex="1">Bezár</button>
+</mat-dialog-actions>

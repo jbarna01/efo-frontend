@@ -1,0 +1,60 @@
+input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #00AEEF;
+  width: 20%;
+  float: right;
+  font-weight: bold;
+  text-align: right;
+  font-size: 1.5em;
+}
+.dialog_ablak {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.form {
+  width: 80%;
+  padding: 0;
+  margin: 0;
+  font-family: san, serif;
+}
+
+.mat-grid-tile {
+  text-align: left;
+  font-size: 1.1em;
+}
+
+.kerdes-szovege {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #00AEEF;
+  width: 75%;
+  font-weight: bold;
+  text-align: left;
+  font-size: 1.5em;
+}
+
+.bezar-button {
+  border: none;
+  width: 100px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 5px 5px 5px #a0a0a0;
+  border-radius: 0 0 20px 0;
+  font-size: 1.2em;
+  background-color: #d93768;
+  color: seashell;
+  cursor: pointer;
+}
+.mat-dialog-content {
+  height: 60vh;
+  width: 800px;
+  padding: 0;
+  margin: 0;
+}
+.mat-dialog-actions {
+  margin: 0;
+  justify-content: end;
+}
