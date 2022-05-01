@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {NavIdeigelenesAdatokControllerService} from "../../../build/openapi/efo";
+import {NavIdeigelenesAdatokControllerService} from '../../../build/openapi/efo';
+import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -9,16 +10,30 @@ import {NavIdeigelenesAdatokControllerService} from "../../../build/openapi/efo"
 })
 export class NavAdatokBetolteseComponent implements OnInit {
 
-  constructor(private navIdeigelenesAdatokControllerService: NavIdeigelenesAdatokControllerService) {
+  fileName = '';
+
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit(): void {
   }
 
-  private navAdatokBetoltese(): void {
-    this.navIdeigelenesAdatokControllerService.adatokBetoltese().subscribe(() => {
-      console.log("Adatok betöltése megtörtént");
-    })
+  onFileSelected(event) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+      this.fileName = file.name;
+
+      const formData = new FormData();
+
+      formData.append("file", file);
+
+      const upload$ = this.http.post("http://localhost:8080/nav-ideiglenes-adatok/betoltes", formData);
+
+      upload$.subscribe();
+    }
   }
 
 }

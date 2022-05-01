@@ -96,6 +96,10 @@ export interface MunkavallaloiRogzitettAdatokDTO {
      */
     pdf?: Array<string>;
     /**
+     * Nyomtatás ideje
+     */
+    nyomtatasIdeje?: string;
+    /**
      * Státusz
      */
     statusz?: string;

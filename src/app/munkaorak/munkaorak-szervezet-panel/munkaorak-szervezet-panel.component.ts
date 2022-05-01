@@ -57,7 +57,12 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
       if (munkaoraAdatok.data == 'INAKTIV') {
-        console.log(munkaoraAdatok.data)
+        adat.statusz = 'INAKTIV';
+        this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(adat).subscribe(munkavallaloiRogzitettAdatokDTO => {
+          this.initMunkanapok(this.egyNavAdat);
+          this.munkavallaloiRogzitettAdatok.emit(munkavallaloiRogzitettAdatokDTO);
+          this.showSpinner = false;
+        });
       } else if (munkaoraAdatok.data != null) {
         this.showSpinner = true;
         let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;

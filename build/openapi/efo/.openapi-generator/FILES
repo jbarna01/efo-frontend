@@ -15,6 +15,7 @@ encoder.ts
 git_push.sh
 index.ts
 model/foglalkoztatasAdatokDTO.ts
+model/inlineObject.ts
 model/models.ts
 model/munkaltatoReszlegDTO.ts
 model/munkavallaloDTO.ts

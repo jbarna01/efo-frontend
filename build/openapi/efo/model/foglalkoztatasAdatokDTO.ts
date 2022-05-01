@@ -131,5 +131,9 @@ export interface FoglalkoztatasAdatokDTO {
      * PDF állomány
      */
     pdf?: Array<string>;
+    /**
+     * Nyomtatás ideje
+     */
+    nyomtatasIdeje?: string;
 }
 

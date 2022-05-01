@@ -6,6 +6,7 @@ import {NavAdatokBetolteseComponent} from "./nav-adatok-betoltese/nav-adatok-bet
 import {MunkavallalokComponent} from "./munkavallalok/munkavallalok.component";
 import {SzervezetekComponent} from "./szervezetek/szervezetek.component";
 import {MunkaorakComponent} from "./munkaorak/munkaorak.component";
+import {MunkaorakNyomtatasaComponent} from "./munkaorak-nyomtatasa/munkaorak-nyomtatasa.component";
 
 const appRoutes: Routes = [
   {
@@ -48,6 +49,13 @@ const appRoutes: Routes = [
           breadcrumb: null
         },
         component: MunkaorakComponent,
+      },
+      {
+        path: 'munkaorak-nyomtatasa',
+        data: {
+          breadcrumb: null
+        },
+        component: MunkaorakNyomtatasaComponent,
       },
       {
         path: 'rendszerparameterek',

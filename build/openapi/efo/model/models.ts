@@ -1,4 +1,5 @@
 export * from './foglalkoztatasAdatokDTO';
+export * from './inlineObject';
 export * from './munkaltatoReszlegDTO';
 export * from './munkavallaloDTO';
 export * from './munkavallaloiRogzitettAdatokDTO';
