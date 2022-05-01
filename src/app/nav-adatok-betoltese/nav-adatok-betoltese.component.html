@@ -1,14 +1,37 @@
-<app-header></app-header>
+<app-header xmlns="http://www.w3.org/1999/html"></app-header>
 
 <input type="file" class="file-input"
        (change)="onFileSelected($event)" #fileUpload>
 
 <div class="file-upload">
+  <div class="box">
+    <div class="title">NAV-tól letöltött adatok betöltése</div>
+    <div class="sub-title">Kérem válaszd ki a CSV állományt amit be szeretnél tölteni!</div>
 
-  {{fileName || "No file uploaded yet."}}
+    <div class="sub-title">Utolsó betöltött munkáltató adatai:</div>
+    <div class="utolso-adatok" *ngIf="utolsoMunkavallalo">
+      <div class="egy-sor"><span class="cimke">Legutólsó betöltés dátuma:</span><span class="ertek">{{utolsoMunkavallalo.modositasIdeje}}</span></div>
+      <div class="egy-sor"><span class="cimke">Utolsó munkavállaló neve:</span><span class="ertek">{{utolsoMunkavallalo.munkavallalo}}</span></div>
+      <div class="egy-sor"><span class="cimke">Munkavállaó adószáma</span><span class="ertek">{{utolsoMunkavallalo.adoszam}}</span></div>
+      <div class="egy-sor"><span class="cimke">Munkavállaó TAJ száma</span><span class="ertek">{{utolsoMunkavallalo.tajSzam}}</span></div>
+    </div>
 
-  <button mat-mini-fab color="primary" class="upload-btn"
-          (click)="fileUpload.click()">
-    <mat-icon>attach_file</mat-icon>
-  </button>
+    <div class="file-blox">
+      <span style="width: 150px">
+        <button mat-mini-fab color="primary" class="upload-btn"
+                (click)="fileUpload.click()">
+          <mat-icon>attach_file</mat-icon>
+        </button>
+      </span>
+      <span style="width: 300px; margin-left: 2em; color: var(--dark-primary-color); font-weight: bold; padding-top: 1em; text-align: left">
+        {{fileName || "Nincs fájl kiválasztva."}}
+      </span>
+    </div>
+
+    <div *ngIf="betoltottAdatokSzama>0"  class="sub-title">Betöltött adatok száma: {{ betoltottAdatokSzama }}</div>
+  </div>
+</div>
+
+<div *ngIf="showSpinner" style="display: flex; align-items: center; justify-content: center;position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 999">
+  <mat-spinner mode="indeterminate" color="primary" style="width: 100px; height: 100px;"></mat-spinner>
 </div>

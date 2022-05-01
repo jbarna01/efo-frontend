@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {NavIdeigelenesAdatokControllerService} from '../../../build/openapi/efo';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {NavIdeigelenesAdatokControllerService, NavIdeiglenesAdatokDTO} from '../../../build/openapi/efo';
 import {HttpClient} from "@angular/common/http";
 
 
@@ -8,21 +8,31 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './nav-adatok-betoltese.component.html',
   styleUrls: ['./nav-adatok-betoltese.component.css']
 })
-export class NavAdatokBetolteseComponent implements OnInit {
+export class NavAdatokBetolteseComponent implements OnInit, AfterViewInit {
 
   fileName = '';
+  betoltottAdatokSzama = 0;
+  showSpinner = false;
+  utolsoMunkavallalo: NavIdeiglenesAdatokDTO;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private navIdeigelenesAdatokControllerService: NavIdeigelenesAdatokControllerService) {
   }
 
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    this.utolsoRekord();
+  }
+
   onFileSelected(event) {
 
-    const file:File = event.target.files[0];
+    const file: File = event.target.files[0];
 
     if (file) {
+
+      this.showSpinner = true;
 
       this.fileName = file.name;
 
@@ -32,8 +42,18 @@ export class NavAdatokBetolteseComponent implements OnInit {
 
       const upload$ = this.http.post("http://localhost:8080/nav-ideiglenes-adatok/betoltes", formData);
 
-      upload$.subscribe();
+      upload$.subscribe((darabszam: number) => {
+        this.betoltottAdatokSzama = darabszam;
+        this.utolsoRekord();
+        this.showSpinner = false;
+      });
     }
+  }
+
+  private utolsoRekord() {
+    this.navIdeigelenesAdatokControllerService.legutolsoBetoltottNavAdat().subscribe(munkavallalo => {
+      this.utolsoMunkavallalo = munkavallalo;
+    });
   }
 
 }
