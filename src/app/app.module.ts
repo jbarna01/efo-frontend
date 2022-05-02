@@ -44,6 +44,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { MunkaorakNyomtatasaComponent } from './munkaorak-nyomtatasa/munkaorak-nyomtatasa.component';
+import { MegerrositesDialogComponent } from './dialogs/megerrosites-dialog/megerrosites-dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { MunkaorakNyomtatasaComponent } from './munkaorak-nyomtatasa/munkaorak-n
     RogzitettAdatokModositasaComponent,
     PdfViewerComponent,
     ExamplePdfViewerComponent,
-    MunkaorakNyomtatasaComponent
+    MunkaorakNyomtatasaComponent,
+    MegerrositesDialogComponent
   ],
   entryComponents: [
     OrakRogziteseComponent

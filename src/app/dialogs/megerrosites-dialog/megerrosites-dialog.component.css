@@ -1,0 +1,30 @@
+.dialog-box {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+.dialog-title {
+  display: flex;
+  width: 100%;
+  padding: 1em 0;
+  background: var(--dark-primary-color);
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 1em;
+  justify-content: center;
+}
+
+.dialog-msg {
+  display: flex;
+  width: 80%;
+  padding: 2em 10%;
+  color: var(--dark-primary-color);
+}
+
+.dialog-botton-sor {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2em;
+}

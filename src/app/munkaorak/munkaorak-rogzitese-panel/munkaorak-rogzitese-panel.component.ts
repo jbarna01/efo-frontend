@@ -13,6 +13,7 @@ import * as moment from "moment";
 import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
 import {PdfViewerComponent} from "../../report/pdf-viewer/pdf-viewer.component";
 import {formatDate} from "@angular/common";
+import {MegerrositesDialogComponent} from "../../dialogs/megerrosites-dialog/megerrosites-dialog.component";
 
 @Component({
   selector: 'app-munkaorak-rogzitese-panel',
@@ -57,13 +58,16 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
   }
 
   private rekordModositasa(adat: FoglalkoztatasAdatokDTO): void {
+    let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
     const dialogRef = this.dialog.open(OrakRogziteseComponent, {
       data: {adat: adat}, height: '630px', panelClass: 'orak-dialog-egyedi', maxHeight: '630px', width: '800px', maxWidth: '800px', disableClose: true
     });
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
       if (munkaoraAdatok.data != null && munkaoraAdatok.data != 'INAKTIV') {
         this.showSpinner = true;
-        this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data)).subscribe(munkavallaloiRogzitettAdatokDTO => {
+        munkavallaloiRogzitettAdatokDTO = this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data);
+        munkavallaloiRogzitettAdatokDTO.pdf = null;
+        this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
           this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
           this.showSpinner = false;
         });
@@ -92,37 +96,66 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     munkavallaloiRogzitettAdatokDTO.munkaszunetinap = foglalkoztatasAdatokDTO.munkaszunetinap;
     munkavallaloiRogzitettAdatokDTO.munkadijOsszesen = foglalkoztatasAdatokDTO.munkadijOsszesen;
     munkavallaloiRogzitettAdatokDTO.szakkepzetsegetIgenyel = foglalkoztatasAdatokDTO.szakkepzetsegetIgenyel == 'IGENYEL' ? true : false;
-    munkavallaloiRogzitettAdatokDTO.pdf = null;
     munkavallaloiRogzitettAdatokDTO.statusz = foglalkoztatasAdatokDTO.statusz;
     munkavallaloiRogzitettAdatokDTO.modositasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
     return munkavallaloiRogzitettAdatokDTO;
   }
 
-  private rekordTorlese(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
-
-    munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = null;
-    munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = null;
-    munkavallaloiRogzitettAdatokDTO.munkaidoVege = null;
-    munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
-    munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
-    munkavallaloiRogzitettAdatokDTO.oradij = null;
-    munkavallaloiRogzitettAdatokDTO.tulorakDija = null;
-    munkavallaloiRogzitettAdatokDTO.tulorakSzama = null;
-    munkavallaloiRogzitettAdatokDTO.statusz = null;
-    this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
-      this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
-
+  private rekordTorlese(foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO): void {
+    let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
+    const title = 'Rögzített munkanap törlése';
+    const msg = 'Valóban törli ezt a rögzített munkanapot?';
+    const dialogRef = this.dialog.open(MegerrositesDialogComponent, {
+      data: {title: title, msg: msg}, disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        munkavallaloiRogzitettAdatokDTO.id = foglalkoztatasAdatokDTO.id;
+        munkavallaloiRogzitettAdatokDTO.navAdatokFk = foglalkoztatasAdatokDTO.navAdatokFk;
+        munkavallaloiRogzitettAdatokDTO.munkaltatoReszlegId = null;
+        munkavallaloiRogzitettAdatokDTO.munkaidoKezdete = null;
+        munkavallaloiRogzitettAdatokDTO.munkaidoVege = null;
+        munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
+        munkavallaloiRogzitettAdatokDTO.teljesMunkaorakSzama = null;
+        munkavallaloiRogzitettAdatokDTO.oradij = null;
+        munkavallaloiRogzitettAdatokDTO.tulorakDija = null;
+        munkavallaloiRogzitettAdatokDTO.tulorakSzama = null;
+        munkavallaloiRogzitettAdatokDTO.statusz = null;
+        munkavallaloiRogzitettAdatokDTO.szakkepzetsegetIgenyel = null;
+        munkavallaloiRogzitettAdatokDTO.munkanapDatuma = foglalkoztatasAdatokDTO.munkanapDatuma.replace('.', '-').replace('.', '-') + 'T00:00:00Z';
+        ;
+        munkavallaloiRogzitettAdatokDTO.modositasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
+        this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+          this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
+        });
+      }
     });
   }
 
-  private printEfoAdatlap(munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO): void {
-    console.log(munkavallaloiRogzitettAdatokDTO.id);
+  private printEfoAdatlap(foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO): void {
+    console.log(foglalkoztatasAdatokDTO.id);
     const dialogRef = this.dialog.open(PdfViewerComponent, {
       data: {
-        id: munkavallaloiRogzitettAdatokDTO.id,
+        id: foglalkoztatasAdatokDTO.id,
       }, disableClose: true
     });
     dialogRef.afterClosed().subscribe(printResult => {
+      let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
+      const title = 'Nyomtatás';
+      const msg = 'Sikerült a nyomtattás?';
+      const dialogRef = this.dialog.open(MegerrositesDialogComponent, {
+        data: {title: title, msg: msg}, disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          munkavallaloiRogzitettAdatokDTO = this.getMunkavallaloiRogzitettAdatokDTO(foglalkoztatasAdatokDTO);
+          munkavallaloiRogzitettAdatokDTO.pdf = foglalkoztatasAdatokDTO.pdf;
+          munkavallaloiRogzitettAdatokDTO.nyomtatasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
+          this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
+            this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
+          });
+        }
+      });
     });
   }
 

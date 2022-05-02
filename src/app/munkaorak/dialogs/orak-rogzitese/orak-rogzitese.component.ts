@@ -1,10 +1,11 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MunkaorakRogzitesePanelComponent} from "../../munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component";
 import * as moment from "moment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {MunkaltatoReszlegControllerService, MunkavallaloiRogzitettAdatokDTO} from "../../../../../build/openapi/efo";
 import {ComponentBase} from "../../../common/utils/component-base";
+import {MegerrositesDialogComponent} from "../../../dialogs/megerrosites-dialog/megerrosites-dialog.component";
 
 @Component({
   selector: 'app-orak-rogzitese',
@@ -86,6 +87,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+              private dialog: MatDialog,
               private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>,
               private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService) {
     super();
@@ -274,7 +276,16 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   }
 
   private inaktivClick() {
-    this.dialogRef.close({data: 'INAKTIV'});
+    const title = 'Munkanap inaktívválása';
+    const msg = 'Valóban INAKTÍVVÁ teszi a munkanapot? Munkanap: ' + this.munkanapDatuma;
+    const dialogRef = this.dialog.open(MegerrositesDialogComponent, {
+      data: {title: title, msg: msg}, disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dialogRef.close({data: 'INAKTIV'});
+      }
+    });
   }
 
   private mentesClick() {
