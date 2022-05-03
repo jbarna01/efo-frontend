@@ -96,6 +96,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     munkavallaloiRogzitettAdatokDTO.munkaszunetinap = foglalkoztatasAdatokDTO.munkaszunetinap;
     munkavallaloiRogzitettAdatokDTO.munkadijOsszesen = foglalkoztatasAdatokDTO.munkadijOsszesen;
     munkavallaloiRogzitettAdatokDTO.szakkepzetsegetIgenyel = foglalkoztatasAdatokDTO.szakkepzetsegetIgenyel == 'IGENYEL' ? true : false;
+    munkavallaloiRogzitettAdatokDTO.munkanapokSzama = foglalkoztatasAdatokDTO.munkanapokSzama;
     munkavallaloiRogzitettAdatokDTO.statusz = foglalkoztatasAdatokDTO.statusz;
     munkavallaloiRogzitettAdatokDTO.modositasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
     return munkavallaloiRogzitettAdatokDTO;

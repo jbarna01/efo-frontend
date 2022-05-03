@@ -35,6 +35,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   ejszakaiMunkaidoKezdete: string = '';
   ejszakaiMunkaidoVege: string = '';
   unnepnapiMunkaorakSzama: string = '';
+  munkanapokSzama: number = 1;
   munkavallaloiRogzitettAdatok: MunkavallaloiRogzitettAdatokDTO;
 
   oradij: number = 0;
@@ -144,8 +145,10 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     if (moment(munkaidoVege, 'HH:mm').diff(moment(munkaidoKezdete, 'HH:mm'), "minute") < 0) {
       teljesMunkaidoPercekben = moment('24:00', 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute") +
         moment(this.munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute");
+        this.munkanapokSzama = 2;
     } else {
       teljesMunkaidoPercekben = moment(this.munkaidoVege, 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute");
+      this.munkanapokSzama = 1;
     }
     return teljesMunkaidoPercekben;
   }
@@ -307,6 +310,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     this.munkavallaloiRogzitettAdatok.munkaszunetinap = this.munkaszunetinap;
     this.munkavallaloiRogzitettAdatok.munkadijOsszesen = this.osszesen;
     this.munkavallaloiRogzitettAdatok.szakkepzetsegetIgenyel = this.szakkepzetsegetIgenyel;
+    this.munkavallaloiRogzitettAdatok.munkanapokSzama = this.munkanapokSzama;
     this.dialogRef.close({data: this.munkavallaloiRogzitettAdatok});
   }
 
