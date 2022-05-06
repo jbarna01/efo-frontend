@@ -112,6 +112,10 @@ export interface FoglalkoztatasAdatokDTO {
      */
     szakkepzetsegetIgenyel?: string;
     /**
+     * Munkanapok száma
+     */
+    munkanapokSzama?: number;
+    /**
      * Státusz
      */
     statusz?: string;

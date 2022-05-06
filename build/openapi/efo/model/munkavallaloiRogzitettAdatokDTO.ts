@@ -92,6 +92,10 @@ export interface MunkavallaloiRogzitettAdatokDTO {
      */
     szakkepzetsegetIgenyel?: boolean;
     /**
+     * Munkanapok száma
+     */
+    munkanapokSzama?: number;
+    /**
      * Pdf állomány
      */
     pdf?: Array<string>;

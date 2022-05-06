@@ -10,6 +10,7 @@ import {
 import {FormBuilder} from "@angular/forms";
 import {OrakRogziteseComponent} from "../dialogs/orak-rogzitese/orak-rogzitese.component";
 import {MatDialog} from "@angular/material/dialog";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-munkaorak-szervezet-panel',
@@ -66,7 +67,13 @@ export class MunkaorakSzervezetPanelComponent extends ComponentBase implements O
       } else if (munkaoraAdatok.data != null) {
         this.showSpinner = true;
         let munkavallaloiRogzitettAdatokDTO = munkaoraAdatok.data;
-        munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
+        // if (munkaoraAdatok.data.munkanapokSzama == 1) {
+          munkavallaloiRogzitettAdatokDTO.munkanapDatuma = adat.munkanapDatuma;
+        // } else {
+        //   const elsoNap = new Date(adat.munkanapDatuma);
+        //   const masodikNap = new Date(elsoNap.getTime() + (24 * 60 * 60 * 1000));
+        //   munkavallaloiRogzitettAdatokDTO.munkanapDatuma = formatDate(elsoNap, 'yyyy-MM-dd', 'en_US') + ' - ' + formatDate(masodikNap, 'yyyy-MM-dd', 'en_US');
+        // }
         munkavallaloiRogzitettAdatokDTO.statusz = 'ROGZITVE';
         this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
           this.initMunkanapok(this.egyNavAdat);
