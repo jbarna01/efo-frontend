@@ -81,6 +81,11 @@ body {
   box-shadow: 0px 2px 2px -3px rgba(0, 0, 0, 0.2),0px 8px 10px 1px rgba(0, 0, 0, 0.14),0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
+.feher-gomb {
+  color: var(--default-primary-color);
+  background: var(--text-primary-color);
+  border-color: var(--default-primary-color);
+}
 .alap-button:disabled {
   background: var(--text-primary-color);
   color: var(--light-primary-color);

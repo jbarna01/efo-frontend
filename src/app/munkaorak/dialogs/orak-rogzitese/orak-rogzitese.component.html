@@ -202,15 +202,24 @@
       </div>
     </div>
     <div style="display:flex; justify-content: end; padding: 1em;">
-      <button *ngIf="!isInaktivGomb" class="alap-button gomb-kieg" (click)="inaktivClick()">
-        Inaktív
-      </button>
-      <button class="alap-button gomb-kieg" (click)="megseClick()">
-        mégse
-      </button>
-      <button class="alap-button gomb-kieg" (click)="mentesClick()">
-        Mentés
-      </button>
+      <div style="display: flex; flex-direction: column; width: 100%">
+        <div style="display: flex; flex-direction: row; width: 100%; margin: 0 0.5em 0.5em 0.5em">
+          <button *ngIf="!isInaktivGomb" class="alap-button gomb-kieg" (click)="inaktivClick()">
+            Inaktív
+          </button>
+          <button *ngIf="!isInaktivGomb" class="alap-button gomb-kieg" (click)="nullasClick()">
+            Nullás
+          </button>
+        </div>
+        <div style="display: flex; flex-direction: row; width: 100%;  margin: 0 0.5em 0 0.5em">
+          <button class="alap-button gomb-kieg feher-gomb" (click)="megseClick()">
+            mégse
+          </button>
+          <button class="alap-button gomb-kieg" (click)="mentesClick()">
+            Mentés
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </mat-dialog-content>

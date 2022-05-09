@@ -293,7 +293,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   private inaktivClick() {
     const title = 'Munkanap inaktívválása';
-    const msg = 'Valóban INAKTÍVVÁ teszi a munkanapot? Munkanap: ' + this.munkanapDatuma;
+    const msg = 'Valóban INAKTÍVVÁ teszi a munkanapot? Munkanap: ' + formatDate(this.munkanapDatuma, 'yyyy.MM.dd', 'en_US');
     const dialogRef = this.dialog.open(MegerrositesDialogComponent, {
       data: {title: title, msg: msg}, disableClose: true
     });
@@ -302,6 +302,22 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
         this.dialogRef.close({data: 'INAKTIV'});
       }
     });
+  }
+
+  private nullasClick() {
+    if (!!this.kivalasztottReszlegId) {
+      const title = 'NUllás nyomtatvány';
+      const msg = 'Valóban NULLÁS NAV nyomtatványt akar készíteni? Munkanap: ' + formatDate(this.munkanapDatuma, 'yyyy.MM.dd', 'en_US');
+      const dialogRef = this.dialog.open(MegerrositesDialogComponent, {
+        data: {title: title, msg: msg}, disableClose: true
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          this.nullasKuldendoAdatOsszeallitasa();
+          this.dialogRef.close({data: this.munkavallaloiRogzitettAdatok});
+        }
+      });
+    }
   }
 
   private mentesClick() {
@@ -333,6 +349,28 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     this.munkavallaloiRogzitettAdatok.munkanapokSzama = this.munkanapokSzama;
   }
 
+  private nullasKuldendoAdatOsszeallitasa(): void {
+    this.munkavallaloiRogzitettAdatok.id = this.id
+    this.munkavallaloiRogzitettAdatok.navAdatokFk = this.navAdatokFk;
+    this.munkavallaloiRogzitettAdatok.munkaltatoReszlegId = this.kivalasztottReszlegId;
+    this.munkavallaloiRogzitettAdatok.oradij = 0;
+    this.munkavallaloiRogzitettAdatok.munkaidoKezdete = '';
+    this.munkavallaloiRogzitettAdatok.munkaidoVege = '';
+    this.munkavallaloiRogzitettAdatok.teljesMunkaorakSzama = 0;
+    this.munkavallaloiRogzitettAdatok.tulorakDija = 0;
+    this.munkavallaloiRogzitettAdatok.tuloraMunkaidoKezdete = '';
+    this.munkavallaloiRogzitettAdatok.tuloraMunkaidoVege = '';
+    this.munkavallaloiRogzitettAdatok.tulorakSzama = 0;
+    this.munkavallaloiRogzitettAdatok.ejszakaiOrakDija = 0;
+    this.munkavallaloiRogzitettAdatok.ejszakaiMunkaidoKezdete = '';
+    this.munkavallaloiRogzitettAdatok.ejszakaiMunkaidoVege = '';
+    this.munkavallaloiRogzitettAdatok.ejszakaiOrakSzama = 0;
+    this.munkavallaloiRogzitettAdatok.munkaszunetinap = false;
+    this.munkavallaloiRogzitettAdatok.munkadijOsszesen = 0;
+    this.munkavallaloiRogzitettAdatok.szakkepzetsegetIgenyel = false;
+    this.munkavallaloiRogzitettAdatok.munkanapokSzama = 1;
+  }
+
   private ellenorzesek(): boolean {
     this.munkaidoError1 = this.munkaidoError2 = this.munkaidoError3 = this.munkaidoError4 = null;
     if (this.rogzitettAdatokForm.valid) {
@@ -341,19 +379,19 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
       let minimumPihenoido: boolean = false;
       this.foglalkoztatasAdatokControllerService.munkaidokEllenorzese(this.navAdatokFk, formatDate(this.munkanapDatuma, 'yyyy.MM.dd', 'en_US'), this.munkaidoKezdete, (this.teljesMunkaidoPercekben / 60))
         .subscribe(valasz => {
-        if (valasz.length == 0) {
-          minimumPihenoido = true;
-        } else {
-          if (valasz.length == 1) {
-            this.munkaidoError3 = valasz[0];
+          if (valasz.length == 0) {
+            minimumPihenoido = true;
           } else {
-            this.munkaidoError3 = valasz[0];
-            this.munkaidoError4 = valasz[1];
+            if (valasz.length == 1) {
+              this.munkaidoError3 = valasz[0];
+            } else {
+              this.munkaidoError3 = valasz[0];
+              this.munkaidoError4 = valasz[1];
+            }
           }
-        }
-        this.hibakLathato = !(egyNapMinimumOrak && egyNapMaximumOrak && minimumPihenoido);
-        return egyNapMinimumOrak && egyNapMaximumOrak && minimumPihenoido;
-      });
+          this.hibakLathato = !(egyNapMinimumOrak && egyNapMaximumOrak && minimumPihenoido);
+          return egyNapMinimumOrak && egyNapMaximumOrak && minimumPihenoido;
+        });
     }
     return true;
   }
