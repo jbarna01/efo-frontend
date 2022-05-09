@@ -19,7 +19,8 @@
           </mat-form-field>
         </div>
         <div class="ket-from-box">
-          <mat-checkbox class="check-box-text" [(ngModel)]="munkaszunetinap" formControlName="munkaszunetinap" (change)="unnepnapSzamolasa()">Munkaszüneti nap
+          <mat-checkbox class="check-box-text" [(ngModel)]="munkaszunetinap" formControlName="munkaszunetinap" (change)="unnepnapSzamolasa()">
+            Munkaszüneti nap
           </mat-checkbox>
         </div>
       </div>
@@ -31,7 +32,7 @@
             <input class="mat-input-number" [(ngModel)]="oradij" formControlName="oradij" matInput type="number" tabindex="2"
                    (change)="munkadijakSzamolasa()" required>
             <span class="mat-suffix" matSuffix> Ft</span>
-            <mat-error>Csak számokat tartalmazhat</mat-error>
+            <mat-error>Az óradíj pozítív számnak kell lennie!</mat-error>
           </mat-form-field>
         </div>
         <div class="egy-from-box">
@@ -39,6 +40,7 @@
             <mat-label>Munkaidő kezdete</mat-label>
             <input class="mat-input-text" [(ngModel)]="munkaidoKezdete" formControlName="munkaidoKezdete" matInput (change)="idoEllenorzese()"
                    type="time" tabindex="3" required>
+            <mat-error>Munkaidő kezdetének megadása kötelező</mat-error>
           </mat-form-field>
         </div>
         <div class="egy-from-box">
@@ -46,6 +48,7 @@
             <mat-label>Munkaidő vége</mat-label>
             <input class="mat-input-text" [(ngModel)]="munkaidoVege" formControlName="munkaidoVege" matInput (change)="idoEllenorzese()" type="time"
                    tabindex="4" required>
+            <mat-error>Munkaidő végének megadása kötelező</mat-error>
           </mat-form-field>
         </div>
         <div class="egy-from-box">
@@ -189,16 +192,25 @@
     </div>
   </form>
 
-  <div style="display:flex; justify-content: end; padding: 1em;">
-    <button *ngIf="!isInaktivGomb" class="alap-button" (click)="inaktivClick()">
-      Inaktív
-    </button>
-    <button class="alap-button" (click)="megseClick()">
-      mégse
-    </button>
-    <button class="alap-button" (click)="mentesClick()">
-      Mentés
-    </button>
+  <div style="display: flex; flex-direction: row; justify-content: space-between">
+    <div style="display: flex;width: 100%">
+      <div *ngIf="hibakLathato" class="hibak-box">
+        <div *ngIf="munkaidoError1" class="egy-hiba">{{ munkaidoError1 }}</div>
+        <div *ngIf="munkaidoError2" class="egy-hiba">{{ munkaidoError2 }}</div>
+        <div *ngIf="munkaidoError3" class="egy-hiba">{{ munkaidoError3 }}</div>
+        <div *ngIf="munkaidoError4" class="egy-hiba">{{ munkaidoError4 }}</div>
+      </div>
+    </div>
+    <div style="display:flex; justify-content: end; padding: 1em;">
+      <button *ngIf="!isInaktivGomb" class="alap-button gomb-kieg" (click)="inaktivClick()">
+        Inaktív
+      </button>
+      <button class="alap-button gomb-kieg" (click)="megseClick()">
+        mégse
+      </button>
+      <button class="alap-button gomb-kieg" (click)="mentesClick()">
+        Mentés
+      </button>
+    </div>
   </div>
-
 </mat-dialog-content>

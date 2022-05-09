@@ -175,6 +175,82 @@ export class FoglalkoztatasAdatokControllerService {
     }
 
     /**
+     * Munkaidok validalasa MT szerint
+     * @param navAdatokFk 
+     * @param munkanapDatuma 
+     * @param munkaidoKezdete 
+     * @param orakSzama 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public munkaidokEllenorzese(navAdatokFk: number, munkanapDatuma: string, munkaidoKezdete: string, orakSzama: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<Array<string>>;
+    public munkaidokEllenorzese(navAdatokFk: number, munkanapDatuma: string, munkaidoKezdete: string, orakSzama: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpResponse<Array<string>>>;
+    public munkaidokEllenorzese(navAdatokFk: number, munkanapDatuma: string, munkaidoKezdete: string, orakSzama: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: '*/*'}): Observable<HttpEvent<Array<string>>>;
+    public munkaidokEllenorzese(navAdatokFk: number, munkanapDatuma: string, munkaidoKezdete: string, orakSzama: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: '*/*'}): Observable<any> {
+        if (navAdatokFk === null || navAdatokFk === undefined) {
+            throw new Error('Required parameter navAdatokFk was null or undefined when calling munkaidokEllenorzese.');
+        }
+        if (munkanapDatuma === null || munkanapDatuma === undefined) {
+            throw new Error('Required parameter munkanapDatuma was null or undefined when calling munkaidokEllenorzese.');
+        }
+        if (munkaidoKezdete === null || munkaidoKezdete === undefined) {
+            throw new Error('Required parameter munkaidoKezdete was null or undefined when calling munkaidokEllenorzese.');
+        }
+        if (orakSzama === null || orakSzama === undefined) {
+            throw new Error('Required parameter orakSzama was null or undefined when calling munkaidokEllenorzese.');
+        }
+
+        let queryParameters = new HttpParams({encoder: this.encoder});
+        if (navAdatokFk !== undefined && navAdatokFk !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>navAdatokFk, 'navAdatokFk');
+        }
+        if (munkanapDatuma !== undefined && munkanapDatuma !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>munkanapDatuma, 'munkanapDatuma');
+        }
+        if (munkaidoKezdete !== undefined && munkaidoKezdete !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>munkaidoKezdete, 'munkaidoKezdete');
+        }
+        if (orakSzama !== undefined && orakSzama !== null) {
+          queryParameters = this.addToHttpParams(queryParameters,
+            <any>orakSzama, 'orakSzama');
+        }
+
+        let headers = this.defaultHeaders;
+
+        let httpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+        if (httpHeaderAcceptSelected === undefined) {
+            // to determine the Accept header
+            const httpHeaderAccepts: string[] = [
+                '*/*'
+            ];
+            httpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        }
+        if (httpHeaderAcceptSelected !== undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+
+        let responseType: 'text' | 'json' = 'json';
+        if(httpHeaderAcceptSelected && httpHeaderAcceptSelected.startsWith('text')) {
+            responseType = 'text';
+        }
+
+        return this.httpClient.get<Array<string>>(`${this.configuration.basePath}/foglalkoztatas-adatok/validalas${encodeURIComponent(String(navAdatokFk))}`,
+            {
+                params: queryParameters,
+                responseType: <any>responseType,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Az összes foglalkoztatas adat (vagy csak a még nem nyomtatottak)
      * @param filter 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.

@@ -3,9 +3,14 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog
 import {MunkaorakRogzitesePanelComponent} from "../../munkaorak-rogzitese-panel/munkaorak-rogzitese-panel.component";
 import * as moment from "moment";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MunkaltatoReszlegControllerService, MunkavallaloiRogzitettAdatokDTO} from "../../../../../build/openapi/efo";
+import {
+  FoglalkoztatasAdatokControllerService,
+  MunkaltatoReszlegControllerService,
+  MunkavallaloiRogzitettAdatokDTO
+} from "../../../../../build/openapi/efo";
 import {ComponentBase} from "../../../common/utils/component-base";
 import {MegerrositesDialogComponent} from "../../../dialogs/megerrosites-dialog/megerrosites-dialog.component";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-orak-rogzitese',
@@ -54,6 +59,12 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   kivalasztottReszlegId: number = null;
   kivalasztottReszlegNev: string = null;
+  hibakLathato: boolean = false;
+  munkaidoError1: string;
+  munkaidoError2: string;
+  munkaidoError3: string;
+  munkaidoError4: string;
+
 
   rogzitettAdatokForm: FormGroup = new FormGroup({
     szervezetKod: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.required]),
@@ -63,7 +74,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     munkaidoVege: new FormControl({value: '', disabled: false}, [Validators.required]),
     munkaorakSzama: new FormControl({value: '', disabled: true}, [Validators.required]),
 
-    oradij: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.required]),
+    oradij: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.min(1), Validators.required]),
     normalMunkaorakSzama: new FormControl({value: '', disabled: true}, [Validators.required]),
     napidijOsszeg: new FormControl({value: '', disabled: true}, [Validators.required]),
 
@@ -90,7 +101,8 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private dialog: MatDialog,
               private dialogRef: MatDialogRef<MunkaorakRogzitesePanelComponent>,
-              private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService) {
+              private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService,
+              private foglalkoztatasAdatokControllerService: FoglalkoztatasAdatokControllerService) {
     super();
     this.isInaktivGomb = !!data.adat.pdf ? true : false;
     this.fejlecCime = !!data.adat.pdf ? 'Munkaórák módosítása' : 'Munkaórák rögzítése';
@@ -145,7 +157,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     if (moment(munkaidoVege, 'HH:mm').diff(moment(munkaidoKezdete, 'HH:mm'), "minute") < 0) {
       teljesMunkaidoPercekben = moment('24:00', 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute") +
         moment(this.munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute");
-        this.munkanapokSzama = 2;
+      this.munkanapokSzama = 2;
     } else {
       teljesMunkaidoPercekben = moment(this.munkaidoVege, 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute");
       this.munkanapokSzama = 1;
@@ -259,6 +271,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     this.ejszakaiPotlekOsszeg = Math.round(this.ejszakaiMunkaidoPercekben / 60 * this.ejszakaiPotlek);
     this.unnepnapiPotlekOsszeg = this.munkaszunetinap ? Math.round(this.napidijOsszeg) : 0;
     this.osszesen = Math.round(this.napidijOsszeg + this.tuloraDijOsszeg + this.ejszakaiPotlekOsszeg + this.unnepnapiPotlekOsszeg);
+    this.ellenorzesek();
   }
 
   private szervezetLekereseKodAlapjan(): void {
@@ -292,6 +305,13 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   }
 
   private mentesClick() {
+    if (this.ellenorzesek()) {
+      this.kuldendoAdatOsszeallitasa();
+      this.dialogRef.close({data: this.munkavallaloiRogzitettAdatok});
+    }
+  }
+
+  private kuldendoAdatOsszeallitasa(): void {
     this.munkavallaloiRogzitettAdatok.id = this.id
     this.munkavallaloiRogzitettAdatok.navAdatokFk = this.navAdatokFk;
     this.munkavallaloiRogzitettAdatok.munkaltatoReszlegId = this.kivalasztottReszlegId;
@@ -311,7 +331,50 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     this.munkavallaloiRogzitettAdatok.munkadijOsszesen = this.osszesen;
     this.munkavallaloiRogzitettAdatok.szakkepzetsegetIgenyel = this.szakkepzetsegetIgenyel;
     this.munkavallaloiRogzitettAdatok.munkanapokSzama = this.munkanapokSzama;
-    this.dialogRef.close({data: this.munkavallaloiRogzitettAdatok});
   }
 
+  private ellenorzesek(): boolean {
+    this.munkaidoError1 = this.munkaidoError2 = this.munkaidoError3 = this.munkaidoError4 = null;
+    if (this.rogzitettAdatokForm.valid) {
+      const egyNapMinimumOrak = this.minimumOrak();
+      const egyNapMaximumOrak = this.maximumOrak();
+      let minimumPihenoido: boolean = false;
+      this.foglalkoztatasAdatokControllerService.munkaidokEllenorzese(this.navAdatokFk, formatDate(this.munkanapDatuma, 'yyyy.MM.dd', 'en_US'), this.munkaidoKezdete, (this.teljesMunkaidoPercekben / 60))
+        .subscribe(valasz => {
+        if (valasz.length == 0) {
+          minimumPihenoido = true;
+        } else {
+          if (valasz.length == 1) {
+            this.munkaidoError3 = valasz[0];
+          } else {
+            this.munkaidoError3 = valasz[0];
+            this.munkaidoError4 = valasz[1];
+          }
+        }
+        this.hibakLathato = !(egyNapMinimumOrak && egyNapMaximumOrak && minimumPihenoido);
+        return egyNapMinimumOrak && egyNapMaximumOrak && minimumPihenoido;
+      });
+    }
+    return true;
+  }
+
+  private minimumOrak(): boolean {
+    const orak = this.teljesMunkaidoPercekben / 60;
+    if (orak < 4) {
+      this.munkaidoError1 = 'Egy nap minimum 4 órát kell dolgozni!'
+      return false
+    } else {
+      return true;
+    }
+  }
+
+  private maximumOrak(): boolean {
+    const orak = this.teljesMunkaidoPercekben / 60;
+    if (orak > 12) {
+      this.munkaidoError2 = 'Egy nap maximum 12 órát lehet dolgozni!'
+      return false
+    } else {
+      return true;
+    }
+  }
 }
