@@ -40,7 +40,7 @@ export class NavAdatokBetolteseComponent implements OnInit, AfterViewInit {
 
       formData.append("file", file);
 
-      const upload$ = this.http.post("http://localhost:8080/nav-ideiglenes-adatok/betoltes", formData);
+      const upload$ = this.http.post("http://localhost:8081/nav-ideiglenes-adatok/betoltes", formData);
 
       upload$.subscribe((darabszam: number) => {
         this.betoltottAdatokSzama = darabszam;

@@ -4,10 +4,10 @@
   "scripts": {
     "ng": "ng",
     "prestart": "npm run generate:api",
-    "start": "ng serve --port 8081",
+    "start": "ng serve --port 8080",
     "prebuild": "npm run generate:api",
     "build": "ng build",
-    "generate:api": "node openapi-clean.js && openapi-generator-cli generate -g typescript-angular -i http://localhost:8080/v3/api-docs -o ./build/openapi/efo --skip-validate-spec",
+    "generate:api": "node openapi-clean.js && openapi-generator-cli generate -g typescript-angular -i http://localhost:8081/v3/api-docs -o ./build/openapi/efo --skip-validate-spec",
     "generate:api_fromfile": "node openapi-clean.js && openapi-generator-cli generate -g typescript-angular -i efo-openapi.json -o ./build/openapi/efo --skip-validate-spec",
     "lint": "ng lint",
     "e2e": "ng e2e",
