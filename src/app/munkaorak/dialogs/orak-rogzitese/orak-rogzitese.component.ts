@@ -95,6 +95,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     unnepnapiPotlekOsszeg: new FormControl({value: '', disabled: true}, [Validators.required]),
 
     szakkepzetsegetIgenyel: new FormControl({value: false, disabled: false}, [Validators.required]),
+    munkanapokSzama: new FormControl({value: '', disabled: false}, [Validators.pattern('^[0-9]*$'), Validators.required]),
     osszesen: new FormControl({value: '', disabled: true}, [Validators.required])
   });
 
