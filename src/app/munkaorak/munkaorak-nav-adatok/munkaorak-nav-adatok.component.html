@@ -10,7 +10,7 @@
       </mat-form-field>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content style="height: 180px; overflow-y: scroll">
     <table mat-table [dataSource]='dataSource' class="mat-elevation-z8" style="width: 100%; border: 1px solid var(--divider-color)">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
@@ -21,8 +21,8 @@
       </ng-container>
       <mat-row *matRowDef="let row; columns: displayedColumns;let i = index" [ngClass]="{ highlight: felhasznaloSelectedRowIndex === i }" (click)="felhasznaloValasztas(i, row)"></mat-row>
     </table>
-    <mat-paginator [pageSize]="5">
-    </mat-paginator>
+<!--    <mat-paginator [pageSize]="15">-->
+<!--    </mat-paginator>-->
   </mat-card-content>
 </mat-card>
 
@@ -38,7 +38,7 @@
     </mat-card-subtitle>
 
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content style="height: 180px; overflow-y: scroll">
     <table *ngIf="kivalasztottFelhasznalo" mat-table [dataSource]='dataSourceNav' class="mat-elevation-z8"
            style="width: 100%; border: 1px solid var(--divider-color)">
       <ng-container matColumnDef="id">
@@ -55,7 +55,7 @@
       </ng-container>
       <mat-row *matRowDef="let row; columns: displayedColumnsNav;let i = index" [ngClass]="{ highlight: navAdatSelectedRowIndex === i }" (click)="bejelentesvalasztas(i, row)"></mat-row>
     </table>
-    <mat-paginator [pageSize]="15">
-    </mat-paginator>
+<!--    <mat-paginator [pageSize]="15">-->
+<!--    </mat-paginator>-->
   </mat-card-content>
 </mat-card>

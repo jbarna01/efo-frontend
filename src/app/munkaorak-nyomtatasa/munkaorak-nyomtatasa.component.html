@@ -40,6 +40,11 @@
           <mat-cell *matCellDef="let element"> {{element.reszlegKod }} </mat-cell>
         </ng-container>
 
+        <ng-container matColumnDef="nev">
+          <mat-header-cell *matHeaderCellDef>Munkavállaló neve</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.munkavallaloNeve }} </mat-cell>
+        </ng-container>
+
         <ng-container matColumnDef="szervezet">
           <mat-header-cell style="min-width: 250px;justify-content: flex-start" *matHeaderCellDef>Szervezet</mat-header-cell>
           <mat-cell style="min-width: 250px;justify-content: flex-start" *matCellDef="let element;">{{ element.reszlegNeve }}</mat-cell>

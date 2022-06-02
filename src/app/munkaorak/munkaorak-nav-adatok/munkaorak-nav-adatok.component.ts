@@ -42,7 +42,7 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
     this.munkavallaloControllerService.munkavallalokHianyos('KITOLTOTT').subscribe(munkavallalokList => {
       this.munkavallalok = munkavallalokList;
       this.dataSource = new MatTableDataSource<MunkavallaloDTO>(this.munkavallalok);
-      this.dataSource.paginator = this.paginator;
+      // this.dataSource.paginator = this.paginator;
     });
   }
 
@@ -60,7 +60,7 @@ export class MunkaorakNavAdatokComponent extends ComponentBase implements OnInit
       this.navAdatokControllerService.navAdatokTajAlapjan(tajSzam!).subscribe(navAdatokList => {
         this.navAdatok = navAdatokList;
         this.dataSourceNav = new MatTableDataSource<NavAdatokDTO>(this.navAdatok);
-        this.dataSourceNav.paginator = this.paginator;
+        // this.dataSourceNav.paginator = this.paginator;
         this.bejelentesvalasztas(0, this.navAdatok[0]);
       });
     }

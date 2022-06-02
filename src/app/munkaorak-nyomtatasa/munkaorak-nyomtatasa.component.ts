@@ -19,7 +19,7 @@ export class MunkaorakNyomtatasaComponent implements OnInit {
   filterMezoErteke = '';
 
   dataSource!: MatTableDataSource<FoglalkoztatasAdatokDTO>;
-  rogzitettMunkaidokdisplayedColumns = ['nyomtatva', 'szervezet', 'munkanapDatuma', 'munkaidoKezdete', 'munkaidoVege', 'teljesMunkaorakSzama', 'oradij', 'osszesen', 'gombok'];
+  rogzitettMunkaidokdisplayedColumns = ['nyomtatva', 'nev', 'szervezet', 'munkanapDatuma', 'munkaidoKezdete', 'munkaidoVege', 'teljesMunkaorakSzama', 'oradij', 'osszesen', 'gombok'];
 
   constructor(private dialog: MatDialog,
               private foglalkoztatasAdatokControllerService: FoglalkoztatasAdatokControllerService) { }
