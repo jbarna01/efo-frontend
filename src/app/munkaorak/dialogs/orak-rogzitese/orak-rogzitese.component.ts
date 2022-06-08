@@ -121,7 +121,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
       this.munkaidoVege = this.data.adat.munkaidoVege;
       this.oradij = this.data.adat.oradij;
       this.munkaszunetinap = this.data.adat.munkaszunetinap;
-      this.szakkepzetsegetIgenyel = this.data.adat.szakkepzetsegetIgenyel;
+      this.szakkepzetsegetIgenyel = this.data.adat.szakkepzetsegetIgenyel == 'Igényel' ? true : false;
       this.idoEllenorzese();
       this.munkadijakSzamolasa();
     }

@@ -65,7 +65,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     dialogRef.afterClosed().subscribe(munkaoraAdatok => {
       if (munkaoraAdatok.data != null && munkaoraAdatok.data != 'INAKTIV') {
         this.showSpinner = true;
-        munkavallaloiRogzitettAdatokDTO = this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data);
+        munkavallaloiRogzitettAdatokDTO = this.getMunkavallaloiRogzitettAdatokDTO(munkaoraAdatok.data, munkaoraAdatok.data.szakkepzetsegetIgenyel);
         munkavallaloiRogzitettAdatokDTO.pdf = null;
         this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
           this.rogzitettMunkaorakTablazatInit(munkavallaloiRogzitettAdatokDTO.navAdatokFk);
@@ -75,7 +75,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     });
   }
 
-  private getMunkavallaloiRogzitettAdatokDTO(foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO): MunkavallaloiRogzitettAdatokDTO {
+  private getMunkavallaloiRogzitettAdatokDTO(foglalkoztatasAdatokDTO: FoglalkoztatasAdatokDTO, igenyel: boolean): MunkavallaloiRogzitettAdatokDTO {
     let munkavallaloiRogzitettAdatokDTO: MunkavallaloiRogzitettAdatokDTO = {};
     munkavallaloiRogzitettAdatokDTO.id = foglalkoztatasAdatokDTO.id;
     munkavallaloiRogzitettAdatokDTO.navAdatokFk = foglalkoztatasAdatokDTO.navAdatokFk;
@@ -95,7 +95,7 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
     munkavallaloiRogzitettAdatokDTO.ejszakaiOrakSzama = foglalkoztatasAdatokDTO.ejszakaiOrakSzama;
     munkavallaloiRogzitettAdatokDTO.munkaszunetinap = foglalkoztatasAdatokDTO.munkaszunetinap;
     munkavallaloiRogzitettAdatokDTO.munkadijOsszesen = foglalkoztatasAdatokDTO.munkadijOsszesen;
-    munkavallaloiRogzitettAdatokDTO.szakkepzetsegetIgenyel = foglalkoztatasAdatokDTO.szakkepzetsegetIgenyel == 'IGENYEL' ? true : false;
+    munkavallaloiRogzitettAdatokDTO.szakkepzetsegetIgenyel = igenyel;
     munkavallaloiRogzitettAdatokDTO.munkanapokSzama = foglalkoztatasAdatokDTO.munkanapokSzama;
     munkavallaloiRogzitettAdatokDTO.statusz = foglalkoztatasAdatokDTO.statusz;
     munkavallaloiRogzitettAdatokDTO.modositasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
@@ -149,7 +149,8 @@ export class MunkaorakRogzitesePanelComponent extends ComponentBase implements O
       });
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          munkavallaloiRogzitettAdatokDTO = this.getMunkavallaloiRogzitettAdatokDTO(foglalkoztatasAdatokDTO);
+          const igenyel = foglalkoztatasAdatokDTO.szakkepzetsegetIgenyel == 'Igényel';
+          munkavallaloiRogzitettAdatokDTO = this.getMunkavallaloiRogzitettAdatokDTO(foglalkoztatasAdatokDTO, igenyel);
           munkavallaloiRogzitettAdatokDTO.pdf = foglalkoztatasAdatokDTO.pdf;
           munkavallaloiRogzitettAdatokDTO.nyomtatasIdeje = formatDate(new Date(), 'yyyy-MM-dd', 'en_US') + 'T00:00:00Z';
           this.munkavallaloiRogzitettAdatokControllerService.munkavallaloRogzitettAdatokMentese(munkavallaloiRogzitettAdatokDTO).subscribe(munkavallaloiRogzitettAdatokDTO => {
