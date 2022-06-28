@@ -150,6 +150,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     this.ejszakaiPotlek = this.oradij * 0.15;
     this.unnepnapiPotlek = this.munkaszunetinap ? this.oradij : 0;
     this.osszegekkSzamolasa();
+    this.szakkepzetsegetIgenyel = this.oradij > 1300;
   }
 
   private teljesMunkaidoSzamolas(munkaidoKezdete: string, munkaidoVege: string): number {
@@ -184,7 +185,7 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   private ejszakaiMunkaidoSzamolas(munkaidoKezdete: string, munkaidoVege: string, teljesMunkaidoPercek: number): number {
     let _06_OraPercek = 360;
-    let _22_OraPercek = 1320;
+    let _22_OraPercek = 1350;
     let _24_OraPercek = 1440;
 
     munkaidoVege = munkaidoVege == '00:00' ? '24:00' : munkaidoVege;
