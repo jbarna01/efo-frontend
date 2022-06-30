@@ -185,8 +185,9 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
   private ejszakaiMunkaidoSzamolas(munkaidoKezdete: string, munkaidoVege: string, teljesMunkaidoPercek: number): number {
     let _06_OraPercek = 360;
-    let _22_OraPercek = 1350;
+    let _22_OraPercek = 1320;
     let _24_OraPercek = 1440;
+    let _ejszakaiMunkaidoSzamolasPercek = 1350;
 
     munkaidoVege = munkaidoVege == '00:00' ? '24:00' : munkaidoVege;
 
@@ -194,6 +195,10 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     let munkaidoVegePercek = (moment(munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute"));
     let _teljesMunkaidoVegeOsszPerc = munkaidoKezdetePercek + teljesMunkaidoPercek;
 
+    if (_ejszakaiMunkaidoSzamolasPercek >= _teljesMunkaidoVegeOsszPerc) {
+      // Nincs éjszakai munkidő számolás
+      return 0;
+    }
     let _06_elottiEjszakaiPercek = 0;
     let _22_utaniEjszakaiPercek = 0;
     this.ejszakaiMunkaidoKezdete = '';
