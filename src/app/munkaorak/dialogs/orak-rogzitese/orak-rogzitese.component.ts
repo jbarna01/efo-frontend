@@ -197,6 +197,10 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
 
     if (_ejszakaiMunkaidoSzamolasPercek >= _teljesMunkaidoVegeOsszPerc) {
       // Nincs éjszakai munkidő számolás
+      this.ejszakaiMunkaidoKezdete = '';
+      this.ejszakaiMunkaidoVege = '';
+      this.ejszakaiMunkaorakSzama = '';
+      this.ejszakaiPotlekOsszeg = 0;
       return 0;
     }
     let _06_elottiEjszakaiPercek = 0;
