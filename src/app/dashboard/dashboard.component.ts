@@ -1,8 +1,14 @@
 import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {EfoExcelControllerService} from "../../../build/openapi/efo";
+import {
+  EfoExcelControllerService,
+  MunkaltatoReszlegControllerService,
+  MunkavallaloControllerService,
+  MunkavallaloDTO
+} from "../../../build/openapi/efo";
 import {MegerrositesDialogComponent} from "../dialogs/megerrosites-dialog/megerrosites-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,16 +18,26 @@ import {MatDialog} from "@angular/material/dialog";
 export class DashboardComponent implements OnInit {
 
   message: string = '';
+  hianyosMunkavallalokSzama = 0;
+  szervezetiEgysegekSzama = 0;
 
 
   constructor(private dialog: MatDialog,
               private router: Router,
+              private munkavallaloControllerService: MunkavallaloControllerService,
+              private munkaltatoReszlegControllerService: MunkaltatoReszlegControllerService,
               private efoExcelControllerService: EfoExcelControllerService) {
   }
 
   maiNap: Date = new Date();
 
   ngOnInit(): void {
+    this.munkavallaloControllerService.munkavallalokHianyos('HIANYOS').subscribe(munkavallalokList => {
+      this.hianyosMunkavallalokSzama = munkavallalokList.length;
+    });
+    this.munkaltatoReszlegControllerService.reszlegekAll().subscribe(szervezetiEgysegekLista => {
+      this.szervezetiEgysegekSzama = szervezetiEgysegekLista.length;
+    });
   }
 
   public excelKlikk() {

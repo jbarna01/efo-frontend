@@ -195,14 +195,14 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
     let munkaidoVegePercek = (moment(munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute"));
     let _teljesMunkaidoVegeOsszPerc = munkaidoKezdetePercek + teljesMunkaidoPercek;
 
-    if (_ejszakaiMunkaidoSzamolasPercek >= _teljesMunkaidoVegeOsszPerc) {
-      // Nincs éjszakai munkidő számolás
-      this.ejszakaiMunkaidoKezdete = '';
-      this.ejszakaiMunkaidoVege = '';
-      this.ejszakaiMunkaorakSzama = '';
-      this.ejszakaiPotlekOsszeg = 0;
-      return 0;
-    }
+    // if (_ejszakaiMunkaidoSzamolasPercek >= _teljesMunkaidoVegeOsszPerc) {
+    //   // Nincs éjszakai munkidő számolás
+    //   this.ejszakaiMunkaidoKezdete = '';
+    //   this.ejszakaiMunkaidoVege = '';
+    //   this.ejszakaiMunkaorakSzama = '';
+    //   this.ejszakaiPotlekOsszeg = 0;
+    //   return 0;
+    // }
     let _06_elottiEjszakaiPercek = 0;
     let _22_utaniEjszakaiPercek = 0;
     this.ejszakaiMunkaidoKezdete = '';
@@ -261,6 +261,16 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
           this.ejszakaiMunkaidoVege = '06:00';
         }
       }
+    }
+
+    // if (_ejszakaiMunkaidoSzamolasPercek >= _teljesMunkaidoVegeOsszPerc) {
+    if ((_06_elottiEjszakaiPercek + _22_utaniEjszakaiPercek) <= 30) {
+      // Nincs éjszakai munkidő számolás. Fél órára nem számolunk munkaidőt!
+      this.ejszakaiMunkaidoKezdete = '';
+      this.ejszakaiMunkaidoVege = '';
+      this.ejszakaiMunkaorakSzama = '';
+      this.ejszakaiPotlekOsszeg = 0;
+      return 0;
     }
 
     return _06_elottiEjszakaiPercek + _22_utaniEjszakaiPercek;

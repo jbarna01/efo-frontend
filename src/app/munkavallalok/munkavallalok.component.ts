@@ -31,15 +31,18 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   mindenMunkavallalo: boolean = false;
 
   munkavallaloForm: FormGroup = new FormGroup({
-    munkavallaloNev: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
+    vezetekNev: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
+    keresztNev: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
     anyjaNeve: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
-    iranyitoszam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{4}$'), Validators.required]),
+    iranyitoszam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{4}$'), Validators.required, Validators.maxLength(4)]),
     telepules: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
     cim: new FormControl({value: '', disabled: true}, [Validators.maxLength(200), Validators.required]),
     adoszam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{10}$'), Validators.required]),
     tajSzam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{9}$'), Validators.required]),
     szuletesiHely: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
-    szuletesiIdo: new FormControl({value: '', disabled: true}, [Validators.maxLength(10), Validators.required])
+    szuletesiIdo: new FormControl({value: '', disabled: true}, [Validators.maxLength(10), Validators.required]),
+    nem: new FormControl({value: '', disabled: true}, [Validators.maxLength(10), Validators.required]),
+    orszag: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required])
   });
 
   constructor(private munkavallaloControllerService: MunkavallaloControllerService) {
@@ -93,7 +96,8 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
     this.szerkestesGombTiltva = true;
     this.mentesGombTiltva = true;
     this.munkavallaloForm.disable();
-    this.munkavallaloForm.controls['munkavallaloNev'].disable();
+    this.munkavallaloForm.controls['vezetekNev'].disable();
+    this.munkavallaloForm.controls['keresztNev'].disable();
     this.munkavallaloForm.controls['tajSzam'].disable();
     this.munkavallaloForm.controls['adoszam'].disable();
     this.filterMezoErteke = '';
@@ -106,7 +110,8 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
     this.szerkestesGombTiltva = true;
     this.mentesGombTiltva = false;
     this.munkavallaloForm.enable();
-    this.munkavallaloForm.controls['munkavallaloNev'].disable();
+    this.munkavallaloForm.controls['vezetekNev'].disable();
+    this.munkavallaloForm.controls['keresztNev'].disable();
     this.munkavallaloForm.controls['tajSzam'].disable();
     this.munkavallaloForm.controls['adoszam'].disable();
     this.filterMezoErteke = '';

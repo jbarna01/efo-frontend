@@ -47,7 +47,7 @@
                 Munkavállalói adatok
               </span>
             <span class="app-dashboard-text">
-                Hiányos adatú munkaválalók száma:
+                Hiányos adatú munkaválalók száma: {{ hianyosMunkavallalokSzama }}
               </span>
           </div>
         </div>
@@ -64,7 +64,7 @@
                 Szervezeti egységeg törzs
               </span>
             <span class="app-dashboard-text">
-                Szervezeti egységek száma:
+                Szervezeti egységek száma: {{ szervezetiEgysegekSzama }}
               </span>
           </div>
         </div>
@@ -80,9 +80,9 @@
               <span class="app-dashboard-header">
                 Munkaórák rögzítése
               </span>
-            <span class="app-dashboard-text">
-                Még nem történt rögzítés:
-              </span>
+<!--              <span class="app-dashboard-text">-->
+<!--                Még nem történt rögzítés:-->
+<!--              </span>-->
           </div>
         </div>
       </mat-card>
@@ -97,9 +97,9 @@
               <span class="app-dashboard-header">
                 NAV igazolás nyomtatása
               </span>
-            <span class="app-dashboard-text">
-                Legutolsó nyomtatás időpontja
-              </span>
+<!--              <span class="app-dashboard-text">-->
+<!--                Legutolsó nyomtatás időpontja-->
+<!--              </span>-->
           </div>
         </div>
       </mat-card>
@@ -122,23 +122,23 @@
       </mat-card>
     </mat-grid-tile>
 
-    <mat-grid-tile>
-      <mat-card routerLink="/rendszerparameterek" class="p-3 overflow-hidden app-dashboard-tile">
-        <div class="tile-box">
-          <div class="image-box">
-            <img style="width: 100%; object-fit: contain" src="../../assets/dashboard/system.png"/>
-          </div>
-          <div class="text-box">
-              <span class="app-dashboard-header">
-                Rendzsreparaméterek
-              </span>
-            <span class="app-dashboard-text">
-                *****
-              </span>
-          </div>
-        </div>
-      </mat-card>
-    </mat-grid-tile>
+<!--    <mat-grid-tile>-->
+<!--      <mat-card routerLink="/rendszerparameterek" class="p-3 overflow-hidden app-dashboard-tile">-->
+<!--        <div class="tile-box">-->
+<!--          <div class="image-box">-->
+<!--            <img style="width: 100%; object-fit: contain" src="../../assets/dashboard/system.png"/>-->
+<!--          </div>-->
+<!--          <div class="text-box">-->
+<!--              <span class="app-dashboard-header">-->
+<!--                Rendzsreparaméterek-->
+<!--              </span>-->
+<!--            <span class="app-dashboard-text">-->
+<!--                *****-->
+<!--              </span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </mat-card>-->
+<!--    </mat-grid-tile>-->
   </mat-grid-list>
 </ng-container>
 
