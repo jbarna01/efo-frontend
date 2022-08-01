@@ -17,7 +17,7 @@
         <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="neve">
-        <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.vezetekNev + ' ' + element.keresztNev}} </mat-cell>
       </ng-container>
       <mat-row *matRowDef="let row; columns: displayedColumns;let i = index" [ngClass]="{ highlight: felhasznaloSelectedRowIndex === i }" (click)="felhasznaloValasztas(i, row)"></mat-row>
     </table>
@@ -32,7 +32,7 @@
       <span>Nav bejelentések</span>
     </mat-card-title>
     <mat-card-subtitle style="margin: 0.5em 0; padding: 0.5em 0;">
-      <span *ngIf="kivalasztottFelhasznalo.neve" class="nav-kivalasztott-adatok">Név: {{kivalasztottFelhasznalo.neve}}</span>
+      <span *ngIf="kivalasztottFelhasznalo.vezetekNev" class="nav-kivalasztott-adatok">Név: {{kivalasztottFelhasznalo.vezetekNev + ' ' + kivalasztottFelhasznalo.keresztNev}}</span>
       <span *ngIf="kivalasztottFelhasznalo.tajSzama" class="nav-kivalasztott-adatok">Tajszám: {{kivalasztottFelhasznalo.tajSzama}}</span>
       <span *ngIf="kivalasztottFelhasznalo.adoszam" class="nav-kivalasztott-adatok">Adószám: {{kivalasztottFelhasznalo.adoszam}}</span>
     </mat-card-subtitle>

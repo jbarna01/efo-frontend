@@ -156,10 +156,12 @@ export class OrakRogziteseComponent extends ComponentBase implements OnInit {
   private teljesMunkaidoSzamolas(munkaidoKezdete: string, munkaidoVege: string): number {
     let teljesMunkaidoPercekben = 0;
     // Munkaidő vége (02:00) korábbi időpont mint a kezdet (10:00). (Napon átnyúlló munkaidő)
+    // console.log(moment(munkaidoVege, 'HH:mm').diff(moment(munkaidoKezdete, 'HH:mm'), "minute"));
     if (moment(munkaidoVege, 'HH:mm').diff(moment(munkaidoKezdete, 'HH:mm'), "minute") < 0) {
       teljesMunkaidoPercekben = moment('24:00', 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute") +
         moment(this.munkaidoVege, 'HH:mm').diff(moment('00:00', 'HH:mm'), "minute");
-      this.munkanapokSzama = 2;
+      // Ha a munkaidő vége 00:00 akkor Munkanapok száma 2 lenne, de az alábbi sorban ezt korrigáljuk.
+      this.munkanapokSzama = munkaidoVege == '00:00' ? 1 : 2;
     } else {
       teljesMunkaidoPercekben = moment(this.munkaidoVege, 'HH:mm').diff(moment(this.munkaidoKezdete, 'HH:mm'), "minute");
       this.munkanapokSzama = 1;

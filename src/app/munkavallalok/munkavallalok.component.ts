@@ -29,6 +29,7 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   szerkestesGombTiltva: boolean = true;
   mentesGombTiltva: boolean = true;
   mindenMunkavallalo: boolean = false;
+  valasztottNem: string;
 
   munkavallaloForm: FormGroup = new FormGroup({
     vezetekNev: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
@@ -41,7 +42,7 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
     tajSzam: new FormControl({value: '', disabled: true}, [Validators.pattern('^[0-9]{9}$'), Validators.required]),
     szuletesiHely: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required]),
     szuletesiIdo: new FormControl({value: '', disabled: true}, [Validators.maxLength(10), Validators.required]),
-    nem: new FormControl({value: '', disabled: true}, [Validators.maxLength(10), Validators.required]),
+    // valasztottNem: new FormControl({value: '', disabled: true}, [Validators.required]),
     orszag: new FormControl({value: '', disabled: true}, [Validators.maxLength(100), Validators.required])
   });
 
@@ -85,6 +86,15 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
       this.szerkestesGombTiltva = false;
       this.filterMezoErteke = '';
     }
+  }
+
+  public nemErteke():boolean {
+    return this.szerkesztettFelhasznalo.nem == 'F';
+  }
+
+  public nemValasztas(event: any) {
+    this.valasztottNem = event.value;
+
   }
 
   private megseGomb() {
@@ -134,6 +144,7 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
   }
 
   private mentes() {
+    this.szerkesztettFelhasznalo.nem = this.valasztottNem;
     this.munkavallaloControllerService.munkavallaloMentese(this.szerkesztettFelhasznalo).subscribe(munkavallalo => {
       this.szerkesztettFelhasznalo = munkavallalo;
       this.munkavalalokLekerdezese();

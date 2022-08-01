@@ -27,7 +27,7 @@
     </ng-container>
 
     <ng-container matColumnDef="icon">
-      <mat-header-cell *matHeaderCellDef>icon</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Státusz</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <img src="assets/ikonok/zold_ok.png" height="25px"/>
       </mat-cell>
@@ -35,7 +35,7 @@
 
     <ng-container matColumnDef="neve">
       <mat-header-cell *matHeaderCellDef>Név</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.neve}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.vezetekNev + ' ' + element.keresztNev}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tajSzama">
@@ -66,14 +66,14 @@
       <mat-grid-tile>
         <mat-form-field class="form">
           <mat-label class="placeholder">Vezeték név</mat-label>
-          <input [(ngModel)]="szerkesztettFelhasznalo.neve" formControlName="vezetekNev" matInput type="text" tabindex="1" required>
+          <input [(ngModel)]="szerkesztettFelhasznalo.vezetekNev" formControlName="vezetekNev" matInput type="text" tabindex="1" required>
           <mat-error>A felhasználó vezeték nevének megadása kötelező!</mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field class="form">
           <mat-label class="placeholder">Keresztnév</mat-label>
-          <input formControlName="keresztNev" matInput type="text" tabindex="2" required>
+          <input [(ngModel)]="szerkesztettFelhasznalo.keresztNev" formControlName="keresztNev" matInput type="text" tabindex="2" required>
           <mat-error>A felhasználó kereszt nevének megadása kötelező!</mat-error>
         </mat-form-field>
       </mat-grid-tile>
@@ -137,16 +137,15 @@
       </mat-grid-tile>
 <!--      Új mezők-->
       <mat-grid-tile>
-        <mat-form-field class="form">
-          <mat-label>Nem</mat-label>
-          <input formControlName="nem" matInput type="text" tabindex="11" required>
-          <mat-error>A nem kiválasztása kötelező!</mat-error>
-        </mat-form-field>
+          <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="F" (change)="nemValasztas($event)" [checked]=nemErteke() style="padding: 0 2em">Férfi</mat-radio-button>
+            <mat-radio-button value="N" (change)="nemValasztas($event)" [checked]=!nemErteke() style="padding: 0 2em">Nő</mat-radio-button>
+          </mat-radio-group>
       </mat-grid-tile>
       <mat-grid-tile>
         <mat-form-field class="form">
           <mat-label>Ország</mat-label>
-          <input formControlName="orszag" matInput type="text" tabindex="12" required>
+          <input [(ngModel)]="szerkesztettFelhasznalo.orszag" formControlName="orszag" matInput type="text" tabindex="12" required>
           <mat-error>Az ország megadása kötelező!</mat-error>
         </mat-form-field>
       </mat-grid-tile>

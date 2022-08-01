@@ -45,6 +45,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { MunkaorakNyomtatasaComponent } from './munkaorak-nyomtatasa/munkaorak-nyomtatasa.component';
 import { MegerrositesDialogComponent } from './dialogs/megerrosites-dialog/megerrosites-dialog.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { MegerrositesDialogComponent } from './dialogs/megerrosites-dialog/meger
         MatOptionModule,
         MatSelectModule,
         MatDialogModule,
+        MatRadioModule,
         NgxExtendedPdfViewerModule,
         MatProgressSpinnerModule,
         MatProgressBarModule
