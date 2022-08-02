@@ -106,10 +106,10 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
     this.szerkestesGombTiltva = true;
     this.mentesGombTiltva = true;
     this.munkavallaloForm.disable();
-    this.munkavallaloForm.controls['vezetekNev'].disable();
-    this.munkavallaloForm.controls['keresztNev'].disable();
-    this.munkavallaloForm.controls['tajSzam'].disable();
-    this.munkavallaloForm.controls['adoszam'].disable();
+    // this.munkavallaloForm.controls['vezetekNev'].disable();
+    // this.munkavallaloForm.controls['keresztNev'].disable();
+    // this.munkavallaloForm.controls['tajSzam'].disable();
+    // this.munkavallaloForm.controls['adoszam'].disable();
     this.filterMezoErteke = '';
   }
 
@@ -120,10 +120,10 @@ export class MunkavallalokComponent extends ComponentBase implements OnInit, Aft
     this.szerkestesGombTiltva = true;
     this.mentesGombTiltva = false;
     this.munkavallaloForm.enable();
-    this.munkavallaloForm.controls['vezetekNev'].disable();
-    this.munkavallaloForm.controls['keresztNev'].disable();
-    this.munkavallaloForm.controls['tajSzam'].disable();
-    this.munkavallaloForm.controls['adoszam'].disable();
+    // this.munkavallaloForm.controls['vezetekNev'].disable();
+    // this.munkavallaloForm.controls['keresztNev'].disable();
+    // this.munkavallaloForm.controls['tajSzam'].disable();
+    // this.munkavallaloForm.controls['adoszam'].disable();
     this.filterMezoErteke = '';
   }
 
