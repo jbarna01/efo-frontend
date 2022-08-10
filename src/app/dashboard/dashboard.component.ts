@@ -9,6 +9,8 @@ import {
 import {MegerrositesDialogComponent} from "../dialogs/megerrosites-dialog/megerrosites-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
+import {saveAs} from "file-saver";
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-dashboard',
@@ -49,7 +51,7 @@ export class DashboardComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.efoExcelControllerService.excelExport().subscribe();
+        this.efoExcelControllerService.excelExport().subscribe(blob => saveAs(blob, 'kulcs_excel_' + formatDate(new Date(), 'yyyy-MM-dd', 'en_US')));
       }
     });
   }
